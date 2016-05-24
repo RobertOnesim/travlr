@@ -1,0 +1,37 @@
+Locatia api-ului
+**************************************************
+Eu zic ca api-ul sa fie gasit la locatia domainname/api, (ex domainname ceva.ro).
+
+Formatul raspunsului
+**************************************************
+Sa se specifice prin header-ul cererii httpin ce format va fi raspunsul serverului. Deocamdata va fi doar json, dar ca sa ii aratam ca ne-am gandit si la posibilitatea suportului a mai multor formate de raspuns.
+
+Versiune api
+**************************************************
+Zic ca sa facem, daca nu este prea greu, versionarea api-ului (ca sa il impresionam). Adica daca mai scoatem/refacem niste functionalitati sa nu se buseasca altii care fol acel api. Eu zic sa arate ceva in stilul domainname/api/1.1/...., unde 1.1 este versiunea api-ului, sau aceasta sa fie specificata prin header, dar mai vb daca facem asta sau nu.
+
+Logat vs delogat
+**************************************************
+Pentru un utilizator logat, se va trimite token-ul sau prin header-ul cererii http/https. Daca acesta nu exista, at nu este nici un utilizator logat.
+Propun ca logarea cu fb, google twitter sa o facem cu oauth (1 sau 2, depince ce gasim) si sa folosim token-ul trimis ca raspuns de la cerearea catre outh.
+Presupun ca at cand un utilizator se logheaza, tre sa fac dp fron un apel catre server (din cate am citit, cel mai bn chestia cu obtinerea token-ului este sa fie facuta pe server, din motive de securitate) si at serverul vede daca mai exista user-ul ala in bd si memoreaza token-ul pt utilizator.
+
+Am mai putea face ca sa avem propriile noastre token-uri, dar oricum trebuie sa retinem si token-urile date de oauth, din cate am inteles.
+
+Cred ca logarea sa va face cu PUT sau POST, mai vedem noi
+
+Preluarea imaginilor
+**************************************************
+GET link-ul catre o imagine sa fie ceva de genu: domainname/api/versiune/photos/id_poza.jpd, unde acest id sa fie in json, la obiectele ce vor reprezenta ofertele/recomandari/zboruri.
+
+Search for flights
+**************************************************
+GET domainname/api/version/flights?departure=city1;arrival=city2;stepover1=city3;..stepover(n)=city(n+2);departure-date=date1;arrival-date=date2;max-flight-duration=x;flight-type=low-cost etc. mai vedem ce filtre sa punem.
+de returnat un array cu diferite zboruri, in care sa si includeti detaliile pentru fiecare dintre ele.
+
+O problema care mi-a atras atentia este aia ca daca un utilizator isi face bookmark la un zbor anume. Eu neavand un id cu care sa il referentiez, nu am cum sa obtin datele despre zbor fara sa fac un search si sa zic al catelea din lista returnata este, iar problema mare e ca rezultatul unui search se poate schimba. Mai vedem cum facem exact.
+
+User
+**************************************************
+GET .../version/users/id_user imi returneaza detaliile depre un utilizator
+GET .../version/users returneaza o lista cu toti utilizatorii

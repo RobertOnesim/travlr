@@ -30,7 +30,6 @@ public class Flights {
 		con2.setRequestProperty("User-Agent", "Mozilla/5.0");
 		con2.setFollowRedirects(false);
 		int responseCode = con2.getResponseCode();
-		System.out.println("\nSending 'GET' request to URL : " + url);
 		//http://partners.api.skyscanner.net/apiservices/pricing/v1.0/ed9055d7ff9e45d49696a9825157faee_ecilpojl_36D903CF76C9C9604227ABC2D6A359E6?apiKey=un392534829936867108047975254670
 		//System.out.println("Response Code : " + responseCode);
 		String raspunsZboruri=Utilitare.parseInputStream(con2.getInputStream());
@@ -63,11 +62,7 @@ public class Flights {
 			System.out.println("Key : " + entry.getKey() + " ,Value : " + entry.getValue());
 		}
 		String raspuns = Utilitare.parseInputStream(con.getInputStream());
-		System.out.println("raspuns1 "+raspuns.toString());
-		int i;
-		for (i=1;i<=1000000000;i++);
-		System.out.println("dupa wait");
-		url=map.get("Location").get(0)+"?apiKey="+APIKEY;
+		url=map.get("Location").get(0)+"?apiKey="+APIKEY+"&pageindex=0&pagesize=20";
 		String informatiiZboruri=rezultateCerere(url);
 		JSONObject json = (JSONObject) new JSONParser().parse(informatiiZboruri);
 		return json;

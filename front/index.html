@@ -14,11 +14,11 @@
     <script src="node_modules/angular-route/angular-route.min.js"></script>
     <script src="node_modules/material-design-lite/material.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="./style/style.css">
+    <link rel="stylesheet" type="text/css" href="resources/css/style.css">
     
     <title>Travlr</title>
 </head>
-<body data-ng-app="Travlr" data-ng-controller="IndexController">
+<body data-ng-app="Travlr">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
         <header class="mdl-layout__header">
             <div class="mdl-layout__header-row">
@@ -27,24 +27,24 @@
         </header>
         <div class="mdl-layout__drawer" id="drawer">
 
-            <div class="modal">
+            <div id="loginButtons">
                 <button id="facebookButton" class="loginButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-                    <img src="resources/facebook_logo/FB-f-Logo__white_29.png" alt="Facebook">
+                    <img src="resources/img/facebook_logo/FB-f-Logo__white_29.png" alt="Facebook">
                     Log in with Facebook
                 </button>
                 <br>
                 <button id="googleButton" class="loginButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-                    <img src="resources/google_login/btn_google_signin_light_normal_web.png" alt="Google">
+                    <img src="resources/img/google_login/btn_google_signin_light_normal_web.png" alt="Google">
                 </button>
                 <br>
                 <button id="twitterButton" class="loginButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-                    <img src="resources/twitter_logo/TwitterLogo_white.png" alt="Twitter">
+                    <img src="resources/img/twitter_logo/TwitterLogo_white.png" alt="Twitter">
                     Sign in with Twitter
                 </button>
             </div>
 
             <div class="mdl-grid mdl-grid--no-spacing" id="userInfo">
-                <img src="http://www.outsystems.com/PortalTheme/img/UserImage.png?23787" class="mdl-cell mdl-cell--6-col mdl-cell--top" id="userImage">
+                <img src="http://www.outsystems.com/PortalTheme/img/UserImage.png?23787" class="mdl-cell mdl-cell--6-col mdl-cell--top" id="userImage" alt="User Image">
                 <h4 class="display-1 mdl-cell mdl-cell--5-col mdl-cell--top mdl-cell--1-offset" id="name">User Name</h4>
             </div>
             <div id="menuNav">
@@ -79,24 +79,25 @@
                 </ul>
             </div>
         </div>
-        <main class="mdl-layout__content" id="wrapper">
-            <div class="page-content" data-ng-view>
+        <main class="mdl-layout__content page-content" id="wrapper" data-ng-view>
 
-               
-
-            </div>
         </main>
     </div>
 
     <!-- Modules -->
-    <script src="js/app.js"></script>
+    <script type="text/javascript" src="resources/js/app.js"></script>
     
     <!-- Controllers -->
-    <script src="js/controllers/HomeController.js"></script>
-    <script src="js/controllers/FlightController.js"></script>
-    <script src="js/controllers/IndexController.js"></script>
+    <script type="text/javascript" src="resources/js/controllers/HomeController.js"></script>
+    <script type="text/javascript" src="resources/js/controllers/FlightController.js"></script>
+    <script type="text/javascript" src="resources/js/controllers/IndexController.js"></script>
+    <script type="text/javascript" src="resources/js/controllers/SearchController.js"></script>
+
+    <!-- Directives -->
+    <script type="text/javascript" src="resources/js/directives/collapse.js"></script>
 
     <!-- Services -->
+    <script type="text/javascript" src="resources/js/services/flightService.js"></script>    
 
 </body>
 </html>

@@ -8,112 +8,92 @@
 <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
 <title>Filtre</title>
 </head>
-
 <body>
-<div class="mdl-grid mdl-grid--no-spacing" id="firstRow">
-<div class="mdl-grid mdl-grid--no-spacing" id="flighttype">
-<h5>Flight type</h5>
+<div id = "all">
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--2-col"><label>Flight type</label>
 <select>
   <option value="lowcost">LowCost</option>
   <option value="value2">Value2</option>
   <option value="value3">Value3</option>
   <option value="value4">Value4</option>
-</select>
-</div>
-<div class="mdl-grid mdl-grid--no-spacing" id="flightduration">
-<h5>Flight duration </h5>
+</select></div>
+  <div class="mdl-cell mdl-cell--2-col"><label>Flight duration </label>
 <input class="mdl-slider mdl-js-slider" type="range"
-  min="0" max="100" value="0" tabindex="0">
-</div>
-<div class="mdl-grid mdl-grid--no-spacing" id="price">
-<h5>Price</h5>
+  min="0" max="100" value="0" tabindex="0"></div>
+  <div class="mdl-cell mdl-cell--2-col"><label>Price</label>
 <input class="mdl-slider mdl-js-slider" type="range"
-  min="0" max="100" value="0" tabindex="0">
-</div>
-<div class="mdl-grid mdl-grid--no-spacing" id="numberstops">
-<h5>Number stops</h5>
+  min="0" max="100" value="0" tabindex="0"></div>
+<div class="mdl-cell mdl-cell--2-col"><label>Number stops</label>
 <select>
+  <option value="value22">0</option>
+  <option value="value21">1</option>
+  <option value="value31">2</option>
+  <option value="value41">3</option>
+</select></div>
+</div>
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--2-col"><label>Aerian companies</label><select>
   <option value="combobox">ComboBox</option>
-  <option value="value21">Value2</option>
-  <option value="value31">Value3</option>
-  <option value="value41">Value4</option>
-</select>
-</div>
-</div>
-
-<div class="mdl-grid mdl-grid--no-spacing" id="Companies">
-<h5>Aerian companies</h5>
-<select>
-  <option value="combobox">ComboBox</option>
-  <option value="value21">Value2</option>
-  <option value="value31">Value3</option>
-  <option value="value41">Value4</option>
-</select>
-</div>
-<h5>Passengers</h5>
-<div class="mdl-grid mdl-grid--no-spacing" id="number">
-<h5>Number adults</h5> <div class = "boxed1">5</div>
-<div class="mdl-grid mdl-grid--no-spacing" id="number2">
-<h5>Number kids</h5> <div class = "boxed2">1</div>
-</div>
-</div>
-
-<div class="mdl-grid mdl-grid--no-spacing" id="aeroports">
-<div class="mdl-grid mdl-grid--no-spacing" id="aeroportsA">
-<h5>Aeroports City A</h5>
-<select>
-  <option value="aeroports1">ComboBox</option>
-  <option value="value6">Value2</option>
-  <option value="value7">Value3</option>
-  <option value="value8">Value4</option>
-</select>
-</div>
-<div class="mdl-grid mdl-grid--no-spacing" id="flighttime1">
-<h5>Flight time </h5>
-<input class="mdl-slider mdl-js-slider" type="range"
-  min="0" max="100" value="0" tabindex="0">
-</div>
-</div>
-
-<div class="mdl-grid mdl-grid--no-spacing" id="aeroports2">
-<div class="mdl-grid mdl-grid--no-spacing" id="aeroportsB">
-<h5>Aeroports City B</h5>
-<select>
-  <option value="aeroports11">ComboBox</option>
-  <option value="value61">Value2</option>
-  <option value="value71">Value3</option>
-  <option value="value81">Value4</option>
-</select>
-</div>
-<div class="mdl-grid mdl-grid--no-spacing" id="flighttime2">
-<h5>Flight time </h5>
-<input class="mdl-slider mdl-js-slider" type="range"
-  min="0" max="100" value="0" tabindex="0">
-</div>
-</div>
-
-<div class="mdl-grid mdl-grid--no-spacing" id="stops">
-<div class="mdl-grid mdl-grid--no-spacing" id="stops1">
-<h5>Aeroports City Stop 1</h5>
-<select>
-  <option value="lowcost">ComboBox</option>
   <option value="value2">Value2</option>
   <option value="value3">Value3</option>
   <option value="value4">Value4</option>
-</select>
+</select></div>
 </div>
-<h5>Stop duration</h5>
-<div class="mdl-grid mdl-grid--no-spacing" id="duration">
-<h5>Hours</h5><div class = "boxed3">5</div>
-</div>
-<div class="mdl-grid mdl-grid--no-spacing" id="duration2">
-<h5>Days</h5><div class = "boxed4">2</div>
+
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--2-col"><label>Passengers</label>
 </div>
 </div>
 
+<div id = "number">
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--2-col"><label>Number adults ...</label></div>
+  <div class="mdl-cell mdl-cell--2-col"><label>Number children ...</label></div>
+</div>
+</div>
+
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--2-col"><label>Aeroports City A</label><select>
+  <option value="combobox">ComboBox</option>
+  <option value="value2">Value2</option>
+  <option value="value3">Value3</option>
+  <option value="value4">Value4</option>
+</select></div>
+  <div class="mdl-cell mdl-cell--2-col"><label>Flight duration </label>
+<input class="mdl-slider mdl-js-slider" type="range"
+  min="0" max="100" value="0" tabindex="0"></div>
+</div>
+
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--2-col"><label>Aeroports City B</label><select>
+  <option value="combobox">ComboBox</option>
+  <option value="value2">Value2</option>
+  <option value="value3">Value3</option>
+  <option value="value4">Value4</option>
+</select></div>
+  <div class="mdl-cell mdl-cell--2-col"><label>Flight duration </label>
+<input class="mdl-slider mdl-js-slider" type="range"
+  min="0" max="100" value="0" tabindex="0"></div>
+</div>
+
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--3-col"><label>Aeroports city break 1</label><select>
+  <option value="combobox">ComboBox</option>
+  <option value="value2">Value2</option>
+  <option value="value3">Value3</option>
+  <option value="value4">Value4</option>
+</select></div>
+  <div class="mdl-cell mdl-cell--1-col"><label>Break duration</label></div>
+<div class="mdl-cell mdl-cell--1-col"><label>hr ...</label></div>
+<div class="mdl-cell mdl-cell--1-col"><label>days ...</label></div>
+</div>
+
+<div class="mdl-grid">
 <button class="mdl-button mdl-js-button mdl-button--raised">
   Add city break
 </button>
-
+</div>
+</div>
 </body>
 </html>

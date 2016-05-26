@@ -1,0 +1,41 @@
+<div class="mdl-shadow--6dp searchResoultCard oneWay mdl-grid" data-ng-click="toggleClass = !toggleClass" data-ng-init="toggleClass = false">
+    <div class="mdl-cell--3-col">
+        <h5 class="headline flightDate">{{flight.Segments[0].DepartureDateTime | date:'HH:mm'}}</h5>
+        <h6 class="title">{{flight.Segments[0].OriginStation.Name}}</h6>
+    </div>
+    <div class="direction mdl-cell--2-col mdl-cell--1-offset mdl-cell--middle">direct flight with {{flight.Segments[0].Carrier.Name}}</div>
+    <div class="mdl-cell--3-col mdl-cell--1-offset">
+        <h5 class="headline flightDate">{{flight.Segments[0].ArrivalDateTime | date:'HH:mm'}}</h5>
+        <h6 class="title">{{flight.Segments[0].DestinationStation.Name}}</h6>
+    </div>
+    <div class="mdl-cell--2-col mdl-cell--top">
+        <img data-ng-src="{{flight.Segments[0].Carrier.ImageUrl}}" alt="Carrier Logo" class="carrierLogo">
+        <h5 class="price headline ">{{flight.Price | currency:'€'}}</h5>
+    </div>
+    <div class="flightDetails grow mdl-cell--10-col extra" data-ng-class="{'showDetails' : toggleClass}">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </div>
+</div>

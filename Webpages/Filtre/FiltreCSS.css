@@ -1,27 +1,7 @@
-
-.boxed1 {
-border : 2px solid black;
-width : 35px;
-height : 25px;
+#number {
+margin : +1px 0 0 +50px;
 }
 
-.boxed2 {
-border : 2px solid black;
-width : 35px;
-height : 25px;
+#all {
+border : 1px solid black;
 }
-
-.boxed3 {
-border : 2px solid black;
-width : 35px;
-height : 25px;
-}
-
-
-.boxed4 {
-border : 2px solid black;
-width : 35px;
-height : 25px;
-}
-
-

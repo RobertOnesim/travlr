@@ -1,0 +1,12 @@
+@charset "utf-8";
+#editprof {
+      position: absolute;
+      width: 800px;
+      height: 900px;
+      z-index: 15;
+      top: 50%;
+      left: 50%;
+      margin: -200px 0 0 -150px;
+      background-color:white;
+}
+

@@ -1,0 +1,13 @@
+<div class="mdl-grid mdl-grid--no-spacing flightSegment">
+	<hr/>
+	<div class="mdl-cell--2-col">
+		<h5 class="headline">{{segment.OriginStation.Name}}</h5>
+	</div>
+	<div class="direction mdl-cell--1-col mdl-cell--1-offset mdl-cell--middle"></div>
+	<div class="mdl-cell--2-col mdl-cell--1-offset">
+		<h5 class="headline">{{segment.DestinationStation.Name}}</h5>
+	</div>
+	<div class="mdl-cell--1-col mdl-cell--bottom">
+		<img data-ng-src="{{segment.Carrier.ImageUrl}}" alt="Carrier Logo" class="carrierLogo">
+	</div>
+</div>

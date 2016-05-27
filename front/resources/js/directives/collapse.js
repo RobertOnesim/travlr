@@ -4,7 +4,7 @@ app.directive('collapse', function() {
 		replace: 'true',
 		link: function(scope, elements, attrs) {
 			scope.getTemplateURL = function() {
-				if(scope.flightType == 'WithReturn') {
+				if(scope.flightWithRerutn == true) {
 					return 'views/directives/collapseWithReturn.html';
 				} else {
 					return 'views/directives/collapseOneWay.html';
@@ -13,7 +13,7 @@ app.directive('collapse', function() {
 		},
 		scope: {
 			flight: '=',
-			flightType: '='
+			flightWithRerutn: '='
 		},
 		template: '<div data-ng-include="getTemplateURL()"></div>'
 	};

@@ -1,6 +1,6 @@
-var app = angular.module('Travlr', ['ngRoute']);
+var app = angular.module('Travlr', ['ngRoute', 'ngMaterial']);
 
-app.config(function($routeProvider) {
+app.config(function($routeProvider, $mdThemingProvider) {
 	$routeProvider
 		.when('/', {
 			controller: 'HomeController',
@@ -18,5 +18,8 @@ app.config(function($routeProvider) {
 			redirectTo: '/'
 		});
 
+	$mdThemingProvider.theme('default')
+		.primaryPalette('amber')
+		.accentPalette('blue');
 	//$locationProvider.html5Mode(true);
 });

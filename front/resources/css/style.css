@@ -1,12 +1,13 @@
-/*@media screen and (min-width: 1400px) {
+@media screen and (min-width: 1400px) {
 	#wrapper {
-		max-width: 1300px;
+		width: 1420px;
 		margin: auto;
 	}
-}*/
+}
 
 body {
 	font-family: "Roboto","Helvetica","Arial",sans-serif;
+	overflow: scroll;
 }
 
 #carousel > img {
@@ -86,7 +87,7 @@ body {
 
 #searchResoults {
 	padding: 1em;
-	width: 100%;
+	width: 98%;
 }
 
 .searchResoultCard {
@@ -124,12 +125,34 @@ body {
 	-o-transition: height 300ms;
 	height: 0em;
 	overflow: hidden;
+	visibility: hidden;
 }
 
-.showDetails {
-	height: 10em;
+.show {
+	height: auto;
+	visibility: visible;
 }
 
-.flightDetails {
-	
+.flight-segment {
+	border-top-width: .1em;
+	border-top-color: black;
+}
+
+@media screen and (max-height: 1000px) {
+	#carousel > img {
+		height: 120px;
+		width: 100%;
+	}
+}
+
+#filters {
+	padding-left: 2em;
+	padding-right: 2em;
+}
+
+#menuDropDown {
+	transition: all 300ms;
+	-webkit-transition: all 300ms;
+	-moz-transition: all 300ms;
+	-o-transition: all 300ms;
 }

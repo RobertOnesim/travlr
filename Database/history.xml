@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PERSON>
+	<ROW>
+       <id_history>2</id_history>
+       <id_user>1</id_user>
+       <departure_id>1</departure_id>
+       <arrival_id>2</arrival_id>
+	   <count>1</count>
+   </ROW>
+   <ROW>
+       <id_history>3</id_history>
+       <id_user>1</id_user>
+       <departure_id>2</departure_id>
+       <arrival_id>3</arrival_id>
+	   <count>1</count>
+   </ROW>
+</PERSON>

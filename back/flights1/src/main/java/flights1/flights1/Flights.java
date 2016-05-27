@@ -54,7 +54,8 @@ public class Flights {
 				+ "outbounddate=2016-05-31&"
 				+ "country=UK&"
 				+ "locale=en-GB&"
-				+ "locationschema=IATA");
+				+ "locationschema=IATA&"
+				+ "inbounddate=2016-06-02");
 		writer.flush();
 		int responseCode = con.getResponseCode();
 		Map<String, List<String>> map = con.getHeaderFields();

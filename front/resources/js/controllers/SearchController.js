@@ -36,12 +36,14 @@ app.controller('SearchController', ['$scope', '$routeParams', 'flightService', f
 		$scope.flightSearch.numberInfants = $routeParams.numberInfants;
 	}
 
-	flightService.getFlights($scope.flightSearch).success(function(data) {
-		$scope.flights = data.Options;
-	});
+	if($scope.flightSearch.departureCity && $scope.flightSearch.arrivalCity && $scope.flightSearch.departureDate) {
+		flightService.getFlights($scope.flightSearch).success(function(data) {
+			$scope.flights = data.Options;
+		});
+	}
 
-	$scope.searchClick = function(flight) {
-		var string = '#/search/' + flight.departureCity + '/' + flight.arrivalCity + '/' + flight.departureDate;
+	$scope.searchClick = function(flight, baseURL) {
+		var string = baseURL + flight.departureCity + '/' + flight.arrivalCity + '/' + flight.departureDate;
 		string += '/';
 		if(flight.returnDate != '') {
 			string += flight.returnDate;

@@ -9,7 +9,7 @@
     </div>
     <md-datepicker class="mdl-cell mdl-cell--2-col mdl-cell--middle" data-ng-model="flightSearch.departureDate" required="true" data-md-min-date="minDate" data-md-is-error="searchBar.$invalid" data-md-placeholder="Departure date"></md-datepicker>
     <md-datepicker class="mdl-cell mdl-cell--2-col mdl-cell--middle" data-ng-repeat="return in returnFlight" data-ng-model="flightSearch.returnDate" data-md-min-date="flightSeach.departureDate" required="false" data-md-min-date="minDate" data-md-is-error="false" data-md-placeholder="Return date"></md-datepicker>
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell mdl-cell--2-col mdl-cell--middle searchButton" data-ng-disabled="searchBar.$invalid" data-ng-click="searchClick(flightSearch)">
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell mdl-cell--2-col mdl-cell--middle searchButton" data-ng-disabled="searchBar.$invalid" data-ng-click="searchClick(flightSearch, '#/search/')">
     Search
     </button>
     <div class="mdl-cell--12-col mdl-grid">

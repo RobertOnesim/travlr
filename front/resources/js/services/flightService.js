@@ -1,7 +1,7 @@
-app.factory('flightService', ['$http', function($http){
+app.factory('flightService', ['$http', 'userService', function($http, userService){
 	return {
 		getFlights: function(flightSearch) {
-			var baseURL = 'http://95.76.234.124:1035/flight?';
+			var baseURL = 'http://95.76.234.124:1036/flight?';
 			return $http.get(createURL(flightSearch, baseURL), getHeaderValues())
 				.success(function(data, status, config, headers) {
 					return parseResponse(data);
@@ -14,24 +14,30 @@ app.factory('flightService', ['$http', function($http){
 }]);
 
 function parseResponse(data) {
-	var flights = data.Options;
+	var flights;
 	var lastSegment;
-	for (var i = 0; i < flights.length; i++) {
-		lastSegment = flights[i].Segments.length - 1;
-		flights[i].departureCity = flights[i].Segments[0].OriginStation.Name;
-		flights[i].arrivalCity = flights[i].Segments[lastSegment].DestinationStation.Name;
-		if(flights[i].Segments.length > 1) {
-			flights[i].type =  "Stepover flight";
-		} else {
-			flights[i].type =  "Direct flight with " + flights[i].Segments[0].Carrier.Name;
-		}
-		if(flights[i].Segments[0].InboundDate) {
-			flights[i].withReturn = true;
-		} else {
-			flights[i].withReturn = false;
+
+	if(data) {
+		flights = data.Options;
+		if(flights) {
+			for (var i = 0; i < flights.length; i++) {
+				lastSegment = flights[i].Segments.length - 1;
+				flights[i].departureCity = flights[i].Segments[0].OriginStation.Name;
+				flights[i].arrivalCity = flights[i].Segments[lastSegment].DestinationStation.Name;
+				if(flights[i].Segments.length > 1) {
+					flights[i].type =  "Stepover flight";
+				} else {
+					flights[i].type =  "Direct flight with " + flights[i].Segments[0].Carrier.Name;
+				}
+				if(flights[i].Segments[0].InboundDate) {
+					flights[i].withReturn = true;
+				} else {
+					flights[i].withReturn = false;
+				}
+			}
+			return flights;
 		}
 	}
-	return flights;
 }
 
 // function getHeaderValues(userService) {

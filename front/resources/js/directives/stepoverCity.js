@@ -2,9 +2,7 @@ app.directive('stepoverCity', function() {
 	return {
 		restrict: 'E',
 		replace: 'true',
-		scope: {
-			city: '='
-		},
+		scope: false,
 		templateUrl: 'views/directives/stepoverCity.html'
 	};
 });

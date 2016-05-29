@@ -1,49 +1,71 @@
 function StepoverCity() {
 	this.name = "";
+	this.number = "";
 }
 
 app.controller('SearchController', ['$scope', '$routeParams', 'flightService', function($scope, $routeParams, flightService) {
 	$scope.flightSearch = {
 		departureCity : $routeParams.dep,
 		arrivalCity : $routeParams.arr,
-		departureDate : "",
+		departureDate : new Date($routeParams.startDate),
 		returnDate : "",
-		duration : 1,
-		priceMax : 100,
+		durationMax : 24,
+		priceMax : 5000,
 		type : "oneWay",
 		numberAdults : 1,
 		numberChildren : 0,
 		numberInfants : 0,
 		stepoverCities : []
 	};
-
 	$scope.returnFlight = [];
 	$scope.minDate = new Date();
 
+	if($routeParams.returnDate) {
+		$scope.flightSearch.returnDate = new Date($routeParams.returnDate);
+		$scope.flightSearch.type = "withReturn";
+		$scope.returnFlight = ["yes"];
+	}
+
+	if($routeParams.numberAdults) {
+		$scope.flightSearch.numberAdults = $routeParams.numberAdults;
+	}
+	if($routeParams.numberChildren) {
+		$scope.flightSearch.numberChildren = $routeParams.numberChildren;
+	}
+	if($routeParams.numberInfants) {
+		$scope.flightSearch.numberInfants = $routeParams.numberInfants;
+	}
+
+	flightService.getFlights($scope.flightSearch).success(function(data) {
+		$scope.flights = data.Options;
+	});
+
 	$scope.searchClick = function(flight) {
-		var string = '#/search/' + flight.departureCity + '/' + flight.arrivalCity;
+		var string = '#/search/' + flight.departureCity + '/' + flight.arrivalCity + '/' + flight.departureDate;
+		string += '/';
+		if(flight.returnDate != '') {
+			string += flight.returnDate;
+		}
+		string += '/';
+		if(flight.numberAdults != 1) {
+			string += flight.numberAdults;
+		}
+		string += '/';
+		if(flight.numberChildren != 0) {
+			string += flight.numberChildren;
+		}
+		string += '/';
+		if(flight.numberInfants != 0) {
+			string += flight.numberInfants;
+		}
 		window.location.href = string;
 	};
 
-	flightService.success(function(data) {
-		$scope.flights = data.Options;
-		for (var i = 0; i < $scope.flights.length; i++) {
-			var lastSegment = $scope.flights[i].Segments.length - 1;
-			$scope.flights[i].departureCity = $scope.flights[i].Segments[0].OriginStation.Name;
-			$scope.flights[i].arrivalCity = $scope.flights[i].Segments[lastSegment].DestinationStation.Name;
-			if($scope.flights[i].Segments.length > 1) {
-				$scope.flights[i].type =  "Stepover flight";
-			} else {
-				$scope.flights[i].type =  "Direct flight with " + $scope.flights[i].Segments[0].Carrier.Name;
-			}
-			if($scope.flights[i].Segments[0].InboundDate) {
-				$scope.flights[i].WithReturn = true;
-			} else {
-				$scope.flights[i].WithReturn = false;
-			}
-		}
-	});
-
+	//flightService.success(searchFlight);
+	/*flightService.getFlights($scope.flightSearch).success(function(data) {
+		$scope.flights = data;
+	});*/
+	
 	$scope.range = function(start, finish, step) {
 		step = step || 1;
 		var array = [];
@@ -56,7 +78,19 @@ app.controller('SearchController', ['$scope', '$routeParams', 'flightService', f
 	$scope.degrees = 0;
 
 	$scope.addStepoverCity = function() {
-		$scope.flightSearch.stepoverCities.push(new StepoverCity());
+		var city = new StepoverCity();
+		var count = $scope.flightSearch.stepoverCities.length;
+		city.number = count;
+		$scope.flightSearch.stepoverCities.push(city);
+	}
+
+	$scope.removeStepoverCity = function(index) {
+		for(var i = 0; i < $scope.flightSearch.stepoverCities.length; i++) {
+			if($scope.flightSearch.stepoverCities[i].number == index) {
+				$scope.flightSearch.stepoverCities.splice(i, 1);
+				angular.element(document.querySelector('city' + index)).html('');
+			}
+		}
 	}
 
 	$scope.rotate = function() {
@@ -70,11 +104,9 @@ app.controller('SearchController', ['$scope', '$routeParams', 'flightService', f
 
 	$scope.withReturn = function() {
 		$scope.returnFlight.push("yes");
-		console.log($scope.returnFlight);
 	}
 
 	$scope.oneWay = function() {
 		$scope.returnFlight = [];
-		console.log($scope.returnFlight);
 	}
 }]);

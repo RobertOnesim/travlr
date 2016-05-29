@@ -10,7 +10,7 @@ app.config(function($routeProvider, $mdThemingProvider) {
 			controller: 'FlightController',
 			templateUrl: 'views/pages/flight.html'
 		})
-		.when('/search/:dep/:arr', {
+		.when('/search/:dep/:arr/:startDate/:returnDate?/:numberAdults?/:numberChildren?/:numberInfants?', {
 			controller: 'SearchController',
 			templateUrl: 'views/pages/search.html'
 		})
@@ -21,5 +21,4 @@ app.config(function($routeProvider, $mdThemingProvider) {
 	$mdThemingProvider.theme('default')
 		.primaryPalette('amber')
 		.accentPalette('blue');
-	//$locationProvider.html5Mode(true);
 });

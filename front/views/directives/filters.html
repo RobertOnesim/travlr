@@ -1,11 +1,11 @@
 <div class="mdl-grid mdl-grind--no-spacing mdl-cell--12-col" id="filters">
 	<div class="mdl-cell--1-col">
-		<label class="">Duration {{flightSearch.duration}}h</label>
-		<md-slider class="" data-ng-model="flightSearch.duration" min="1" max="24" step="1" aria-label="flightDuration"></md-slider>
+		<label class="">Duration {{flightSearch.durationMax}}h</label>
+		<md-slider class="" data-ng-model="flightSearch.durationMax" min="1" max="24" step="1" aria-label="flightDuration"></md-slider>
 	</div>
 	<div class="mdl-cell--2-col mdl-cell--1-offset" id="priceFilter">
 		<label class="">Prices lower than {{flightSearch.priceMax | currency:'€'}}</label>
-		<md-slider class="" data-ng-model="flightSearch.priceMax" min="100" max="10000" step="100" aria-label="flightPriceMax"></md-slider>
+		<md-slider class="" data-ng-model="flightSearch.priceMax" min="100" max="5000" step="100" aria-label="flightPriceMax"></md-slider>
 	</div>
 	<div class="mdl-cell--4-col mdl-cell--1-offset mdl-cell--top mdl-grid">
 		<md-input-container>
@@ -34,9 +34,7 @@
 		</md-input-container>
 	</div>
 	<div class="mdl-cell--3-col"></div>
-	<div class="mdl-cell--12-col mdl-grid" data-ng-repeat="city in flightSearch.stepoverCities">
-		<stepover-city class="mdl-cell--3-col" data-city="city"></stepover-city>
-	</div>
+	<stepover-city class="mdl-cell--12-col" data-ng-repeat="city in flightSearch.stepoverCities" data-city="city"></stepover-city>
 	<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell--2-col" data-ng-click="addStepoverCity()">
     Add stepover city
     </button>

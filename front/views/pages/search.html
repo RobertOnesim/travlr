@@ -1,20 +1,35 @@
-<div class="mdl-grid" id="searchBar">
+<form class="mdl-grid" id="searchBar" name="searchBar" data-upgrade-component>
     <div class="mdl-cell mdl-cell--3-col mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" type="text" placeholder="From..." data-ng-model="flight.departureCity" value=""></input>
+        <input id="departureCity" class="mdl-textfield__input" required="true" data-ng-pattern="[a-zA-Z]*$" type="text" data-ng-model="flightSearch.departureCity">
+        <label class="mdl-textfield__label" for="departureCity">From...</label>
     </div>
-    <div class="mdl-cell mdl-cell--3-col mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" type="text" placeholder="To..." data-ng-model="flight.arrivalCity"></input>
+    <div class="mdl-cell mdl-cell--3-col mdl-textfield mdl-js-textfield" data-upgrade-component>
+        <input id="arrivalCity" class="mdl-textfield__input" required="true" data-ng-pattern="[a-zA-Z]*$" type="text" data-ng-model="flightSearch.arrivalCity">
+        <label class="mdl-textfield__label" for="arrivalCity">To...</label>
     </div>
-    <div class="mdl-cell mdl-cell--2-col mdl-textfield mdl-js-textfield datePicker">
-        <input class="" type="date" placeholder="From..." data-ng-model="flight.departureDate"></input>
-    </div>
-    <div class="mdl-cell mdl-cell--2-col mdl-textfield mdl-js-textfield datePicker">
-        <input class="" type="date" placeholder="To..." data-ng-model="flight.arrivalDate"></input>
-    </div>
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell mdl-cell--2-col mdl-cell--middle searchButton" ng-click="searchClick(flight)">
+    <md-datepicker class="mdl-cell mdl-cell--2-col mdl-cell--middle" data-ng-model="flightSearch.departureDate" required="true" data-md-min-date="minDate" data-md-is-error="searchBar.$invalid" data-md-placeholder="Departure date"></md-datepicker>
+    <md-datepicker class="mdl-cell mdl-cell--2-col mdl-cell--middle" data-ng-repeat="return in returnFlight" data-ng-model="flightSearch.returnDate" data-md-min-date="flightSeach.departureDate" required="false" data-md-min-date="minDate" data-md-is-error="false" data-md-placeholder="Return date"></md-datepicker>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell mdl-cell--2-col mdl-cell--middle searchButton" data-ng-disabled="searchBar.$invalid" data-ng-click="searchClick(flightSearch, '#/search/')">
     Search
     </button>
-</div>
+    <div class="mdl-cell--12-col mdl-grid">
+        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-cell--2-col" for="oneWay">
+          <input type="radio" id="oneWay" class="mdl-radio__button" name="options" value="oneWay" data-ng-model="flightSearch.type" data-ng-change="oneWay()">
+          <span class="mdl-radio__label">One way</span>
+        </label>
+        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-cell--2-col" for="withReturn">
+          <input type="radio" id="withReturn" class="mdl-radio__button" name="options" value="withReturn" data-ng-model="flightSearch.type" data-ng-change="withReturn()">
+          <span class="mdl-radio__label">With return</span>
+        </label>
+        <div class="mdl-cell--6-offset">
+            Filters
+            <button id="menuDropDown" class="mdl-button mdl-js-button mdl-button--icon" data-ng-click="toggleClass = !toggleClass; rotate()" data-ng-init="toggleClass = false">
+                <i class="material-icons">arrow_drop_down</i>
+            </button>
+        </div>
+    </div>
+    <filters class="grow" data-ng-class="{'show' : toggleClass}"></filters>
+</form>
 <div id="searchResoults">
-    <collapse data-ng-repeat="flight in flights" data-flight="flight" data-flight-type="flight.type"></colapse>    
+    <search-resoult data-ng-repeat="flight in flights" data-flight="flight" data-flight-with-return="flight.withReturn"></search-resoult>
 </div>

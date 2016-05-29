@@ -1,83 +1,31 @@
-<div class="main">
-    <div id="carousel">
-        <img src="http://i.imgur.com/RRUe0Mo.png">
+<div id="carousel">
+    <img src="http://i.imgur.com/RRUe0Mo.png">
+</div>
+<form class="mdl-grid" id="searchBar" name="searchBar" data-upgrade-component>
+    <div class="mdl-cell mdl-cell--3-col mdl-textfield mdl-js-textfield">
+        <input id="departureCity" class="mdl-textfield__input" required="true" data-ng-pattern="[a-zA-Z]*$" type="text" data-ng-model="flightSearch.departureCity">
+        <label class="mdl-textfield__label" for="departureCity">From...</label>
     </div>
-    <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--3-col mdl-textfield mdl-js-textfield">
-            <input class="mdl-textfield__input" type="text" placeholder="From..." data-ng-model="flight.departureCity"></input>
-        </div>
-        <div class="mdl-cell mdl-cell--3-col mdl-textfield mdl-js-textfield">
-            <input class="mdl-textfield__input" type="text" placeholder="To..." data-ng-model="flight.arrivalCity"></input>
-        </div>
-        <div class="mdl-cell mdl-cell--2-col mdl-textfield mdl-js-textfield datePicker">
-            <input class="" type="date" placeholder="From..." data-ng-model="flight.departureDate"></input>
-        </div>
-        <div class="mdl-cell mdl-cell--2-col mdl-textfield mdl-js-textfield datePicker">
-            <input class="" type="date" placeholder="To..." data-ng-model="flight.arrivalDate"></input>
-        </div>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell mdl-cell--2-col mdl-cell--middle searchButton" ng-click="searchClick(flight)">
-            Search
-        </button>
-    </div>    <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--4dp">
-            <div class="mdl-card__title" style="height: 180px; background: url('https://thecherrylook.files.wordpress.com/2013/11/53a30-20_full1.jpg') center/cover;">
-                <h2 class="mdl-card__title-text">Oras</h2>
-            </div>
-            <div class="mdl-card__supporting-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Aenan convallis.
-            </div>
-            <div class="mdl-card__actions">
-                <a href="">View offer</a>
-            </div>
-        </div>
-        <div class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--4dp">
-            <div class="mdl-card__title" style="height: 180px; background: url('https://thecherrylook.files.wordpress.com/2013/11/53a30-20_full1.jpg') center/cover;">
-                <h2 class="mdl-card__title-text">Oras</h2>
-            </div>
-            <div class="mdl-card__supporting-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Aenan convallis.
-            </div>
-            <div class="mdl-card__actions">
-                <a href="">View offer</a>
-            </div>
-        </div>
-        <div class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--4dp">
-            <div class="mdl-card__title" style="height: 180px; background: url('https://thecherrylook.files.wordpress.com/2013/11/53a30-20_full1.jpg') center/cover;">
-                <h2 class="mdl-card__title-text">Oras</h2>
-            </div>
-            <div class="mdl-card__supporting-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Aenan convallis.
-            </div>
-            <div class="mdl-card__actions">
-                <a href="">View offer</a>
-            </div>
-        </div>
-        <div class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--4dp">
-            <div class="mdl-card__title" style="height: 180px; background: url('https://thecherrylook.files.wordpress.com/2013/11/53a30-20_full1.jpg') center/cover;">
-                <h2 class="mdl-card__title-text">Oras</h2>
-            </div>
-            <div class="mdl-card__supporting-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Aenan convallis.
-            </div>
-            <div class="mdl-card__actions">
-                <a href="">View offer</a>
-            </div>
-        </div>
-        <div class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--4dp">
-            <div class="mdl-card__title" style="height: 180px; background: url('https://thecherrylook.files.wordpress.com/2013/11/53a30-20_full1.jpg') center/cover;">
-                <h2 class="mdl-card__title-text">Oras</h2>
-            </div>
-            <div class="mdl-card__supporting-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Aenan convallis.
-            </div>
-            <div class="mdl-card__actions">
-                <a href="">View offer</a>
-            </div>
-        </div>
+    <div class="mdl-cell mdl-cell--3-col mdl-textfield mdl-js-textfield"  data-upgrade-component>
+        <input id="arrivalCity" class="mdl-textfield__input" required="true" data-ng-pattern="[a-zA-Z]*$" type="text" data-ng-model="flightSearch.arrivalCity">
+        <label class="mdl-textfield__label" for="arrivalCity">To...</label>
     </div>
+    <md-datepicker class="mdl-cell mdl-cell--2-col mdl-cell--middle" data-ng-model="flightSearch.departureDate" required="true" data-md-min-date="minDate" data-md-is-error="searchBar.$invalid" data-md-placeholder="Departure date"></md-datepicker>
+    <md-datepicker class="mdl-cell mdl-cell--2-col mdl-cell--middle" data-ng-repeat="return in returnFlight" data-ng-model="flightSearch.returnDate" data-md-min-date="flightSeach.departureDate" required="false" data-md-min-date="minDate" data-md-is-error="false" data-md-placeholder="Return date"></md-datepicker>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell mdl-cell--2-col mdl-cell--middle searchButton" data-ng-disabled="searchBar.$invalid" data-ng-click="searchClick(flightSearch)">
+    Search
+    </button>
+    <div class="mdl-cell--12-col mdl-grid">
+        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-cell--2-col" for="oneWay">
+            <input type="radio" id="oneWay" class="mdl-radio__button" name="options" value="oneWay" data-ng-model="flightSearch.type" data-ng-change="oneWay()">
+            <span class="mdl-radio__label">One way</span>
+        </label>
+        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-cell--2-col" for="withReturn">
+            <input type="radio" id="withReturn" class="mdl-radio__button" name="options" value="withReturn" data-ng-model="flightSearch.type" data-ng-change="withReturn()">
+            <span class="mdl-radio__label">With return</span>
+        </label>
+    </div>
+</form>
+<div class="mdl-grid">
+    <offer-card class="mdl-cell mdl-cell--4-col" data-ng-repeat="offer in offers"></offer-card>
 </div>

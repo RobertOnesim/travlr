@@ -1,0 +1,9 @@
+<div id="city{{city.number}}">
+	<div  ng-class="{'mdl-textfield':true, 'mdl-js-textfield':true}" data-upgrade-component>
+		<input class="mdl-textfield__input" required="true" data-ng-pattern="[a-zA-Z]*$" type="text" data-ng-model="city.name">
+		<label class="mdl-textfield__label">City name</label>
+	</div>
+	<button class="mdl-button mdl-js-button mdl-button--icon removeCity" formnovalidate data-upgrade-component data-ng-click="removeStepoverCity(city.number)" ng-disabled="false">
+	    <i class="material-icons">close</i>
+	</button>
+</div>

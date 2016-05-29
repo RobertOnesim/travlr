@@ -1,0 +1,18 @@
+<div class="mdl-shadow--6dp searchResoultCard oneWay" data-ng-click="toggleClass = !toggleClass" data-ng-init="toggleClass = false">
+    <div class="mdl-grid">
+        <div class="mdl-cell--2-col">
+            <h6 class="flightDate">{{flight.Segments[0].DepartureDateTime | date:'dd-MMM-yyyy HH:mm'}}</h6>
+            <h5 class="headline">{{flight.departureCity}}</h5>
+        </div>
+        <div class="direction mdl-cell--2-col mdl-cell--1-offset mdl-cell--middle">{{flight.type}}</div>
+        <div class="mdl-cell--2-col mdl-cell--1-offset">
+            <h6 class="title flightDate">{{flight.Segments[0].ArrivalDateTime | date:'dd-MMM-yyyy HH:mm'}}</h6>
+            <h5 class="headline">{{flight.arrivalCity}}</h5>
+        </div>
+        <div class="mdl-cell--2-col mdl-cell--top mdl-cell--1-offset">
+            <img data-ng-if="flight.Segments.length == 1" data-ng-src="{{flight.Segments[0].Carrier.ImageUrl}}" alt="Carrier Logo" class="carrierLogo">
+            <h5 class="price headline ">{{flight.Price | currency:'€'}}</h5>
+        </div>
+    </div>
+    <flight-segment data-ng-if="flight.Segments.length > 1" class="flightDetails grow" data-ng-repeat="segment in flight.Segments" data-segment="segment" data-ng-class="{'show' : toggleClass}"></flight-segment>
+</div>

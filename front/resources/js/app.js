@@ -1,6 +1,6 @@
-var app = angular.module('Travlr', ['ngRoute']);
+var app = angular.module('Travlr', ['ngRoute', 'ngMaterial']);
 
-app.config(function($routeProvider) {
+app.config(function($routeProvider, $mdThemingProvider) {
 	$routeProvider
 		.when('/', {
 			controller: 'HomeController',
@@ -10,13 +10,19 @@ app.config(function($routeProvider) {
 			controller: 'FlightController',
 			templateUrl: 'views/pages/flight.html'
 		})
-		.when('/search/:dep/:arr', {
+		.when('/search/:dep/:arr/:startDate/:returnDate?/:numberAdults?/:numberChildren?/:numberInfants?', {
 			controller: 'SearchController',
 			templateUrl: 'views/pages/search.html'
+		})
+		.when('/group/', {
+			controller: 'GroupController',
+			templateUrl: 'views/pages/group.html'
 		})
 		.otherwise({
 			redirectTo: '/'
 		});
 
-	//$locationProvider.html5Mode(true);
+	$mdThemingProvider.theme('default')
+		.primaryPalette('amber')
+		.accentPalette('blue');
 });

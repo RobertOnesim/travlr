@@ -9,9 +9,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -20,6 +22,16 @@ import java.net.*;
 
 public class Flights {
 	private static final String APIKEY="un392534829936867108047975254670";
+	
+	private static void adauga(JSONObject a, JSONObject b, String property){
+		if (property.equals("Carriers"))
+			System.out.println(((JSONArray)b.get(property)).size() + " carriers ");
+			
+		if (!a.containsKey(property))
+			a.put(property, new JSONArray());
+		if ( b.containsKey(property))
+			((JSONArray)a.get(property)).addAll((JSONArray)b.get(property));
+	}
 	
 	private static String rezultateCerere(String url) throws Exception{
 		URL obj = new URL(url);
@@ -36,7 +48,7 @@ public class Flights {
 		return raspunsZboruri;
 	}
 	
-	public static JSONObject giveSolution() throws Exception{
+	public static JSONObject giveSolution(String departureCity, String arrivalCity, String departureDate, Integer adults, Integer children,Integer infants, Integer maxDuration) throws Exception{
 		String url = "http://partners.api.skyscanner.net/apiservices/pricing/v1.0";
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -46,16 +58,21 @@ public class Flights {
 		con.setRequestProperty("Accept", "application/json");
 		con.setDoOutput(true);
 		OutputStreamWriter writer = new OutputStreamWriter(con.getOutputStream());
-		writer.write("apiKey="+APIKEY+"&"
-				+ "currency=GBP&"
-				+ "adults=1"
-				+ "&originplace=OTP&"
-				+ "destinationplace=FRA&"
-				+ "outbounddate=2016-05-31&"
-				+ "country=UK&"
-				+ "locale=en-GB&"
-				+ "locationschema=IATA&"
-				+ "inbounddate=2016-06-02");
+		String stringToWrite ="apiKey="+APIKEY+"&"
+				+ "currency=EUR"
+				+ "&adults="+adults.toString()
+				+ "&children="+children.toString()
+				+ "&infants="+infants.toString()
+				+ "&originplace="+departureCity
+				+ "&destinationplace="+arrivalCity
+				+ "&outbounddate="+departureDate
+				+ "&country=UK"  //???
+				+ "&locale=en-GB" //??
+				+ "&locationschema=IATA"
+				+ "&groupPricing=true";
+		writer.write(stringToWrite);
+		
+				//+ "&inbounddate=2016-06-02");
 		writer.flush();
 		int responseCode = con.getResponseCode();
 		Map<String, List<String>> map = con.getHeaderFields();
@@ -64,8 +81,14 @@ public class Flights {
 		}
 		String raspuns = Utilitare.parseInputStream(con.getInputStream());
 		url=map.get("Location").get(0)+"?apiKey="+APIKEY+"&pageindex=0&pagesize=20";
+		if (maxDuration!=null)
+			url = url + "&duration=" + ((Integer)(maxDuration*60)).toString();
+		Thread.sleep(3000);
 		String informatiiZboruri=rezultateCerere(url);
+		System.out.println("informatiiZBORURI "+informatiiZboruri);
 		JSONObject json = (JSONObject) new JSONParser().parse(informatiiZboruri);
+		
 		return json;
+		//return null;
 	}
 }

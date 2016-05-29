@@ -24,6 +24,7 @@ import flights1.flights1.user.User;
 public class App {
 
 	public static void main(String[] args) {
+		
 		ManagerUser mu = new ManagerUser();
 
 		/* Add few employee records in database */

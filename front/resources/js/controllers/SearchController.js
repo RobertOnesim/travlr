@@ -3,7 +3,7 @@ function StepoverCity() {
 	this.number = "";
 }
 
-app.controller('SearchController', ['$scope', '$routeParams', 'flightService', function($scope, $routeParams, flightService) {
+app.controller('SearchController', ['$scope', '$routeParams', 'flightService', 'userService', function($scope, $routeParams, flightService, userService) {
 	$scope.flightSearch = {
 		departureCity : $routeParams.dep,
 		arrivalCity : $routeParams.arr,
@@ -35,6 +35,12 @@ app.controller('SearchController', ['$scope', '$routeParams', 'flightService', f
 	if($routeParams.numberInfants) {
 		$scope.flightSearch.numberInfants = $routeParams.numberInfants;
 	}
+	if($routeParams.priceMax) {
+		$scope.flightSearch.priceMax = $routeParams.priceMax;
+	}
+	if($routeParams.durationMax) {
+		$scope.flightSearch.durationMax = $routeParams.durationMax;
+	}
 
 	if($scope.flightSearch.departureCity && $scope.flightSearch.arrivalCity && $scope.flightSearch.departureDate) {
 		flightService.getFlights($scope.flightSearch).success(function(data) {
@@ -60,13 +66,16 @@ app.controller('SearchController', ['$scope', '$routeParams', 'flightService', f
 		if(flight.numberInfants != 0) {
 			string += flight.numberInfants;
 		}
+		string += '/';
+		if(flight.priceMax != 5000) {
+			string += flight.priceMax;
+		}
+		string += '/';
+		if(flight.durationMax != 24) {
+			string += flight.durationMax;
+		}
 		window.location.href = string;
 	};
-
-	//flightService.success(searchFlight);
-	/*flightService.getFlights($scope.flightSearch).success(function(data) {
-		$scope.flights = data;
-	});*/
 	
 	$scope.range = function(start, finish, step) {
 		step = step || 1;
@@ -96,7 +105,7 @@ app.controller('SearchController', ['$scope', '$routeParams', 'flightService', f
 	}
 
 	$scope.rotate = function() {
-		var img = angular.element(document.querySelector('#menuDropDown'));
+		var img = angular.element(document.querySelector('#filtersDropDown'));
 		$scope.degrees += 180;
 
 		img.css('-ms-transform', 'rotate(' + $scope.degrees + 'deg)');
@@ -110,5 +119,13 @@ app.controller('SearchController', ['$scope', '$routeParams', 'flightService', f
 
 	$scope.oneWay = function() {
 		$scope.returnFlight = [];
+	}
+
+	$scope.addToCart = function(flight) {
+		flight.numberAdults = $scope.flightSearch.numberAdults;
+		flight.numberChildren = $scope.flightSearch.numberChildren;
+		flight.numberInfants = $scope.flightSearch.numberInfants;
+		userService.addToCart(flight);
+		$scope.$parent.refreshCart();
 	}
 }]);

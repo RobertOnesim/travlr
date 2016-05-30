@@ -1,5 +1,5 @@
-<div class="mdl-shadow--6dp searchResoultCard oneWay" data-ng-click="toggleClass = !toggleClass" data-ng-init="toggleClass = false">
-    <div class="mdl-grid">
+<div class="mdl-shadow--6dp searchResoultCard oneWay mdl-grid">
+    <div class="mdl-grid mdl-cell--12-col">
         <div class="mdl-cell--2-col">
             <h6 class="flightDate">{{flight.Segments[0].DepartureDateTime | date:'dd-MMM-yyyy HH:mm'}}</h6>
             <h5 class="headline">{{flight.departureCity}}</h5>
@@ -9,10 +9,18 @@
             <h6 class="title flightDate">{{flight.Segments[0].ArrivalDateTime | date:'dd-MMM-yyyy HH:mm'}}</h6>
             <h5 class="headline">{{flight.arrivalCity}}</h5>
         </div>
-        <div class="mdl-cell--2-col mdl-cell--top mdl-cell--1-offset">
+        <div class="mdl-cell--1-col mdl-cell--top mdl-cell--1-offset">
             <img data-ng-if="flight.Segments.length == 1" data-ng-src="{{flight.Segments[0].Carrier.ImageUrl}}" alt="Carrier Logo" class="carrierLogo">
             <h5 class="price headline ">{{flight.Price | currency:'€'}}</h5>
         </div>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell mdl-cell--2-col mdl-cell--middle" data-ng-click="$parent.addToCart(flight)">
+        Add to cart
+        </button>
     </div>
-    <flight-segment data-ng-if="flight.Segments.length > 1" class="flightDetails grow" data-ng-repeat="segment in flight.Segments" data-segment="segment" data-ng-class="{'show' : toggleClass}"></flight-segment>
+    <div class="mdl-cell--12-col mdl-grid" data-ng-if="flight.Segments.length > 1">
+        <button class="mdl-button mdl-js-button mdl-button--icon mdl-cell--11-offset flightDetails" data-ng-click="toggleClass = !toggleClass" data-ng-init="toggleClass = false">
+            <i class="material-icons">arrow_drop_down</i>
+        </button>
+        <flight-segment class="flightDetails grow mdl-cell--12-col" data-ng-repeat="segment in $parent.flight.Segments" data-segment="segment" data-ng-class="{'show' : toggleClass}"></flight-segment>
+    </div>
 </div>

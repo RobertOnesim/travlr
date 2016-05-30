@@ -26,11 +26,15 @@
     
     <title>Travlr</title>
 </head>
-<body data-ng-app="Travlr">
+<body data-ng-app="Travlr" data-ng-controller="IndexController">
     <div class="mdl-layout mdl-js-layout  mdl-layout--fixed-header">
         <header class="mdl-layout__header">
             <div class="mdl-layout__header-row">
                 <h1 class="display-3">Travlr</h1>
+                <div class="mdl-layout-spacer"></div>
+                <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" data-ng-click="visitCart()">
+                    <i class="material-icons material-icons" data-ng-class="{'mdl-badge': badgeOn, 'mdl-badge--overlap': badgeOn}" data-badge="{{cartCount}}">shopping_cart</i>
+                </button>
             </div>
         </header>
         <div class="mdl-layout__drawer" id="drawer">
@@ -97,10 +101,10 @@
     
     <!-- Controllers -->
     <script type="text/javascript" src="resources/js/controllers/HomeController.js"></script>
-    <script type="text/javascript" src="resources/js/controllers/FlightController.js"></script>
     <script type="text/javascript" src="resources/js/controllers/IndexController.js"></script>
     <script type="text/javascript" src="resources/js/controllers/SearchController.js"></script>
     <script type="text/javascript" src="resources/js/controllers/GroupController.js"></script>
+    <script type="text/javascript" src="resources/js/controllers/CartController.js"></script>
 
     <!-- Directives -->
     <script type="text/javascript" src="resources/js/directives/searchResoult.js"></script>
@@ -109,7 +113,11 @@
     <script type="text/javascript" src="resources/js/directives/stepoverCity.js"></script>
     <script type="text/javascript" src="resources/js/directives/upgradeMDLComponent.js"></script>
     <script type="text/javascript" src="resources/js/directives/offerCard.js"></script>
+<<<<<<< HEAD
     <script type="text/javascript" src="resources/js/directives/userResult.js"></script>
+=======
+    <script type="text/javascript" src="resources/js/directives/cartItem.js"></script>
+>>>>>>> origin/master
 
     <!-- Services -->
     <script type="text/javascript" src="resources/js/services/userService.js"></script>

@@ -23,7 +23,7 @@
         </label>
         <div class="mdl-cell--6-offset">
             Filters
-            <button id="menuDropDown" class="mdl-button mdl-js-button mdl-button--icon" data-ng-click="toggleClass = !toggleClass; rotate()" data-ng-init="toggleClass = false">
+            <button id="filtersDropDown" class="mdl-button mdl-js-button mdl-button--icon" data-ng-click="toggleClass = !toggleClass; rotate()" data-ng-init="toggleClass = false">
                 <i class="material-icons">arrow_drop_down</i>
             </button>
         </div>
@@ -31,5 +31,5 @@
     <filters class="grow" data-ng-class="{'show' : toggleClass}"></filters>
 </form>
 <div id="searchResoults">
-    <search-resoult data-ng-repeat="flight in flights" data-flight="flight" data-flight-with-return="flight.withReturn"></search-resoult>
+    <search-resoult data-ng-repeat="flight in flights"></search-resoult>
 </div>

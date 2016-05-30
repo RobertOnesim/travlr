@@ -1,4 +1,4 @@
-var app = angular.module('Travlr', ['ngRoute', 'ngMaterial', 'ngCookies']);
+var app = angular.module('Travlr', ['ngRoute', 'ngMaterial', 'materialCalendar']);
 
 app.config(function($routeProvider, $mdThemingProvider) {
 	$routeProvider

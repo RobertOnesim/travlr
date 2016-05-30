@@ -1,4 +1,4 @@
-app.controller("GroupController", function($scope, $filter, $q, $timeout, $log,$controller,$mdDialog, MaterialCalendarData) {
+app.controller("GroupController", function($scope, $filter, $q, $timeout, $log,$controller,$mdDialog,$mdMedia, MaterialCalendarData) {
 
 	//inheritance search
     $controller('SearchController', {$scope: $scope});
@@ -13,10 +13,23 @@ app.controller("GroupController", function($scope, $filter, $q, $timeout, $log,$
           targetEvent: ev,
         });
         $scope.$watch(function() {
-          return $mdDialog;
+          return $mdMedia('xs') || $mdMedia('sm');
         });
     };
 
+    $scope.users = [
+		{
+			name: "Iasi"
+		},
+		{
+			name: "Bucuresti"
+		},
+		{
+			name: "Iasi"
+		}
+	];
+
+	$scope.mama="robert";
     //work with calendar
     $scope.selectedDate = new Date();
     $scope.weekStartsOn = 0;

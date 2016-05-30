@@ -165,16 +165,12 @@ body {
 .cardTitle {
 	height: 11.25em;
 }
-<<<<<<< HEAD
 .md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar){
 	background-color: #b3d4fc;
 }
 #addMemberDialog{
 	text-align: center;
 }
-=======
-
 .mdl-button--icon {
 	overflow: visible;
 }
->>>>>>> origin/master

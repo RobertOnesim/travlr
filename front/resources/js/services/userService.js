@@ -1,4 +1,4 @@
-app.factory('userService', function($cookies){
+app.factory('userService', function(){
 	var authentication = {
 		token: '',
 		network: ''

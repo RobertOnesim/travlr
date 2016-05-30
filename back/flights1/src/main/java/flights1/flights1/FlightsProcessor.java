@@ -121,7 +121,7 @@ public class FlightsProcessor {
 		return flight;
 	}
 	
-	public JSONObject process(JSONObject object){
+	public JSONObject process(JSONObject object, Integer maxPrice){
 		JSONObject processedObject = new JSONObject();
 		JSONArray options = new JSONArray();
 		populareCarriers(object);
@@ -136,6 +136,9 @@ public class FlightsProcessor {
 			String id=(String)legJson.get("Id");
 			option.put("Id", id);
 			option.put("Price", itineraries.get(id));
+			if (maxPrice!=null)
+				if (((Double)(itineraries.get(id))).doubleValue()>maxPrice)
+					break;
 			JSONArray segmentIdsJson = (JSONArray) legJson.get("SegmentIds");
 			JSONArray segmentsToPut = new JSONArray();
 			Iterator <Long> iterator1 = segmentIdsJson.iterator();

@@ -1,4 +1,4 @@
-app.factory('userService', ['$cookies', function($cookies){
+app.factory('userService', function($cookies){
 	var authentication = {
 		token: '',
 		network: ''
@@ -68,7 +68,7 @@ app.factory('userService', ['$cookies', function($cookies){
 			}
 		}
 	};
-}]);
+});
 
 function addMinutes(date, minutes) {
 	return new Date(date.getTime() + minutes * 60000);

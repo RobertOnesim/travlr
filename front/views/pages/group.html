@@ -1,1 +1,26 @@
+<div class="mdl-grid mdl-cell--12-col" >
+    <calendar-md id="calendar-demo"
+    flex layout layout-fill
+    calendar-direction="direction"
+    on-prev-month="prevMonth"
+    on-next-month="nextMonth"
+    on-day-click="dayClick"
+    title-format="'MMMM y'"
+    ng-model='selectedDate'
+    day-format="dayFormat"
+    day-label-format="'EEE'"
+    day-label-tooltip-format="'EEEE'"
+    day-tooltip-format="'fullDate'"
+    week-starts-on="weekStartsOn"
+    start-Date-of-month="1"
+    no-of-days="30"
+    tooltips="true"
+    day-content="setDayContent"
+    disable-future-selection="disableFutureDates">
+    </calendar-md>
+</div>
+
 <div data-ng-include="'views/pages/search.html'"></div>
+
+<button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell mdl-cell--2-col mdl-cell--middle" ng-click="addNewMember($event)">Add member</button>
+

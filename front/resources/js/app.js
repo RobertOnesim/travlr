@@ -1,4 +1,4 @@
-var app = angular.module('Travlr', ['ngRoute', 'ngMaterial']);
+var app = angular.module('Travlr', ['ngRoute', 'ngMaterial', 'ngCookies']);
 
 app.config(function($routeProvider, $mdThemingProvider) {
 	$routeProvider
@@ -10,13 +10,17 @@ app.config(function($routeProvider, $mdThemingProvider) {
 			controller: 'FlightController',
 			templateUrl: 'views/pages/flight.html'
 		})
-		.when('/search/:dep/:arr/:startDate/:returnDate?/:numberAdults?/:numberChildren?/:numberInfants?', {
+		.when('/search/:dep/:arr/:startDate/:returnDate?/:numberAdults?/:numberChildren?/:numberInfants?/:priceMax?/:durationMax?', {
 			controller: 'SearchController',
 			templateUrl: 'views/pages/search.html'
 		})
-		.when('/group/', {
+		.when('/group', {
 			controller: 'GroupController',
 			templateUrl: 'views/pages/group.html'
+		})
+		.when('/cart', {
+			controller: 'CartController',
+			templateUrl: 'views/pages/cart.html'
 		})
 		.otherwise({
 			redirectTo: '/'

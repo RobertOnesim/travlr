@@ -1,8 +1,8 @@
 app.factory('flightService', ['$http', 'userService', function($http, userService){
 	return {
 		getFlights: function(flightSearch) {
-			var baseURL = 'http://95.76.234.124:1036/flight?';
-			return $http.get(createURL(flightSearch, baseURL), getHeaderValues())
+			var baseURL = 'http://95.76.234.124:1039/flight?';
+			return $http.get(createURL(flightSearch, baseURL), getHeaderValues(userService))
 				.success(function(data, status, config, headers) {
 					return parseResponse(data);
 				})
@@ -40,26 +40,26 @@ function parseResponse(data) {
 	}
 }
 
-// function getHeaderValues(userService) {
-// 	var values = {
-// 			headers: {
-// 				'responseType': 'application/json'
-// 			}
-// 		};
-// 	if(userService.getToken() != '') {
-// 		values.headers.userToken = userService.getToken();
-// 	}
-// 	return values;
-// }
-
-function getHeaderValues() {
+function getHeaderValues(userService) {
 	var values = {
 			headers: {
 				'responseType': 'application/json'
 			}
 		};
+	if(userService.getToken() != '') {
+		values.headers.userToken = userService.getToken();
+	}
 	return values;
 }
+
+// function getHeaderValues() {
+// 	var values = {
+// 			headers: {
+// 				'responseType': 'application/json'
+// 			}
+// 		};
+// 	return values;
+// }
 
 function addParameter(url, paramName, paramValue) {
 	if(url.substr(url.length - 1) != '?') {

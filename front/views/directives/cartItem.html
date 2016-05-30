@@ -1,0 +1,36 @@
+<div class="mdl-shadow--6dp searchResoultCard oneWay mdl-grid">
+    <div class="mdl-grid mdl-cell--12-col">
+        <div class="mdl-cell--2-col">
+            <h6 class="flightDate">{{flight.Segments[0].DepartureDateTime | date:'dd-MMM-yyyy HH:mm'}}</h6>
+            <h5 class="headline">{{flight.departureCity}}</h5>
+        </div>
+        <div class="direction mdl-cell--2-col mdl-cell--1-offset mdl-cell--middle">{{flight.type}}</div>
+        <div class="mdl-cell--2-col mdl-cell--1-offset">
+            <h6 class="title flightDate">{{flight.Segments[0].ArrivalDateTime | date:'dd-MMM-yyyy HH:mm'}}</h6>
+            <h5 class="headline">{{flight.arrivalCity}}</h5>
+        </div>
+        <div class="mdl-cell--2-col mdl-cell--top mdl-cell--1-offset">
+            <h5 class="price headline ">{{flight.Price | currency:'€'}}</h5>
+        </div>
+        <div class="mdl-cell--1-col">
+        	Amount:{{flight.amount}}
+        	<button class="mdl-button mdl-js-button mdl-button--icon removeCity" data-ng-click="removeFromCart(flight)">
+        	    <i class="material-icons">close</i>
+        	</button>
+        	<button class="mdl-button mdl-js-button mdl-button--icon removeCity" data-ng-click="updateFlightAmount(flight, 1)">
+        	    <i class="material-icons">add_circel</i>
+        	</button>
+        	<button class="mdl-button mdl-js-button mdl-button--icon removeCity" data-ng-click="updateFlightAmount(flight, -1)">
+        	    <i class="material-icons">remove_circle</i>
+        	</button>
+        </div>
+        <div class="mdl-cell--2-col">
+        	{{flight.numberAdults}} Adults
+        	{{flight.numberChildren}} Children
+        	{{flight.numberInfants}} Infants
+        </div>
+    </div>
+    <div class="mdl-cell--12-col">
+    	With cariers: <div data-ng-repeat="segment in flight.Segments">{{segment.Carrier.Name}}</div>
+    </div>
+</div>

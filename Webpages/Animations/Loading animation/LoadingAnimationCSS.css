@@ -1,8 +1,7 @@
 div {
     margin: 20px;
-    width: 100px;
-    height: 100px;
-	opacity: 0.5;
+    width: 80px;
+    height: 80px;
     -webkit-animation-name: spin;
     -webkit-animation-duration: 2s;
 	-webkit-animation-iteration-count: infinite;
@@ -19,6 +18,11 @@ div {
     animation-duration: 2s;
 	animation-iteration-count: infinite;
     animation-timing-function: linear;
+}
+
+img {
+	opacity: 0.5;
+	
 }
 @-ms-keyframes spin {
     from { -ms-transform: rotate(0deg); }

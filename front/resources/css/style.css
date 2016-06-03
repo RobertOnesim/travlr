@@ -106,10 +106,6 @@ body {
 	margin-bottom: .2em;
 }
 
-#loginButtons button {
-	width: 100%;
-}
-
 .carrierLogo {
 	max-width: 5em;
 }
@@ -181,4 +177,8 @@ body {
 
 #groupControls{
 	padding-left: .6em;
+}
+
+#userControlls {
+	display: none;
 }

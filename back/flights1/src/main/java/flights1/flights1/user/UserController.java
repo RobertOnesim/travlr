@@ -27,10 +27,44 @@ public class UserController {
 		//return (User)usersFromGroup.get(0);
 	}
 	
+	@RequestMapping("/userGroups")
+	public @ResponseBody List<Integer> giveGroups (@RequestParam(required=true) String userId) {
+		System.out.println("FAC userGroups!");
+		ManagerUser mu = new ManagerUser();
+		List <Integer> groupsOfUser = mu.getGroupsOfUser(userId);
+		/*JSONObject o = new JSONObject();
+		o.put("1", 5);
+		return o;*/
+		return groupsOfUser;
+		//return (User)usersFromGroup.get(0);
+	}
+	
 	@RequestMapping("/addUserToGroup")
 	public void addUserToGroup(@RequestParam(required=true) String userId, @RequestParam(required=true) int groupId){
 		ManagerUser mu = new ManagerUser();
 		mu.addUserToGroup(userId, groupId);
+	}
+	
+	
+	@RequestMapping("/usersNotInGroup")
+	public @ResponseBody List<User> searchUserNotInGroup(@RequestParam(required=true) Integer groupId){
+		ManagerUser mu = new ManagerUser();
+		List <User> usersByName = mu.getUsersNotInGroup(groupId);
+		return usersByName;
+	}
+
+	@RequestMapping("/users")
+	public @ResponseBody List<User> searchUserByName(@RequestParam(required=true) String userName){
+		ManagerUser mu = new ManagerUser();
+		List <User> usersByName = mu.getUserByName(userName);
+		return usersByName;
+	}
+	
+	@RequestMapping("/usersNotInGroupByName")
+	public @ResponseBody List<User> searchUserNotInGroupByName(@RequestParam(required=true) String userName, @RequestParam(required=true) Integer groupId){
+		ManagerUser mu = new ManagerUser();
+		List <User> usersByName = mu.getUsersNotInGroupByName(groupId,userName);
+		return usersByName;
 	}
 
 }

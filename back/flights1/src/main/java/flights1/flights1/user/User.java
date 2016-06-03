@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "USERS")
-public class User {
+public class User implements Comparable {
 	@Id 
 	@Column(name = "id_user")
 	public String id;
@@ -53,5 +53,10 @@ public class User {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		return id.compareTo(((User)o).getId());
 	}
 }

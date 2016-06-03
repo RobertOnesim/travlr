@@ -10,10 +10,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 import org.hibernate.HibernateException; 
 import org.hibernate.Session; 
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.engine.transaction.jta.platform.internal.SynchronizationRegistryBasedSynchronizationStrategy;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import flights1.*;
@@ -25,7 +29,7 @@ public class App {
 
 	public static void main(String[] args) {
 		
-		ManagerUser mu = new ManagerUser();
+		//ManagerUser mu = new ManagerUser();
 
 		/* Add few employee records in database */
 		//String userID1 = mu.addUser("id-ulLianei","Liana", "Tucar",new Date());
@@ -33,10 +37,10 @@ public class App {
 		//String userID3 = mu.addUser("babalaaaauid231","Stan-Tucar", "Alfred", new Date());
 		//mu.addUserToGroup("id-ulLianei", 1);
 		//System.out.println("BLAAA "+userID1+" "+userID2+" "+userID3);
-		List <User> list= mu.getUsersFromGroup(1);
-		System.out.println(list.get(0));
-		System.out.println("BLAAAAAAAAAAAAAAAAAAAAAAAAAA");
-		User user= new User();
+		//List <User> list= mu.getUsersFromGroup(1);
+		//System.out.println(list.get(0));
+		//System.out.println("BLAAAAAAAAAAAAAAAAAAAAAAAAAA");
+		//User user= new User();
 		SpringApplication.run(App.class, args);
 
 

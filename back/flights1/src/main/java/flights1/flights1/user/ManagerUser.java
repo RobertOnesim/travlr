@@ -37,6 +37,54 @@ public class ManagerUser {
 		return userID;
 	}
 	
+	public List<User> getUserByName(String userName){
+		String hql = "from User U WHERE U.lastName = :userName";
+		Session session2 = factoryUser.openSession();
+		org.hibernate.Query query = session2.createQuery(hql);
+		query.setParameter("userName", userName);
+		return query.list();
+	}
+	
+	public List<User> getUsersNotInGroup(Integer groupId){
+		String hql = "from User U";
+		Session session = factoryUser.openSession();
+		org.hibernate.Query query = session.createQuery(hql);
+		List <User> users = query.list();
+		List <User> usersInGroup = getUsersFromGroup(groupId);
+		List <User> usersNotInGroup = users;
+		usersNotInGroup.removeAll(usersInGroup);
+		return usersNotInGroup;
+	}
+	
+	public List<User> getUsersNotInGroupByName(Integer groupId, String userName){
+		String hql = "from User U WHERE U.lastName = :userName";
+		Session session = factoryUser.openSession();
+		org.hibernate.Query query = session.createQuery(hql);
+		query.setParameter("userName", userName);
+		List <User> users = query.list();
+		List <User> usersInGroup = getUsersFromGroup(groupId);
+		List <User> usersNotInGroup = users;
+		System.out.println("users  "+users.size() + "<<---");
+		System.out.println("usersInGroup  "+usersInGroup.size() + "<<---");
+		/*for (User u:usersNotInGroup)
+			if (usersInGroup.contains(u)){
+				System.out.println(u.firstName);
+				usersNotInGroup.remove(u);
+			}*/
+		usersNotInGroup.removeAll(usersInGroup);
+		return usersNotInGroup;
+	}
+	
+	
+	public List<Integer> getGroupsOfUser(String userId){
+		Session session = factoryUserGroup.openSession();	
+		String hql = "SELECT id.idGroup FROM UserGroup UG WHERE UG.id.idUser = :userId";
+		org.hibernate.Query query = session.createQuery(hql);
+		query.setParameter("userId",userId);
+		List <Integer> groupIds = query.list();
+		return groupIds;
+	}
+	
 	public List <User> getUsersFromGroup(Integer groupId){
 		Session session = factoryUserGroup.openSession();	
 		String hql = "SELECT id.idUser FROM UserGroup UG WHERE UG.id.idGroup = :idGroup";

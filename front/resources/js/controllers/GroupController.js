@@ -1,4 +1,4 @@
-app.controller("GroupController", function($scope, $filter, $q, $timeout, $log,$controller,$mdDialog,$mdMedia, MaterialCalendarData) {
+app.controller("GroupController", function($scope, $filter, $q, $timeout, $log,$controller,$mdDialog,$mdMedia,$routeParams,findUserService,addUserService, MaterialCalendarData) {
 
 	//inheritance search
     $controller('SearchController', {$scope: $scope});
@@ -17,19 +17,27 @@ app.controller("GroupController", function($scope, $filter, $q, $timeout, $log,$
         });
     };
 
-    $scope.users = [
-		{
-			name: "Iasi"
-		},
-		{
-			name: "Bucuresti"
-		},
-		{
-			name: "Iasi"
-		}
-	];
+    $scope.userSearch = {
+    	idGroup : $routeParams.id,
+    	name : "",
+    	idUser : ""
+    };
 
-	$scope.mama="robert";
+    //find users
+    $scope.newUserSearch = function(user){
+    	findUserService.getUsers(user).success(function(data) {
+    		$scope.users = data;
+    	});
+    }
+
+    //add users to group
+    $scope.addUserToGroup = function(user){
+    	$scope.userSearch.idUser=user.id;
+    	addUserService.addUser($scope.userSearch).success(function(data){
+    		$scope.message = data.Options;			
+    	});
+    }
+
     //work with calendar
     $scope.selectedDate = new Date();
     $scope.weekStartsOn = 0;

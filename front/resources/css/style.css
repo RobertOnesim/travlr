@@ -86,7 +86,7 @@ body {
 }
 
 #searchResoults {
-	padding: 1em;
+	padding: .6em;
 	width: 98%;
 }
 
@@ -172,4 +172,13 @@ body {
 
 .mdl-button--icon {
 	overflow: visible;
+}
+
+#addMemberDialog{
+  width:500px; height: 300px;
+  overflow-x: hidden;
+}
+
+#groupControls{
+	padding-left: .6em;
 }

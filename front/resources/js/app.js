@@ -6,15 +6,11 @@ app.config(function($routeProvider, $mdThemingProvider) {
 			controller: 'HomeController',
     		templateUrl: 'views/pages/home.html'
 		})
-		.when('/flights/:id', {
-			controller: 'FlightController',
-			templateUrl: 'views/pages/flight.html'
-		})
 		.when('/search/:dep/:arr/:startDate/:returnDate?/:numberAdults?/:numberChildren?/:numberInfants?/:priceMax?/:durationMax?', {
 			controller: 'SearchController',
 			templateUrl: 'views/pages/search.html'
 		})
-		.when('/group', {
+		.when('/group/:id/', {
 			controller: 'GroupController',
 			templateUrl: 'views/pages/group.html'
 		})

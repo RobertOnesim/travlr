@@ -11,26 +11,23 @@
     </md-toolbar>
     <md-dialog-content>
         <div class="md-dialog-content" id="addMemberDialog">
-          <md-input-container id="inputUser">
-            <label for="findUser">Find User</label>
-             <input id="findUser" data-ng-model="user.name">
-          </md-input-container>
-          <md-input-container>
-            <i class="material-icons">search</i>
-          </md-input-container>
-          <md-input-container>
-              <md-list flex>
-                <md-subheader class="md-no-sticky"><h5>Person Detailes</h5></md-subheader>
-                  <md-list-item class="md-3-line" data-ng-repeat="user in users" ng-click="null">
-                     <user-result></user-result>
-                  </md-list-item>
-              </md-list>
-          </md-input-container>
+          <div class="mdl-grid mdl-cell--12-col mdl-cell--3-offset" >
+            <md-input-container id="inputUser">
+              <label for="findUser">Find User</label>
+               <input id="findUser" data-ng-model="userSearch.name" required="true">
+            </md-input-container>
+            <md-input-container>
+              <i class="material-icons">search</i>
+            </md-input-container>
+          </div>
+          <div class="mdl-grid">
+              <user-result class="mdl-cell--12-col mdl-cell--2-offset"  data-ng-repeat="user in users"></user-result>
+          </div>
         </div>
 
     </md-dialog-content>
     <md-dialog-actions layout="row">
-      <md-button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent searchButton"  data-ng-disabled="addUser.$invalid" data-ng-click="userSearch()" style="margin-right:20px;">
+      <md-button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent searchButton"  data-ng-disabled="addUser.$invalid" data-ng-click="newUserSearch(userSearch)" style="margin-right:20px;">
         Search
       </md-button>
     </md-dialog-actions>

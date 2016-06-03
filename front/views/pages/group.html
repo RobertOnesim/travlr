@@ -21,7 +21,14 @@
     </calendar-md>
 </div>
 
-<div data-ng-include="'views/pages/search.html'"></div>
+<div class="mdl-grid mdl-grid--no-spacing" id="groupControls">
+    <div class="mdl-cell--2-col">
+        <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell--middle" ng-click="addNewMember($event)">Add member</button>
+    </div>
+    <div class="mdl-cell--2-col">
+         <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell--middle" ng-click="removeMember($event)">Remove member</button>
+    </div>
+</div>
 
-<button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell mdl-cell--2-col mdl-cell--middle" ng-click="addNewMember($event)">Add member</button>
+<div data-ng-include="'views/pages/search.html'"></div>
 

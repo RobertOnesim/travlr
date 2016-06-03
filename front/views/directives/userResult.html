@@ -1,6 +1,14 @@
-<div class="md-list-item-text" layout="column">
-	<div class="mdl-grid" id="userInfo">
-			<img src="http://www.outsystems.com/PortalTheme/img/UserImage.png?23787" class="mdl-cell mdl-cell--6-col mdl-cell--top" id="userImage" alt="pic">
-			<h4 class="display-1 mdl-cell mdl-cell--5-col mdl-cell--top mdl-cell--1-offset" id="name">{{user.name}}</h4>
+<div class="mdl-grid" ng-cloak ng-controller="GroupController">
+		<div class="mdl-cell--4-col">
+			<img src="{{user.img}}" alt="pic" height="100" width="100">
 		</div>
- </div>
+		<div class="mdl-cell--1-col"></div>
+		<div class="mdl-cell--4-col">
+			<h7 id="name"><b>{{user.name}}</b></h7>
+		</div>
+		<div class="mdl-cell--3-col"  id="addButton">
+			<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" data-ng-click="addUserToGroup(user)">
+ 				 <i class="material-icons">add</i>
+			</button>
+		</div>
+</div>	

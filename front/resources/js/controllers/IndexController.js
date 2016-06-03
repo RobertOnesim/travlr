@@ -34,6 +34,14 @@ app.controller('IndexController', ['$scope', 'userService', function($scope, use
 		})
 	};
 
+	window.onSignIn = function(googleUser) {
+        // Get some info
+        var login = angular.element(document.querySelector('#loginButtons'));
+		var userContolls = angular.element(document.querySelector('#userControlls'));
+		login.css('display', 'none');
+		userContolls.css('display', 'block');
+    }
+    
 	$scope.home = function() {
 		window.location.href = '#/';
 	}

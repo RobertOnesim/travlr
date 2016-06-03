@@ -46,6 +46,7 @@ app.controller('SearchController', ['$scope', '$routeParams', 'flightService', '
 		flightService.getFlights($scope.flightSearch).success(function(data) {
 			$scope.flights = data.Options;
 		});
+		//$scope.flights = flightService.getFlights();
 	}
 
 	$scope.searchClick = function(flight, baseURL) {

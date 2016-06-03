@@ -97,13 +97,13 @@ body {
 }
 
 .direction {
-	/*padding: 1em;*/
+	padding: .5em;
 	/*max-height: 50px;*/
 	/*background-image: url("../img/60775.png");*/
 }
 
 .price {
-	margin-bottom: .1em;
+	margin-bottom: .2em;
 }
 
 #loginButtons button {

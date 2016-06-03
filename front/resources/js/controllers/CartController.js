@@ -1,4 +1,4 @@
-app.controller('CartController', ['$scope', 'userService', function($scope, userService) {
+app.controller('CartController', ['$scope', 'userService', 'buyService', function($scope, userService, buyService) {
 	$scope.items = userService.getCart();
 
 	$scope.removeFromCart = function(flight) {
@@ -14,6 +14,13 @@ app.controller('CartController', ['$scope', 'userService', function($scope, user
 
 	$scope.updateFlightAmount = function(flight, amount) {
 		userService.updateFlightAmount(flight, amount);
-		//console.log(userService.getCart());
+		$scope.items = userService.getCart();
+	}
+
+	$scope.buy = function() {
+		//buyService.buy(items);
+		userService.emptyCart();
+		$scope.items = userService.getCart();
+		$scope.$parent.refreshCart();
 	}
 }]);

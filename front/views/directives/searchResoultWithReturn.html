@@ -1,12 +1,33 @@
-<div class="mdl-shadow--4dp searchResoultCard">
-    <div class="withReturn mdl-grid">
-        <div class="oneWay mdl-cell--5-col mdl-grid">
-            <div class="mld-cell--1-col display-1">9:50 PM</div>
-            <div class="mdl-cell--1-col mdl-cell--6-offset display-1"> 10:20PM</div>
+<div class="mdl-shadow--4dp searchResoultCard withReturn mdl-grid">
+    <div class="outbound mdl-cell--5-col mdl-grid">
+        <div class="mdl-cell--5-col">
+            <h6 class="flightDate">{{flight.outboundDetails.departureDate | date:'dd-MMM-yyyy HH:mm'}}</h6>
+            <h5 class="headline">{{flight.outboundDetails.departureCity}}</h5>
         </div>
-        <div class="oneWay mdl-cell--5-col mdl-coll-2-offset mdl-grid">
-            <div class="mld-cell--1-col display-1">9:50 PM</div>
-            <div class="mdl-cell--1-col mdl-cell--6-offset display-1"> 10:20PM</div>
+        <div class="direction mdl-cell--2-col">
+            <img data-ng-if="flight.Segments.length == 1" data-ng-src="{{flight.Segments[0].Carrier.ImageUrl}}" alt="Carrier Logo" class="carrierLogo">
+            {{flight.outboundDetails.type}}
         </div>
+        <div class="mdl-cell--5-col">
+            <h6 class="title flightDate">{{flight.outboundDetails.arrivalDate | date:'dd-MMM-yyyy HH:mm'}}</h6>
+            <h5 class="headline">{{flight.outboundDetails.arrivalCity}}</h5>
+        </div>
+    </div>
+    <div class="inbound mdl-cell--5-col mdl-grid">
+        <div class="mdl-cell--5-col">
+            <h6 class="flightDate">{{flight.inboundDetail.departureDate | date:'dd-MMM-yyyy HH:mm'}}</h6>
+            <h5 class="headline">{{flight.inboundDetail.departureCity}}</h5>
+        </div>
+        <div class="direction mdl-cell--2-col mdl-cell--middle">{{flight.inboundDetail.type}}</div>
+        <div class="mdl-cell--5-col">
+            <h6 class="title flightDate">{{flight.inboundDetail.arrivalDate | date:'dd-MMM-yyyy HH:mm'}}</h6>
+            <h5 class="headline">{{flight.inboundDetail.arrivalCity}}</h5>
+        </div>
+    </div>
+    <div class="mdl-cell--2-col mdl-cell--middle mdl-grid">
+        <h5 class="price headline mdl-cell--6-col">{{flight.Price | currency:'€'}}</h5>
+        <button class="mdl-button mdl-button--accent mdl-js-button mdl-button--icon mdl-cell--bottom" data-ng-click="$parent.addToCart(flight)">
+            <i class="material-icons">add_shopping_cart</i>
+        </button>
     </div>
 </div>

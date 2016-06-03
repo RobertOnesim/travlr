@@ -4,7 +4,7 @@ app.directive('searchResoult', function() {
 		replace: 'true',
 		link: function(scope, elements, attrs) {
 			scope.getTemplateURL = function() {
-				if(scope.flight.withReturn == true) {
+				if(scope.flight.ReturnSegments) {
 					return 'views/directives/searchResoultWithReturn.html';
 				} else {
 					return 'views/directives/searchResoultOneWay.html';

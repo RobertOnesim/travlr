@@ -9,21 +9,21 @@
             <h6 class="title flightDate">{{flight.Segments[0].ArrivalDateTime | date:'dd-MMM-yyyy HH:mm'}}</h6>
             <h5 class="headline">{{flight.arrivalCity}}</h5>
         </div>
-        <div class="mdl-cell--2-col mdl-cell--top mdl-cell--1-offset">
+        <div class="mdl-cell--2-col mdl-cell--top">
             <h5 class="price headline ">{{flight.Price | currency:'€'}}</h5>
         </div>
         <div class="mdl-cell--1-col">
         	Amount:{{flight.amount}}
-        	<button class="mdl-button mdl-js-button mdl-button--icon removeCity" data-ng-click="removeFromCart(flight)">
-        	    <i class="material-icons">close</i>
-        	</button>
         	<button class="mdl-button mdl-js-button mdl-button--icon removeCity" data-ng-click="updateFlightAmount(flight, 1)">
-        	    <i class="material-icons">add_circel</i>
+        	    <i class="material-icons">add</i>
         	</button>
         	<button class="mdl-button mdl-js-button mdl-button--icon removeCity" data-ng-click="updateFlightAmount(flight, -1)">
-        	    <i class="material-icons">remove_circle</i>
+        	    <i class="material-icons">remove</i>
         	</button>
         </div>
+        <button class="mdl-button mdl-js-button mdl-button--icon removeCity mdl-cell--1-col" data-ng-click="removeFromCart(flight)">
+            <i class="material-icons">close</i>
+        </button>
         <div class="mdl-cell--2-col">
         	{{flight.numberAdults}} Adults
         	{{flight.numberChildren}} Children

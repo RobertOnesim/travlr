@@ -10,7 +10,6 @@ app.config(function($routeProvider, $mdThemingProvider) {
 			controller: 'SearchController',
 			templateUrl: 'views/pages/search.html'
 		})
-		.when('/group/:id/', {
 			controller: 'GroupController',
 			templateUrl: 'views/pages/group.html'
 		})
@@ -26,3 +25,19 @@ app.config(function($routeProvider, $mdThemingProvider) {
 		.primaryPalette('amber')
 		.accentPalette('blue');
 });
+
+window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '471546956374592',
+          xfbml      : true,
+          version    : 'v2.6'
+        });
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));

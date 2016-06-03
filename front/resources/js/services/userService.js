@@ -44,7 +44,7 @@ app.factory('userService', function(){
 			}
 			saveCartToStorage(cart);
 		},
-		enptyCart: function() {
+		emptyCart: function() {
 			var cart = [];
 			saveCartToStorage(cart);
 		},
@@ -58,14 +58,12 @@ app.factory('userService', function(){
 		},
 		updateFlightAmount: function(flight, amount) {
 			var cart = getCartFromStorage();
-			console.log(cart);
-			console.log(flight);
-			console.log(amount);
 			for(var i = 0; i < cart.length; i++) {
 				if(cart[i].Id == flight.Id) {
 					cart[i].amount += amount;
 				}
 			}
+			saveCartToStorage(cart);
 		}
 	};
 });

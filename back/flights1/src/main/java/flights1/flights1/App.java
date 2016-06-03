@@ -21,6 +21,7 @@ import org.hibernate.engine.transaction.jta.platform.internal.SynchronizationReg
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import flights1.*;
+import flights1.flights1.user.Aeroports;
 import flights1.flights1.user.ManagerUser;
 import flights1.flights1.user.User;
 
@@ -42,6 +43,8 @@ public class App {
 		//System.out.println("BLAAAAAAAAAAAAAAAAAAAAAAAAAA");
 		//User user= new User();
 		SpringApplication.run(App.class, args);
+		Aeroports a = new Aeroports();
+		System.out.println(a.getAeroportsByCoordinates());
 
 
 

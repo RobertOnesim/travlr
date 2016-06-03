@@ -10,6 +10,7 @@ app.config(function($routeProvider, $mdThemingProvider) {
 			controller: 'SearchController',
 			templateUrl: 'views/pages/search.html'
 		})
+		.when('/group/:id', {
 			controller: 'GroupController',
 			templateUrl: 'views/pages/group.html'
 		})

@@ -16,32 +16,57 @@ import java.net.URL;
 import flights1.flights1.Utilitare;
 
 public class Aeroports {
-	public List <String> getAeroportsByCoordinates(){
+
+	public static String getCityByCode(String code){
 		JSONObject raspuns=null;
-		List <String> codes = new ArrayList<>();
-		String https_url ="https://airport.api.aero/airport/nearest/44.4333158365/26.103199949?maxAirports=3&user_key=31281da2f45a68ef51c08a9228b6037d";
+		String city=null;
+		String https_url ="https://airport.api.aero/airport/"+code+"?user_key=31281da2f45a68ef51c08a9228b6037d";
 		URL obj=null,url=null;
 		try {
 			url = new URL(https_url);
 			HttpsURLConnection conn = (HttpsURLConnection)url.openConnection();
 			conn.setRequestMethod("GET");
-			//conn.setRequestProperty("Content-Type",  "application/x-www-form-urlencoded");
-			//		conn.setRequestProperty("Accept", "application/json");
 			conn.setRequestProperty("User-Agent", "Mozilla/5.0");
 			int responseCode = conn.getResponseCode();
-			String raspunsAeroporturi=Utilitare.parseInputStream(conn.getInputStream());
-			raspunsAeroporturi = raspunsAeroporturi.substring(9,raspunsAeroporturi.lastIndexOf(")"));
-			System.out.println("raspuns zboruri   "+raspunsAeroporturi);
-			raspuns = (JSONObject) new JSONParser().parse(raspunsAeroporturi);
-			JSONArray airports = (JSONArray)raspuns.get("airports");
-			for (Object airport : airports){
-				String codeAndCityName = (String)((JSONObject)airport).get("code") + (String)((JSONObject)airport).get("city");
-				codes.add(codeAndCityName);
-			}
+			String raspunsInformatii=Utilitare.parseInputStream(conn.getInputStream());
+			raspunsInformatii = raspunsInformatii.substring(9,raspunsInformatii.lastIndexOf(")"));
+			System.out.println("raspuns informatii   "+raspunsInformatii);
+			raspuns = (JSONObject) new JSONParser().parse(raspunsInformatii);
+			city=(String)((JSONObject)((JSONArray)raspuns.get("airports")).get(0)).get("city");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return codes;
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	}
+	return city;
+}
+
+public static List <String> getAirportsByCoordinates(Double latitude, Double longitude){
+	JSONObject raspuns=null;
+	List <String> codes = new ArrayList<>();
+	String https_url ="https://airport.api.aero/airport/nearest/"+latitude.toString()+"/"+ longitude.toString() +"?maxAirports=3&user_key=31281da2f45a68ef51c08a9228b6037d";
+	//String https_url ="https://airport.api.aero/airport/nearest/44.4333158365/26.103199949?maxAirports=3&user_key=31281da2f45a68ef51c08a9228b6037d";
+	URL obj=null,url=null;
+	try {
+		url = new URL(https_url);
+		HttpsURLConnection conn = (HttpsURLConnection)url.openConnection();
+		conn.setRequestMethod("GET");
+		//conn.setRequestProperty("Content-Type",  "application/x-www-form-urlencoded");
+		//		conn.setRequestProperty("Accept", "application/json");
+		conn.setRequestProperty("User-Agent", "Mozilla/5.0");
+		int responseCode = conn.getResponseCode();
+		String raspunsAeroporturi=Utilitare.parseInputStream(conn.getInputStream());
+		raspunsAeroporturi = raspunsAeroporturi.substring(9,raspunsAeroporturi.lastIndexOf(")"));
+		System.out.println("raspuns zboruri   "+raspunsAeroporturi);
+		raspuns = (JSONObject) new JSONParser().parse(raspunsAeroporturi);
+		JSONArray airports = (JSONArray)raspuns.get("airports");
+		for (Object airport : airports){
+			String codeAndCityName = (String)((JSONObject)airport).get("code") + (String)((JSONObject)airport).get("city");
+			codes.add(codeAndCityName);
+		}
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return codes;
+}
 }

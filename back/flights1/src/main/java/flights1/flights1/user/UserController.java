@@ -15,6 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin(origins = "*")
 public class UserController {
+	
+	@RequestMapping("/createGroup")
+	public @ResponseBody Integer createGroup(@RequestParam(required=true) String groupName){
+		ManagerUser mu = new ManagerUser();
+		Integer idGroup = mu.createGroup(groupName);
+		return idGroup;
+	}
+	
 	@RequestMapping("/groupUsers")
 	public @ResponseBody List<User> giveUsers (@RequestParam(required=true) int groupId) {
 		System.out.println("FAC CEVA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -43,6 +51,12 @@ public class UserController {
 	public void addUserToGroup(@RequestParam(required=true) String userId, @RequestParam(required=true) int groupId){
 		ManagerUser mu = new ManagerUser();
 		mu.addUserToGroup(userId, groupId);
+	}
+	
+	@RequestMapping("/removeUserFromGroup")
+	public void removeUserFromGroup(@RequestParam(required=true) String userId, @RequestParam(required=true) int groupId){
+		ManagerUser mu = new ManagerUser();
+		mu.removeUserFromGroup(userId, groupId);
 	}
 	
 	

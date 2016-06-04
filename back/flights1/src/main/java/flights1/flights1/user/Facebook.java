@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -18,10 +19,35 @@ import org.json.simple.parser.JSONParser;
 import flights1.flights1.Utilitare;
 
 public class Facebook {
+	
+	public static String getPhoto(){
+		String https_url ="https://graph.facebook.com/v2.6/1206723179359743/picture"+
+				"?access_token=EAAGs3pTUYkABADYlmbswWcCVkGTebH6r2awxaVBL3y6CR71geUADZB4eNT87k413g1mZAfu7MpMD6CLRfZAtItuZCimeaDtbxMMiukbE0C3NuxqVBHYgl6xEfISN6weZBpL9ZBqzKKdV5I0b8TpzUqWu9JhBUu5Rt849ccJzYaLwZDZD";
+		URL url;
+		URL obj;
+		String urlPoza = null;
+		try {
+			url = new URL(https_url);
+			HttpsURLConnection conn = (HttpsURLConnection)url.openConnection();
+			conn.setRequestMethod("GET");
+			//conn.setRequestProperty("Content-Type",  "application/x-www-form-urlencoded");
+			//		conn.setRequestProperty("Accept", "application/json");
+			conn.setRequestProperty("User-Agent", "Mozilla/5.0");
+			conn.setInstanceFollowRedirects(false);
+			conn.setFollowRedirects(false);
+			int responseCode = conn.getResponseCode();
+			urlPoza = conn.getHeaderField("Location");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return urlPoza;
+	}
+	
 	public static JSONObject getEvents(){
 		JSONObject events = null;
 		String https_url ="https://graph.facebook.com/v2.6/1206723179359743/events?fields=start_time,place"+
-				"&access_token=EAAGs3pTUYkABABAS3rZA0nmIqrRimC8YCN2rVuQmFJ3NzXVhmZCPLg6n9Qvaow5of1BlLuN6ZAdlIIGPjEbxV2zPXje5fgJNASkdlkxfpGfFbUT1TtWBJk8EGACPYyzGvlI0MlWlH4ccSZCVMkS3qMaZAAFRuIVcLZCvfvsXMeEwZDZD";
+				"&access_token=EAAGs3pTUYkABAM8SftZAkONMitFeFYS96QWBIZCcnDZCo3HRC8uuWt29VPsGSLGSVCtfDlmOBcQrnQIZCtObxZBZAZB1ZCD4B0Y9KcxfVrFg0rIxDeEpNBqjGmY7wZAzrJUvUB6RmlUGaLqMryg3fZAWtcmhVNsT8XFxfibXEIDV9ZCMQZDZD";
 
 		//"http://www.graph.facebook.com/v2.6/1206723179359743/events";
 		//" me?fields=id,name,events{start_time,place}";
@@ -35,13 +61,33 @@ public class Facebook {
 			//		conn.setRequestProperty("Accept", "application/json");
 			conn.setRequestProperty("User-Agent", "Mozilla/5.0");
 			int responseCode = conn.getResponseCode();
-			String raspunsZboruri=Utilitare.parseInputStream(conn.getInputStream());
-			events = (JSONObject) new JSONParser().parse(raspunsZboruri);
+			String raspunsEvents=Utilitare.parseInputStream(conn.getInputStream());
+			events = (JSONObject) new JSONParser().parse(raspunsEvents);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return events;
+	}
+	
+	public static String getName(String idUser){
+		JSONObject date = null;
+		String https_url ="https://graph.facebook.com/v2.6/1206723179359743?access_token=EAAGs3pTUYkABAM8SftZAkONMitFeFYS96QWBIZCcnDZCo3HRC8uuWt29VPsGSLGSVCtfDlmOBcQrnQIZCtObxZBZAZB1ZCD4B0Y9KcxfVrFg0rIxDeEpNBqjGmY7wZAzrJUvUB6RmlUGaLqMryg3fZAWtcmhVNsT8XFxfibXEIDV9ZCMQZDZD";
+		URL url;
+		URL obj;
+		try {
+			url = new URL(https_url);
+			HttpsURLConnection conn = (HttpsURLConnection)url.openConnection();
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("User-Agent", "Mozilla/5.0");
+			int responseCode = conn.getResponseCode();
+			String raspunsDate=Utilitare.parseInputStream(conn.getInputStream());
+			date = (JSONObject) new JSONParser().parse(raspunsDate);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return (String)date.get("name");
 	}
 
 	public static List <EventPlaceDate> prelucrareJson (JSONObject eventsJSON){

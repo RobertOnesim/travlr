@@ -23,7 +23,11 @@ import org.hibernate.cfg.Configuration;
 import flights1.*;
 import flights1.flights1.user.Aeroports;
 import flights1.flights1.user.ManagerUser;
+import flights1.flights1.user.ManagerUserHistory;
+import flights1.flights1.user.Recomandation;
+import flights1.flights1.user.RecomandationGenerator;
 import flights1.flights1.user.User;
+import flights1.flights1.user.UserHistory;
 
 @SpringBootApplication
 public class App {
@@ -43,11 +47,21 @@ public class App {
 		//System.out.println("BLAAAAAAAAAAAAAAAAAAAAAAAAAA");
 		//User user= new User();
 		SpringApplication.run(App.class, args);
-		Aeroports a = new Aeroports();
-		System.out.println(a.getAeroportsByCoordinates());
-
-
-
+		List<Recomandation> recomandations = RecomandationGenerator.giveRecomandations("1206723179359743");
+		System.out.println("Recomandari   ");
+		for(Recomandation recomandation:recomandations){
+			System.out.println("Recomandare "+recomandation.getDepartureCity()+recomandation.getArrivalCity()+recomandation.getDate());
+		}
+		/*Aeroports a = new Aeroports();
+		System.out.println(a.getAirportsByCoordinates(latitude, longitude)
+				a.getAiroportsByCoordinates());
+*/
+		ManagerUserHistory muh = new ManagerUserHistory();
+		List <UserHistory> uhs = muh.getMostSearched("1");
+		for (UserHistory u : uhs){
+			System.out.println("id history  "+u.getIdHistory());
+		}
+		
 		JSONParser parser = new JSONParser();
 		String s = "{\"age\":100,\"name\":\"mkyong.com\",\"messages\":[\"msg 1\",\"msg 2\",\"msg 3\"]}";
 

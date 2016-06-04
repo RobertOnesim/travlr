@@ -1,92 +1,37 @@
-app.factory('userService', function(){
-	var authentication = {
-		token: '',
-		network: ''
-	};
+app.factory('userService', ['$http', function($http){
 	return {
-		setToken: function(token, network) {
-			authentication.token = token;
-			authentication.network = network;
+		login: function(network) {
+			var user = getUserFronStorage();
+			user.network = network;
+			saveUserToStorage(user);
 		},
-		getToken: function() {
-			return authentication.token;
+		logout: function() {
+			localStorage.removeItem('user');
 		},
-		resetToken: function() {
-			authentication.token = '';
-			authentication.network = '';
+		isLoggedin: function() {
+			if(localStorage.user) {
+				return true;
+			}
+			return false;
 		},
-		removeToken: function() {
+		getGroups: function(userID) {
+			baseURL = 'http://31.5.42.203:1056/userGroups?'
+			return $http.get(createGroupsOfUserURL(userID, baseURL), getHeaderValues(this))
+				.success(function(data, status, config, headers) {
+					return parseGroupsOfUserResponse(data);
+				})
+				.error(function() {
 
-		},
-		addToCart: function(flight) {
-			var cart = getCartFromStorage();
-			var found = false;
-			flight.amount = 1;
-			for(var i = 0; i < cart.length; i++) {
-				if(cart[i].Id == flight.Id) {
-					cart[i].amount += flight.amount;
-					found = true;
-					break;
-				}
-			}
-			if(found == false) {
-				cart.push(flight);
-			}
-			saveCartToStorage(cart);
-		},
-		removeFromCart: function(flight) {
-			var cart = getCartFromStorage();
-			for(var i = 0; i < cart.length; i++) {
-				if(cart[i].Id == flight.Id) {
-					cart.splice(i, 1);
-					break;
-				}
-			}
-			saveCartToStorage(cart);
-		},
-		emptyCart: function() {
-			var cart = [];
-			saveCartToStorage(cart);
-		},
-		getCart: function() {
-			var cart = getCartFromStorage();
-			return cart;
-		},
-		getCartSize: function() {
-			var cart = getCartFromStorage();
-			return cart.length;
-		},
-		updateFlightAmount: function(flight, amount) {
-			var cart = getCartFromStorage();
-			for(var i = 0; i < cart.length; i++) {
-				if(cart[i].Id == flight.Id) {
-					cart[i].amount += amount;
-				}
-			}
-			saveCartToStorage(cart);
+				});
 		}
 	};
-});
+}]);
 
-function addMinutes(date, minutes) {
-	return new Date(date.getTime() + minutes * 60000);
+function createGroupsOfUserURL(userID, url) {
+	url = addParameter(url, 'userId', userID);
+	return url;
 }
 
-function getCartFromStorage() {
-	var cart;
-	var expireDate;
-	if(localStorage.cart) {
-		cart = JSON.parse(localStorage.cart);
-		expireDate = new Date(localStorage.expireDate);
-	}
-	if(!expireDate || expireDate < new Date()) {
-		cart = [];
-	}
-	return cart;
-}
-
-function saveCartToStorage(cart) {
-	expireDate = addMinutes(new Date(), 60);
-	localStorage.cart = JSON.stringify(cart);
-	localStorage.expireDate = expireDate;
+function parseGroupsOfUserResponse(data) {
+	return data;
 }

@@ -29,9 +29,10 @@
     
     <title>Travlr</title>
 </head>
-<body data-ng-app="Travlr" data-ng-controller="IndexController">
+<body data-ng-app="Travlr" data-ng-controller="IndexController" data-ng-init="verifyLoginStatus()">
 
     <script type="text/javascript" src="resources/js/app.js"></script>
+    <script type="text/javascript" src="resources/js/utils.js"></script>
 
     <div class="mdl-layout mdl-js-layout  mdl-layout--fixed-header">
         <header class="mdl-layout__header">
@@ -95,6 +96,9 @@
                         </li>
                     </ul>
                 </div>
+                <button id="logOut" class="mdl-cell--12-col mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="logout()">
+                    Log out
+                </button>
             </div>
         </div>
         <main class="mdl-layout__content page-content" id="wrapper" data-ng-view>
@@ -125,6 +129,7 @@
     <script type="text/javascript" src="resources/js/services/findUserService.js"></script>
     <script type="text/javascript" src="resources/js/services/addUserService.js"></script>
     <script type="text/javascript" src="resources/js/services/buyService.js"></script>
+    <script type="text/javascript" src="resources/js/services/cartService.js"></script>
 
 </body>
 </html>

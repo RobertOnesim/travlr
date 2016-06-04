@@ -30,6 +30,8 @@ app.config(function($routeProvider, $mdThemingProvider) {
 window.fbAsyncInit = function() {
         FB.init({
           appId      : '471546956374592',
+          oath       : true,
+          cookie     : true,
           xfbml      : true,
           version    : 'v2.6'
         });

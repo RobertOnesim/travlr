@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
 
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="google-signin-client_id" content="941059884386-rf3k4arbk73g0rlaodos6uhcvko3h17u.apps.googleusercontent.com">
     <!-- <base href="http://localhost/tw/proiect/front/"> -->
     
     <link rel="stylesheet" type="text/css" href="node_modules/material-design-lite/material.min.css">
@@ -22,13 +23,16 @@
     <script src="node_modules/angular-sanitize/angular-sanitize.min.js"></script>
     <script src="node_modules/angular-calendar/angular-material-calendar.js"></script>
 
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
     <link rel="stylesheet" type="text/css" href="resources/css/style.css">
     
     <title>Travlr</title>
 </head>
-<body data-ng-app="Travlr" data-ng-controller="IndexController">
+<body data-ng-app="Travlr" data-ng-controller="IndexController" data-ng-init="verifyLoginStatus()">
 
     <script type="text/javascript" src="resources/js/app.js"></script>
+    <script type="text/javascript" src="resources/js/utils.js"></script>
 
     <div class="mdl-layout mdl-js-layout  mdl-layout--fixed-header">
         <header class="mdl-layout__header">
@@ -48,9 +52,7 @@
                     Log in with Facebook
                 </button>
                 <!-- <br> -->
-                <button id="googleButton" class="mdl-cell--12-col loginButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-                    <img src="resources/img/google_login/btn_google_signin_light_normal_web.png" alt="Google">
-                </button>
+                <div class="g-signin2" data-onsuccess="onSignIn" data-width="225" data-height="36" data-longtitle="true"></div>
                 <!-- <br> -->
                 <!-- <button id="twitterButton" class="mdl-cell--12-col loginButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
                     <img src="resources/img/twitter_logo/TwitterLogo_white.png" alt="Twitter">
@@ -94,6 +96,9 @@
                         </li>
                     </ul>
                 </div>
+                <button id="logOut" class="mdl-cell--12-col mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="logout()">
+                    Log out
+                </button>
             </div>
         </div>
         <main class="mdl-layout__content page-content" id="wrapper" data-ng-view>
@@ -124,6 +129,7 @@
     <script type="text/javascript" src="resources/js/services/findUserService.js"></script>
     <script type="text/javascript" src="resources/js/services/addUserService.js"></script>
     <script type="text/javascript" src="resources/js/services/buyService.js"></script>
+    <script type="text/javascript" src="resources/js/services/cartService.js"></script>
 
 </body>
 </html>

@@ -3,7 +3,7 @@ function StepoverCity() {
 	this.number = "";
 }
 
-app.controller('SearchController', ['$scope', '$routeParams', 'flightService', 'userService', function($scope, $routeParams, flightService, userService) {
+app.controller('SearchController', ['$scope', '$routeParams', 'flightService', 'userService', 'cartService', function($scope, $routeParams, flightService, userService, cartService) {
 	$scope.flightSearch = {
 		departureCity : $routeParams.dep,
 		arrivalCity : $routeParams.arr,
@@ -126,7 +126,7 @@ app.controller('SearchController', ['$scope', '$routeParams', 'flightService', '
 		flight.numberAdults = $scope.flightSearch.numberAdults;
 		flight.numberChildren = $scope.flightSearch.numberChildren;
 		flight.numberInfants = $scope.flightSearch.numberInfants;
-		userService.addToCart(flight);
+		cartService.addToCart(flight);
 		$scope.$parent.refreshCart();
 	}
 }]);

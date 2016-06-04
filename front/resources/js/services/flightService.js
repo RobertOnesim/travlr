@@ -237,9 +237,9 @@ app.factory('flightService', ['$http', 'userService', function($http, userServic
 			        }
 			    ]
 			}*/
-			return $http.get(createURL(flightSearch, baseURL), getHeaderValues(userService))
+			return $http.get(createFlightURL(flightSearch, baseURL), getHeaderValues(userService))
 				.success(function(data, status, config, headers) {
-					return parseResponse(data);
+					return parseFlightResponse(data);
 				})
 				.error(function() {
 
@@ -249,7 +249,7 @@ app.factory('flightService', ['$http', 'userService', function($http, userServic
 	}
 }]);
 
-function parseResponse(data) {
+function parseFlightResponse(data) {
 	var flights;
 	var lastSegment;
 
@@ -288,36 +288,8 @@ function parseResponse(data) {
 	}
 }
 
-function getHeaderValues(userService) {
-	var values = {
-			headers: {
-				'responseType': 'application/json'
-			}
-		};
-	if(userService.getToken() != '') {
-		values.headers.userToken = userService.getToken();
-	}
-	return values;
-}
 
-// function getHeaderValues() {
-// 	var values = {
-// 			headers: {
-// 				'responseType': 'application/json'
-// 			}
-// 		};
-// 	return values;
-// }
-
-function addParameter(url, paramName, paramValue) {
-	if(url.substr(url.length - 1) != '?') {
-		url += '&';
-	}
-	url += paramName + '=' + paramValue;
-	return url;
-}
-
-function createURL(flightSearch, url) {
+function createFlightURL(flightSearch, url) {
 	var date;
 	url = addParameter(url, 'departure-city', flightSearch.departureCity);
 	url = addParameter(url, 'arrival-city', flightSearch.arrivalCity);
@@ -345,25 +317,4 @@ function createURL(flightSearch, url) {
 	}
 
 	return url;
-}
-
-function extractURLDate(rawDate) {
-	var date = '', number;
-	date += rawDate.getUTCFullYear() + '-';
-
-	number = rawDate.getUTCMonth() + 1;
-	if(number <= 9) {
-		date += '0' + number + '-';
-	} else {
-		date += number + '-';
-	}
-	
-	number = rawDate.getUTCDate() + 1;
-	if(number <= 9) {
-		date += '0' + number;
-	} else {
-		date += number;
-	}
-
-	return date;
 }

@@ -1,4 +1,4 @@
-app.controller('IndexController', ['$scope', 'userService', 'cartService', function($scope, userService, cartService) {
+app.controller('IndexController', ['$scope', 'userService', 'cartService', 'tokenService', 'loginService', function($scope, userService, cartService, tokenService, loginService) {
 	$scope.cartCount = cartService.getCartSize();
 	$scope.badgeOn = false;
 	if($scope.cartCount > 0) {
@@ -25,15 +25,24 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService', funct
 				setDisplayElement('#userControlls', 'block');
 				console.log('logat');
 				console.log(response);
-				userService.login('facebook');
+				var token = response.authResponse.accessToken;
+				tokenService.saveToken(token);
 				FB.api('/me', function(response) {
 				      console.log(response);
-				      userService.getGroups(response.id).success(function(data) {
+				      console.log('token  ' + token);
+				      userService.login('facebook', response.id);
+				      userService.getGroups(token).success(function(data) {
 				      	console.log(data);
+				      });
+				      userService.getUserDetails(token).success(function(data) {
+				      	console.log(data);
+				      });
+				      loginService.loginServer().success(function(data) {
+
 				      });
 				    });
 			} else {
-				console.log('not authorised or canseled login');
+				//console.log('not authorised or canseled login');
 			}
 		}, {scope: 'email,public_profile,user_events'})
 	};
@@ -44,6 +53,19 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService', funct
 		var userContolls = angular.element(document.querySelector('#userControlls'));
 		login.css('display', 'none');
 		userContolls.css('display', 'block');
+		userService.login('google', googleUser.wc.hg);
+		var token = googleUser.getAuthResponse().id_token;
+		userService.getGroups(token).success(function(data) {
+			console.log(data);
+		});
+		userService.getUserDetails(token).success(function(data) {
+			console.log(data);
+		});
+		loginService.loginServer().success(function(data) {
+
+		});
+		console.log(googleUser);
+		console.log(googleUser.getAuthResponse().id_token);
     }
     
 	$scope.home = function() {
@@ -51,12 +73,15 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService', funct
 	};
 
 	$scope.logout = function() {
-		//console.log($scope.getAccessToken());
-		setDisplayElement('#loginButtons', 'block');
-		setDisplayElement('#userControlls', 'none');
-
-		userService.logout();
-		FB.logout();
+		FB.getLoginStatus(function(response) {
+			logoutFB(response)
+		});
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2.signOut().then(function () {
+			userService.logout();
+			setDisplayElement('#loginButtons', 'block');
+			setDisplayElement('#userControlls', 'none');
+		});
 	};
 
 	$scope.getAccessToken = function() {
@@ -70,23 +95,30 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService', funct
 		$scope.getAccessToken();
 	}
 
+	$scope.test = function() {
+		console.log(tokenService.getToken(userService.getNetwork()));
+		//console.log(gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token)
+	}
+
 	$scope.verifyLoginStatus = function() {
 		if(userService.isLoggedin()) {
+			/*userService.getUserDetails().success(function(data) {
+				$scope.userDetails = data;
+			});
+			userService.getGroups().success(function(data) {
+				$scope.groups = data;
+			});*/
 			setDisplayElement('#loginButtons', 'none');
 			setDisplayElement('#userControlls', 'block');
 		}
-	}
+	};
 }]);
 
-function statusChangeCallback(response) {
-    console.log('statusChangeCallback');
-    console.log(response);
-    if (response.status === 'connected') {
-      	/*setDisplayElement('#loginButtons', 'none');
-      	setDisplayElement('#userControlls', 'block');*/
-    } else if (response.status === 'not_authorized') {
-    	console.log('Please log into this app.');
-    } else {
-       	console.log('Please log into Facebook.');
-    }
+function logoutFB(response) {
+	if(response === 'connected') {
+		setDisplayElement('#loginButtons', 'block');
+		setDisplayElement('#userControlls', 'none');
+		userService.logout();
+		FB.logout();
+	}
 }

@@ -5,7 +5,7 @@ app.factory('buyService', function(){
 	};
 	return {
 		buy: function(cart) {
-			return $http.get('http://95.76.234.124:1039/buy?', getHeaderValues(userService))
+			return $http.get('http://95.76.234.124:1039/buy?')
 				.success(function(data, status, config, headers) {
 					return parseResponse(data);
 				})

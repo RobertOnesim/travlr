@@ -1,4 +1,4 @@
-app.controller('HomeController', ['$scope', function($scope) {
+app.controller('HomeController', ['$scope', 'offerService', function($scope, offerService) {
 	$scope.flightSearch = {
 		departureCity : "",
 		arrivalCity : "",
@@ -34,6 +34,11 @@ app.controller('HomeController', ['$scope', function($scope) {
 			cityName: "Iasi"
 		}
 	];
+
+	/*offerService.getOffers().success(function(data) {
+		$scope.offers = data;
+		console.log(data);
+	});*/
 
 	$scope.returnFlight = [];
 	$scope.minDate = new Date();

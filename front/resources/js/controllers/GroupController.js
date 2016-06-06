@@ -1,14 +1,21 @@
-app.controller("GroupController", function($scope, $filter, $q, $timeout, $log,$controller,$mdDialog,$mdMedia,$routeParams,findUserService,addUserService, MaterialCalendarData) {
+app.controller("GroupController", function($scope, $filter, $q, $timeout, $log,$controller,$mdDialog,$mdMedia,$routeParams,userService,findUserService,addUserService,groupUsersService,removeUserService,fileUploadService,setUserCalendarService, MaterialCalendarData) {
+
+	$scope.userSearch = {
+    	idGroup : $routeParams.id,
+    	name : "",
+    	idUser : ""
+    };
 
 	//inheritance search
     $controller('SearchController', {$scope: $scope});
     $scope.$parent.doRequest = false;
 
+
     //added modal dialog on addMember button
     $scope.addNewMember = function(ev) {
         $mdDialog.show({
           controller: DialogController,
-          templateUrl: 'views/directives/newMember.html',
+          templateUrl: 'views/directives/groupMembers/newMember.html',
           parent: angular.element(document.body),
           targetEvent: ev,
         });
@@ -17,11 +24,39 @@ app.controller("GroupController", function($scope, $filter, $q, $timeout, $log,$
         });
     };
 
-    $scope.userSearch = {
-    	idGroup : $routeParams.id,
-    	name : "",
-    	idUser : ""
+    //remove user from group
+    $scope.removeMember = function(ev) {
+    	 $mdDialog.show({
+          controller: DialogController,
+          templateUrl: 'views/directives/groupMembers/removeMember.html',
+          parent: angular.element(document.body),
+          targetEvent: ev,
+        });
+        $scope.$watch(function() {
+          return $mdMedia('xs') || $mdMedia('sm');
+        });
     };
+
+    /*groupUsersService.getUsers($scope.userSearch.idGroup).success(function(data) {
+			$scope.usersGroup = data;
+            var userIn = false;
+            for(var index = 0; index<$scope.usersGroup.length;index++){
+                if($scope.usersGroup[index].id == $scope.$parent.user.id){
+                    userIn = true;break;
+                }
+            }
+            if(userIn == false){
+                window.location = "./index.html";
+                return;
+            }
+    	});
+*/
+    $scope.removeUserFromGroup = function(user){
+    	$scope.userSearch.idUser=user.id;
+    	removeUserService.addUser($scope.userSearch).success(function(data){
+    		$scope.message = data.Options;			
+    	});
+    }
 
     //find users
     $scope.newUserSearch = function(user){
@@ -34,11 +69,22 @@ app.controller("GroupController", function($scope, $filter, $q, $timeout, $log,$
     $scope.addUserToGroup = function(user){
     	$scope.userSearch.idUser=user.id;
     	addUserService.addUser($scope.userSearch).success(function(data){
-    		$scope.message = data.Options;			
+    		$scope.message = data;			
     	});
     }
 
     //work with calendar
+
+
+     $scope.uploadFile = function(){
+        var file = $scope.myFile;
+        setUserCalendarService.setCalendar(userService.getId(),$scope.userSearch.idGroup);
+        fileUploadService.uploadFileToUrl(file);
+        //console.log($scope.$parent.user.id);
+        
+    };
+
+
     $scope.selectedDate = new Date();
     $scope.weekStartsOn = 0;
     $scope.dayFormat = "d";
@@ -124,7 +170,7 @@ app.controller("GroupController", function($scope, $filter, $q, $timeout, $log,$
 
 
 });
-function DialogController($scope, $mdDialog) {
+function DialogController($scope, $mdDialog,groupUsersService) {
   $scope.hide = function() {
     $mdDialog.hide();
   };
@@ -132,4 +178,3 @@ function DialogController($scope, $mdDialog) {
     $mdDialog.cancel();
   };
 }
-

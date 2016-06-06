@@ -1,0 +1,23 @@
+<md-dialog aria-label="Remove Member"  ng-cloak ng-controller="GroupController">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Remove member</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <i class="material-icons" aria-label="Close dialog">close</i>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content" id="addMemberDialog">
+          <div class="mdl-grid">
+              <user-remove class="mdl-cell--12-col mdl-cell--2-offset"  data-ng-repeat="user in usersGroup"></user-remove>
+          </div>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent searchButton" data-ng-click="cancel()" aria-label="Close dialog" style="margin-right:20px;">
+        Done
+      </md-button>
+    </md-dialog-actions>
+</md-dialog>

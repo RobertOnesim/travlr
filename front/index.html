@@ -21,7 +21,6 @@
     <script src="node_modules/angular-messages/angular-messages.min.js"></script>
     <script src="node_modules/angular-mocks/angular-mocks.js"></script>
     <script src="node_modules/angular-sanitize/angular-sanitize.min.js"></script>
-    <script src="node_modules/angular-cookies/angular-cookies.min.js"></script>
     <script src="node_modules/angular-calendar/angular-material-calendar.js"></script>
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -30,9 +29,7 @@
     
     <title>Travlr</title>
 </head>
-<body  data-ng-controller="IndexController" data-ng-init="verifyLoginStatus()">
-
-<script type="text/javascript" src="resources/js/facebookSDK.js"></script>
+<body data-ng-app="Travlr" data-ng-controller="IndexController" data-ng-init="verifyLoginStatus()">
 
     <script type="text/javascript" src="resources/js/app.js"></script>
     <script type="text/javascript" src="resources/js/utils.js"></script>
@@ -42,10 +39,6 @@
             <div class="mdl-layout__header-row">
                 <h1 class="display-3" data-ng-click="home()">Travlr</h1>
                 <div class="mdl-layout-spacer"></div>
-                <!-- <button id="facebookButton" class="mdl-cell--12-col loginButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-ng-click="test()">
-                    <img src="resources/img/facebook_logo/FB-f-Logo__white_29.png" alt="Facebook">
-                    Test
-                </button> -->
                 <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" data-ng-click="visitCart()">
                     <i class="material-icons material-icons" data-ng-class="{'mdl-badge': badgeOn, 'mdl-badge--overlap': badgeOn}" data-badge="{{cartCount}}">shopping_cart</i>
                 </button>
@@ -58,13 +51,19 @@
                     <img src="resources/img/facebook_logo/FB-f-Logo__white_29.png" alt="Facebook">
                     Log in with Facebook
                 </button>
+                <!-- <br> -->
                 <div class="g-signin2" data-onsuccess="onSignIn" data-width="225" data-height="36" data-longtitle="true"></div>
+                <!-- <br> -->
+                <!-- <button id="twitterButton" class="mdl-cell--12-col loginButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                    <img src="resources/img/twitter_logo/TwitterLogo_white.png" alt="Twitter">
+                    Sign in with Twitter
+                </button> -->
             </div>
 
             <div id="userControlls">
                 <div class="mdl-grid mdl-grid--no-spacing" id="userInfo">
-                    <img src="http://www.outsystems.com/PortalTheme/img/UserImage.png?23787" class="mdl-cell mdl-cell--6-col mdl-cell--top" id="userImage" alt="User Image">
-                    <h4 class="display-1 mdl-cell mdl-cell--5-col mdl-cell--top mdl-cell--1-offset" id="name">{{userDetails.name}}</h4>
+                    <img data-ng-src={{user.imgUrl}} class="mdl-cell mdl-cell--6-col mdl-cell--top" id="userImage" alt="User Image">
+                    <h4 class="display-1 mdl-cell mdl-cell--5-col mdl-cell--top mdl-cell--1-offset" id="name">{{user.name}}</h4>
                 </div>
                 <div id="menuNav">
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
@@ -80,9 +79,19 @@
                         <i class="material-icons">add</i>
                     </button>
                     <ul class="demo-list-item mdl-list mdl-cell--12-col">
-                        <li class="mdl-list__item" data-ng-repeat="group in groups">
+                        <li class="mdl-list__item">
                             <span class="mdl-list__item-primary-content">
-                                {{group.name}}
+                                Group1
+                            </span>
+                        </li>
+                        <li class="mdl-list__item">
+                            <span class="mdl-list__item-primary-content">
+                                Group2
+                            </span>
+                        </li>
+                        <li class="mdl-list__item">
+                            <span class="mdl-list__item-primary-content">
+                                Group3
                             </span>
                         </li>
                     </ul>
@@ -93,7 +102,6 @@
             </div>
         </div>
         <main class="mdl-layout__content page-content" id="wrapper" data-ng-view>
-
         </main>
     </div>
     
@@ -112,19 +120,23 @@
     <script type="text/javascript" src="resources/js/directives/upgradeMDLComponent.js"></script>
     <script type="text/javascript" src="resources/js/directives/offerCard.js"></script>
     <script type="text/javascript" src="resources/js/directives/userResult.js"></script>
+    <script type="text/javascript" src="resources/js/directives/userRemove.js"></script>
     <script type="text/javascript" src="resources/js/directives/cartItem.js"></script>
+    <script type="text/javascript" src="resources/js/directives/fileModel.js"></script>
 
     <!-- Services -->
     <script type="text/javascript" src="resources/js/services/userService.js"></script>
     <script type="text/javascript" src="resources/js/services/flightService.js"></script>
-    <script type="text/javascript" src="resources/js/services/findUserService.js"></script>
-    <script type="text/javascript" src="resources/js/services/addUserService.js"></script>
+    <script type="text/javascript" src="resources/js/services/groupServices/findUserService.js"></script>
+    <script type="text/javascript" src="resources/js/services/groupServices/addUserService.js"></script>
+    <script type="text/javascript" src="resources/js/services/groupServices/groupUsersService.js"></script>
+    <script type="text/javascript" src="resources/js/services/groupServices/removeUserService.js"></script>
+    <script type="text/javascript" src="resources/js/services/groupServices/fileUploadService.js"></script>
+    <script type="text/javascript" src="resources/js/services/groupServices/setUserCalendarService.js"></script>
     <script type="text/javascript" src="resources/js/services/buyService.js"></script>
     <script type="text/javascript" src="resources/js/services/cartService.js"></script>
-    <script type="text/javascript" src="resources/js/services/offerService.js"></script>
-    <script type="text/javascript" src="resources/js/services/tokenService.js"></script>
-    <script type="text/javascript" src="resources/js/services/loginService.js"></script>
-    <script type="text/javascript" src="resources/js/services/cityImageService.js"></script>
+    <script type="text/javascript" src="resources/js/services/sendGoogleToken.js"></script>
+
 
 </body>
 </html>

@@ -1,0 +1,14 @@
+<div class="mdl-grid" ng-cloak>
+		<div class="mdl-cell--4-col">
+			<img data-ng-src="{{user.img}}" alt="pic" height="100" width="100">
+		</div>
+		<div class="mdl-cell--1-col"></div>
+		<div class="mdl-cell--5-col" id="removeUserName">
+			<h7 id="name"><b>{{user.name}}</b></h7>
+		</div>
+		<div class="mdl-cell--2-col"  id="addButton">
+			<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" data-ng-click="removeUserFromGroup(user)">
+ 				 <i class="material-icons">remove</i>
+			</button>
+		</div>
+</div>	

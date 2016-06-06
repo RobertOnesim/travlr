@@ -1,4 +1,4 @@
-app.controller('HomeController', ['$scope', function($scope) {
+app.controller('HomeController', ['$scope', 'offerService', 'userService', 'cityImageService', function($scope, offerService, userService, cityImageService) {
 	$scope.flightSearch = {
 		departureCity : "",
 		arrivalCity : "",
@@ -7,42 +7,87 @@ app.controller('HomeController', ['$scope', function($scope) {
 		returnDate : ""
 	};
 
-	$scope.offers = [
+	/*$scope.rawOffers = [
 		{
-			imgURL: "https://thecherrylook.files.wordpress.com/2013/11/53a30-20_full1.jpg",
-			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Aenan convallis.",
-			cityName: "Iasi"
+			imgUrl: "http://www.lenas-donau.at/uploads/tx_ahsliderpic/wienkarte_02.jpg",
+			departureCity: "Bucharestttttt",
+			arrivalCity: "Vien",
+			departureDate: "Tue%20Jun%2007%202016%2000:00:00%20GMT+0300%20(GTB%20Daylight%20Time)",
+			lat: 48,
+			lon: 2
 		},
 		{
-			imgURL: "https://thecherrylook.files.wordpress.com/2013/11/53a30-20_full1.jpg",
-			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Aenan convallis.",
-			cityName: "Bucuresti"
+			imgUrl: "http://mw2.google.com/mw-panoramio/photos/medium/59461095.jpg",
+			departureCity: "Bucharest",
+			arrivalCity: "Vien",
+			departureDate: "Tue%20Jun%2007%202016%2000:00:00%20GMT+0300%20(GTB%20Daylight%20Time)",
+			lat: 40,
+			lon: 26
 		},
 		{
-			imgURL: "https://thecherrylook.files.wordpress.com/2013/11/53a30-20_full1.jpg",
-			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Aenan convallis.",
-			cityName: "Iasi"
+			imgUrl: "http://mw2.google.com/mw-panoramio/photos/medium/59461095.jpg",
+			departureCity: "Bucharest",
+			arrivalCity: "Vien",
+			departureDate: "Tue%20Jun%2007%202016%2000:00:00%20GMT+0300%20(GTB%20Daylight%20Time)",
+			lat: 48,
+			lon: -74
 		},
 		{
-			imgURL: "https://thecherrylook.files.wordpress.com/2013/11/53a30-20_full1.jpg",
-			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Aenan convallis.",
-			cityName: "Bucuresti"
+			imgUrl: "http://mw2.google.com/mw-panoramio/photos/medium/59461095.jpg",
+			departureCity: "Bucharest",
+			arrivalCity: "Vien",
+			departureDate: "Tue%20Jun%2007%202016%2000:00:00%20GMT+0300%20(GTB%20Daylight%20Time)",
+			lat: 48,
+			lon: 16
 		},
 		{
-			imgURL: "https://thecherrylook.files.wordpress.com/2013/11/53a30-20_full1.jpg",
-			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Aenan convallis.",
-			cityName: "Iasi"
+			imgUrl: "http://mw2.google.com/mw-panoramio/photos/medium/59461095.jpg",
+			departureCity: "Bucharest",
+			arrivalCity: "Vien",
+			departureDate: "Tue%20Jun%2007%202016%2000:00:00%20GMT+0300%20(GTB%20Daylight%20Time)",
+			lat: -37,
+			lon: 144
 		}
-	];
+	];*/
+
+	$scope.offers = [];
+
+	/*var i;
+	for(i = 0; i < $scope.rawOffers.length; i++) {
+		cityImageService.getImage($scope.rawOffers[i]).success(function(data) {
+			$scope.offers.push(cityImageService.city);
+			console.log(cityImageService.city);
+			console.log(cityImageService.city.imgUrl);
+		})
+	}*/
+
+	/*offerService.getOffers().success(function(data) {
+		$scope.offers = data;
+		console.log(data);
+	});*/
+
+	if(userService.isLoggedin()) {
+		FB.getLoginStatus(function(response) {
+			console.log(response);
+			offerService.getOffers(response.authResponse.accessToken).success(function(data) {
+				$scope.offers = data;
+			});
+		});
+	} else {
+		offerService.getOffers(null).success(function(data) {
+			$scope.offers = data;
+		});
+	}
 
 	$scope.returnFlight = [];
 	$scope.minDate = new Date();
 
 	$scope.searchClick = function(flight) {
 		var string = '#/search/' + flight.departureCity + '/' + flight.arrivalCity + '/' + flight.departureDate;
-		if(flight.returnDate != '') {
+		if(flight.returnDate != '' && flight.returnDate) {
 			string += '/' + flight.returnDate;
 		}
+		console.log(string);
 		window.location.href = string;
 	};
 

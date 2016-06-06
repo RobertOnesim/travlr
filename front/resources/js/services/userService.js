@@ -1,4 +1,4 @@
-app.factory('userService', ['$http', function($http){
+app.factory('userService', ['$http', 'tokenService', function($http, tokenService){
 	return {
 		login: function(network, id) {
 			var user = getUserFronStorage();

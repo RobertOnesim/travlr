@@ -1,13 +1,40 @@
-function getHeaderValues(userService) {
+/*function getHeaderValues(userService, tokenService) {
 	var values = {
 			headers: {
 				'responseType': 'application/json'
 			}
 		};
-	/*if(userService.getToken() != '') {
-		values.headers.userToken = userService.getToken();
-	}*/
+	if(userService.isLoggedin()) {
+		//while(!tokenService.getToken()){}
+		values.headers.userToken = tokenService.getToken(userService.getNetwork());
+		values.headers.userToken = tokenService.getToken(userService.getNetwork());
+		console.log('values');
+		console.log(values);
+		values.headers.network = userService.getNetwork();
+	} else {
+		values.headers.userToken = '';
+		values.headers.network = '';
+	}
 	return values;
+}*/
+
+function getHeaderValues(userService, token) {
+	var values = {
+			headers: {
+				'responseType': 'application/json'
+			}
+		};
+	if(userService.isLoggedin()) {
+		//while(!tokenService.getToken()){}
+		values.headers.userToken = token
+		/*console.log('values');
+		console.log(values);*/
+		values.headers.network = userService.getNetwork();
+	} else {
+		values.headers.userToken = '';
+		values.headers.network = '';
+	}
+	return values.headers;
 }
 
 function addParameter(url, paramName, paramValue) {
@@ -64,7 +91,7 @@ function saveCartToStorage(cart) {
 }
 
 function getUserFronStorage() {
-	var user = {network: ''};
+	var user = {network: '', id: ''};
 	if(!localStorage.user) {
 		return user;
 	}
@@ -79,18 +106,4 @@ function saveUserToStorage(user) {
 function setDisplayElement(querySelector, value) {
 	var element = angular.element(document.querySelector(querySelector));
 	element.css('display', value);
-}
-
-function parseResponseFind(data) {
-	var users = [];
-
-	if(data) {
-		users=data;
-		for (var i = 0; i < data.length; i++) {
-			users[i].name = (data[i].lastName.concat(" ")).concat(data[i].firstName);
-			users[i].id = data[i].id;	
-		}
-		console.log(users);
-		return users;
-	}
 }

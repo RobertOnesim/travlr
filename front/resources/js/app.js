@@ -1,6 +1,6 @@
-var app = angular.module('Travlr', ['ngRoute', 'ngMaterial', 'materialCalendar']);
+var app = angular.module('Travlr', ['ngRoute', 'ngMaterial', 'materialCalendar', 'ngCookies']);
 
-app.config(function($routeProvider, $mdThemingProvider) {
+app.config(function($routeProvider, $mdThemingProvider, $httpProvider) {
 	$routeProvider
 		.when('/', {
 			controller: 'HomeController',
@@ -25,22 +25,7 @@ app.config(function($routeProvider, $mdThemingProvider) {
 	$mdThemingProvider.theme('default')
 		.primaryPalette('amber')
 		.accentPalette('blue');
+	
+	//$httpProvider.defaults.withCredentials = true;
+	//delete $httpProvider.defaults.headers.common['X-Requested-With'];
 });
-
-window.fbAsyncInit = function() {
-        FB.init({
-          appId      : '471546956374592',
-          oath       : true,
-          cookie     : true,
-          xfbml      : true,
-          version    : 'v2.6'
-        });
-      };
-
-      (function(d, s, id){
-         var js, fjs = d.getElementsByTagName(s)[0];
-         if (d.getElementById(id)) {return;}
-         js = d.createElement(s); js.id = id;
-         js.src = "//connect.facebook.net/en_US/sdk.js";
-         fjs.parentNode.insertBefore(js, fjs);
-       }(document, 'script', 'facebook-jssdk'));

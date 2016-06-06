@@ -15,8 +15,9 @@ body {
 	height: 240px;
 }
 
-.offerCards img {
+.offerCards .cardTitle {
 	height: 180px;
+	display: block;
 }
 
 .datePicker {
@@ -159,7 +160,7 @@ body {
 }*/
 
 .cardTitle {
-	height: 11.25em;
+	height: 15em;
 }
 
 #addMemberDialog{
@@ -182,11 +183,3 @@ body {
 #userControlls {
 	display: none;
 }
-
-#removeUserName {
-	overflow: hidden; 
-
-}
-
-
-

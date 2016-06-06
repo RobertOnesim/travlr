@@ -1,6 +1,6 @@
 app.factory('flightService', ['$http', 'userService', function($http, userService){
 	return {
-		getFlights: function(flightSearch) {
+		getFlights: function(flightSearch, token) {
 			var baseURL = 'http://31.5.42.203:1056/flight?';
 			/*var aa = {
 			    "Options": [
@@ -237,7 +237,7 @@ app.factory('flightService', ['$http', 'userService', function($http, userServic
 			        }
 			    ]
 			}*/
-			return $http.get(createFlightURL(flightSearch, baseURL), getHeaderValues(userService))
+			return $http.get(createFlightURL(flightSearch, baseURL, token), getHeaderValues(userService))
 				.success(function(data, status, config, headers) {
 					return parseFlightResponse(data);
 				})
@@ -289,7 +289,7 @@ function parseFlightResponse(data) {
 }
 
 
-function createFlightURL(flightSearch, url) {
+function createFlightURL(flightSearch, url, token) {
 	var date;
 	url = addParameter(url, 'departure-city', flightSearch.departureCity);
 	url = addParameter(url, 'arrival-city', flightSearch.arrivalCity);
@@ -314,6 +314,10 @@ function createFlightURL(flightSearch, url) {
 
 	for(var i = 0; i < flightSearch.stepoverCities.length; i++) {
 		url = addParameter(url, 'stepover-city', flightSearch.stepoverCities[i].name);
+	}
+
+	if(token != null) {
+		url = addParameter(url, 'accessToken', token);
 	}
 
 	return url;

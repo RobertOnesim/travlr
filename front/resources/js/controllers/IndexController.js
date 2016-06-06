@@ -1,8 +1,4 @@
-app.controller('IndexController', ['$scope', 'userService', 'cartService','sendGoogleToken', function($scope, userService, cartService,sendGoogleToken) {
-		
-	$scope.user = {}
-
-
+app.controller('IndexController', ['$scope', 'userService', 'cartService', 'tokenService', 'loginService', function($scope, userService, cartService, tokenService, loginService) {
 	$scope.cartCount = cartService.getCartSize();
 	$scope.badgeOn = false;
 	if($scope.cartCount > 0) {
@@ -27,17 +23,18 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService','sendG
 			if(response.authResponse) {
 				setDisplayElement('#loginButtons', 'none');
 				setDisplayElement('#userControlls', 'block');
-				console.log('logat');
-				console.log(response);
-				userService.login('facebook');
+				/*console.log('logat');
+				console.log(response);*/
+				var token = response.authResponse.accessToken;
+				tokenService.saveToken(token);
 				FB.api('/me', function(response) {
 				      console.log(response);
-				      userService.getGroups(response.id).success(function(data) {
-				      	console.log(data);
-				      });
+				      console.log('token  ' + token);
+				      userService.login('facebook', response.id);
+				      loggedin(token);
 				    });
 			} else {
-				console.log('not authorised or canseled login');
+				//console.log('not authorised or canseled login');
 			}
 		}, {scope: 'email,public_profile,user_events'})
 	};
@@ -45,85 +42,72 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService','sendG
 	window.onSignIn = function(googleUser) {
         // Get some info
         setDisplayElement('#loginButtons', 'none');
-		setDisplayElement('#userControlls', 'block');
-		userService.login('google');
-
-
-		var options = new gapi.auth2.SigninOptionsBuilder(
-        {'scope': 'email https://apps-apis.google.com/a/feeds/calendar/resource/'});
-
-
-        googleUser.grant(options).then(
-		    function(success){
-		     //console.log(JSON.stringify({message: "success", value: success}));
-		    },
-		    function(fail){
-		      alert(JSON.stringify({message: "fail", value: fail}));
-		 });
-
-		var profile = googleUser.getBasicProfile();
-		/*  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.*/
-		$scope.user.name=profile.getName();
-		console.log(profile.getName());
-		$scope.user.id=profile.getEmail();
-		$scope.user.imgUrl= profile.getImageUrl();
- 		//$scope.id_token=googleUser.getAuthResponse().id_token;
-
-  		/* sendGoogleToken.getResponseFromServer($scope.id_token).success(function(data){
-   	 		$scope.user.email = data;			
-   		});*/
-
+        setDisplayElement('#userControlls', 'block');
+		userService.login('google', googleUser.wc.hg);
+		var token = googleUser.getAuthResponse().id_token;
+		loggedin(token);
+		/*console.log(googleUser);
+		console.log(googleUser.getAuthResponse().id_token);*/
     }
+    
 	$scope.home = function() {
 		window.location.href = '#/';
 	};
 
 	$scope.logout = function() {
-		//console.log($scope.getAccessToken());
-		setDisplayElement('#loginButtons', 'block');
-		setDisplayElement('#userControlls', 'none');
-
-
-		userService.logout();
-		FB.logout();
-
+		FB.getLoginStatus(function(response) {
+			logoutFB(response)
+		});
 		var auth2 = gapi.auth2.getAuthInstance();
-    	auth2.signOut().then(function ()  {
+		auth2.signOut().then(function () {
 			userService.logout();
 			setDisplayElement('#loginButtons', 'block');
 			setDisplayElement('#userControlls', 'none');
-
-  		});
-	};
-
-	$scope.getAccessToken = function() {
-		FB.getLoginStatus(function(response) {
-		    statusChangeCallback(response);
 		});
-		return FB.getAuthResponse()['accessToken'];
-	}
+	};
 
 	$scope.logat = function() {
 		$scope.getAccessToken();
 	}
 
+	$scope.test = function() {
+		//onsole.log(tokenService.getToken(userService.getNetwork()));
+		//console.log(gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token)
+		FB.getLoginStatus(function(response) {
+			console.log(response);
+		});
+	}
+
 	$scope.verifyLoginStatus = function() {
 		if(userService.isLoggedin()) {
-			setDisplayElement('#loginButtons', 'none');
-			setDisplayElement('#userControlls', 'block');
+			FB.getLoginStatus(function(response) {
+				var token = response.authResponse.accessToken;
+				//console.log(response);
+				loggedin(token);
+				setDisplayElement('#loginButtons', 'none');
+				setDisplayElement('#userControlls', 'block');
+			});
 		}
+	};
+
+	function loggedin(token) {
+		/*userService.getGroups(token).success(function(data) {
+			console.log(data);
+		});
+		userService.getUserDetails(token).success(function(data) {
+			console.log(data);
+		});
+		loginService.loginServer(token).success(function(data) {
+			console.log(data);
+		});*/
 	}
 }]);
 
-function statusChangeCallback(response) {
-    console.log('statusChangeCallback');
-    console.log(response);
-    if (response.status === 'connected') {
-      	/*setDisplayElement('#loginButtons', 'none');
-      	setDisplayElement('#userControlls', 'block');*/
-    } else if (response.status === 'not_authorized') {
-    	console.log('Please log into this app.');
-    } else {
-       	console.log('Please log into Facebook.');
-    }
+function logoutFB(response) {
+	if(response === 'connected') {
+		setDisplayElement('#loginButtons', 'block');
+		setDisplayElement('#userControlls', 'none');
+		userService.logout();
+		FB.logout();
+	}
 }

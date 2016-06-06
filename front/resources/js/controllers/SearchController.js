@@ -43,10 +43,17 @@ app.controller('SearchController', ['$scope', '$routeParams', 'flightService', '
 	}
 
 	if($scope.flightSearch.departureCity && $scope.flightSearch.arrivalCity && $scope.flightSearch.departureDate) {
-		flightService.getFlights($scope.flightSearch).success(function(data) {
-			$scope.flights = data.Options;
-		});
-		//$scope.flights = flightService.getFlights();
+		if(userService.isLoggedin()) {
+			FB.getLoginStatus(function(response) {
+				flightService.getFlights($scope.flightSearch, response.authResponse.accessToken).success(function(data) {
+				$scope.flights = data.Options;
+			});
+			});
+		} else {
+			flightService.getFlights($scope.flightSearch, null).success(function(data) {
+				$scope.flights = data.Options;
+			});
+		}
 	}
 
 	$scope.searchClick = function(flight, baseURL) {

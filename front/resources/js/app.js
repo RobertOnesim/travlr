@@ -26,5 +26,6 @@ app.config(function($routeProvider, $mdThemingProvider, $httpProvider) {
 		.primaryPalette('amber')
 		.accentPalette('blue');
 	
-	$httpProvider.defaults.withCredentials = true;
+	//$httpProvider.defaults.withCredentials = true;
+	//delete $httpProvider.defaults.headers.common['X-Requested-With'];
 });

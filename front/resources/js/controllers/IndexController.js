@@ -23,23 +23,15 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService', 'toke
 			if(response.authResponse) {
 				setDisplayElement('#loginButtons', 'none');
 				setDisplayElement('#userControlls', 'block');
-				console.log('logat');
-				console.log(response);
+				/*console.log('logat');
+				console.log(response);*/
 				var token = response.authResponse.accessToken;
 				tokenService.saveToken(token);
 				FB.api('/me', function(response) {
 				      console.log(response);
 				      console.log('token  ' + token);
 				      userService.login('facebook', response.id);
-				      userService.getGroups(token).success(function(data) {
-				      	console.log(data);
-				      });
-				      userService.getUserDetails(token).success(function(data) {
-				      	console.log(data);
-				      });
-				      loginService.loginServer().success(function(data) {
-
-				      });
+				      loggedin(token);
 				    });
 			} else {
 				//console.log('not authorised or canseled login');
@@ -49,23 +41,13 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService', 'toke
 
 	window.onSignIn = function(googleUser) {
         // Get some info
-        var login = angular.element(document.querySelector('#loginButtons'));
-		var userContolls = angular.element(document.querySelector('#userControlls'));
-		login.css('display', 'none');
-		userContolls.css('display', 'block');
+        setDisplayElement('#loginButtons', 'none');
+        setDisplayElement('#userControlls', 'block');
 		userService.login('google', googleUser.wc.hg);
 		var token = googleUser.getAuthResponse().id_token;
-		userService.getGroups(token).success(function(data) {
-			console.log(data);
-		});
-		userService.getUserDetails(token).success(function(data) {
-			console.log(data);
-		});
-		loginService.loginServer().success(function(data) {
-
-		});
-		console.log(googleUser);
-		console.log(googleUser.getAuthResponse().id_token);
+		loggedin(token);
+		/*console.log(googleUser);
+		console.log(googleUser.getAuthResponse().id_token);*/
     }
     
 	$scope.home = function() {
@@ -84,34 +66,41 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService', 'toke
 		});
 	};
 
-	$scope.getAccessToken = function() {
-		FB.getLoginStatus(function(response) {
-		    statusChangeCallback(response);
-		});
-		return FB.getAuthResponse()['accessToken'];
-	}
-
 	$scope.logat = function() {
 		$scope.getAccessToken();
 	}
 
 	$scope.test = function() {
-		console.log(tokenService.getToken(userService.getNetwork()));
+		//onsole.log(tokenService.getToken(userService.getNetwork()));
 		//console.log(gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token)
+		FB.getLoginStatus(function(response) {
+			console.log(response);
+		});
 	}
 
 	$scope.verifyLoginStatus = function() {
 		if(userService.isLoggedin()) {
-			/*userService.getUserDetails().success(function(data) {
-				$scope.userDetails = data;
+			FB.getLoginStatus(function(response) {
+				var token = response.authResponse.accessToken;
+				//console.log(response);
+				loggedin(token);
+				setDisplayElement('#loginButtons', 'none');
+				setDisplayElement('#userControlls', 'block');
 			});
-			userService.getGroups().success(function(data) {
-				$scope.groups = data;
-			});*/
-			setDisplayElement('#loginButtons', 'none');
-			setDisplayElement('#userControlls', 'block');
 		}
 	};
+
+	function loggedin(token) {
+		/*userService.getGroups(token).success(function(data) {
+			console.log(data);
+		});
+		userService.getUserDetails(token).success(function(data) {
+			console.log(data);
+		});
+		loginService.loginServer(token).success(function(data) {
+			console.log(data);
+		});*/
+	}
 }]);
 
 function logoutFB(response) {

@@ -47,6 +47,7 @@ public class CalendarController {
             @RequestParam("file") MultipartFile file){
             try {
             	System.out.println("yes");
+            	ManagerEvent.deleteEvent(userId,groupId);
             	
             	InputStream fin = file.getInputStream();		
             	CalendarBuilder builder = new CalendarBuilder();
@@ -63,6 +64,7 @@ public class CalendarController {
             	        if(property.getName() == "SUMMARY") name=property.getValue();
             	        System.out.println("Property [" + property.getName() + ", " + property.getValue() + "]");
             	    }
+            	    ManagerEvent.insertEvent(userId, groupId, name, startDate);
             	}
             } catch (Exception e) {
             	System.out.println("Incorect file");

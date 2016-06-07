@@ -3,6 +3,6 @@ app.directive('userResult', function() {
 		restrict: 'E',
 		replace: 'true',
 		scope: false,
-		templateUrl: 'views/directives/userResult.html'
+		templateUrl: 'views/directives/groupMembers/userResult.html'
 	};
 });

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import flights1.flights1.calendar.ManagerEvent;
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.Component;
@@ -52,22 +53,23 @@ public class CalendarController {
             	Calendar calendar = builder.build(fin);
             	for (Iterator i = calendar.getComponents().iterator(); i.hasNext();) {
             	    Component component = (Component) i.next();
-            	    //System.out.println("Component [" + component.getName() + "]");
-
+           	    
+            	    String startDate="",name="";
             	    for (Iterator j = component.getProperties().iterator(); j.hasNext();) {
             	        Property property = (Property) j.next();
             	        if(property.getName() == "DTSTART"){
-            	        	Date date = new Date(property.getValue());
-            	        	 //System.out.println("Data" + date);
-            	        }
-            	       // System.out.println("Property [" + property.getName() + ", " + property.getValue() + "]");
+            	        	startDate = property.getValue();
+                    	}
+            	        if(property.getName() == "SUMMARY") name=property.getValue();
+            	        System.out.println("Property [" + property.getName() + ", " + property.getValue() + "]");
             	    }
             	}
             } catch (Exception e) {
             	System.out.println("Incorect file");
             }
+            
+            
     }
-	
 	
 	
 	

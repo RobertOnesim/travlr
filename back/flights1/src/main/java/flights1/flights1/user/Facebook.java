@@ -20,9 +20,12 @@ import flights1.flights1.Utilitare;
 
 public class Facebook {
 	
-	public static String getPhoto(){
-		String https_url ="https://graph.facebook.com/v2.6/1206723179359743/picture"+
+	public static String getPhoto(String accessToken,String userId){
+		String https_url ="https://graph.facebook.com/v2.6/"+userId+"/picture"+
+				"?access_token="+accessToken;
+		/*String https_url ="https://graph.facebook.com/v2.6/1206723179359743/picture"+
 				"?access_token=EAAGs3pTUYkABADYlmbswWcCVkGTebH6r2awxaVBL3y6CR71geUADZB4eNT87k413g1mZAfu7MpMD6CLRfZAtItuZCimeaDtbxMMiukbE0C3NuxqVBHYgl6xEfISN6weZBpL9ZBqzKKdV5I0b8TpzUqWu9JhBUu5Rt849ccJzYaLwZDZD";
+		*/
 		URL url;
 		URL obj;
 		String urlPoza = null;
@@ -44,11 +47,13 @@ public class Facebook {
 		return urlPoza;
 	}
 	
-	public static JSONObject getEvents(){
+	public static JSONObject getEvents(String accessToken,String userId){
 		JSONObject events = null;
-		String https_url ="https://graph.facebook.com/v2.6/1206723179359743/events?fields=start_time,place"+
+		String https_url ="https://graph.facebook.com/v2.6/"+userId+"/events?fields=start_time,place"+
+				"&access_token="+accessToken;
+		/*String https_url ="https://graph.facebook.com/v2.6/1206723179359743/events?fields=start_time,place"+
 				"&access_token=EAAGs3pTUYkABAM8SftZAkONMitFeFYS96QWBIZCcnDZCo3HRC8uuWt29VPsGSLGSVCtfDlmOBcQrnQIZCtObxZBZAZB1ZCD4B0Y9KcxfVrFg0rIxDeEpNBqjGmY7wZAzrJUvUB6RmlUGaLqMryg3fZAWtcmhVNsT8XFxfibXEIDV9ZCMQZDZD";
-
+		*/
 		//"http://www.graph.facebook.com/v2.6/1206723179359743/events";
 		//" me?fields=id,name,events{start_time,place}";
 		URL url;
@@ -70,9 +75,10 @@ public class Facebook {
 		return events;
 	}
 	
-	public static String getName(String idUser){
+	public static String getName(String accessToken,String userId){
 		JSONObject date = null;
-		String https_url ="https://graph.facebook.com/v2.6/1206723179359743?access_token=EAAGs3pTUYkABAM8SftZAkONMitFeFYS96QWBIZCcnDZCo3HRC8uuWt29VPsGSLGSVCtfDlmOBcQrnQIZCtObxZBZAZB1ZCD4B0Y9KcxfVrFg0rIxDeEpNBqjGmY7wZAzrJUvUB6RmlUGaLqMryg3fZAWtcmhVNsT8XFxfibXEIDV9ZCMQZDZD";
+		String https_url ="https://graph.facebook.com/v2.6/"+userId+"?access_token="+accessToken;
+		//String https_url ="https://graph.facebook.com/v2.6/1206723179359743?access_token=EAAGs3pTUYkABAM8SftZAkONMitFeFYS96QWBIZCcnDZCo3HRC8uuWt29VPsGSLGSVCtfDlmOBcQrnQIZCtObxZBZAZB1ZCD4B0Y9KcxfVrFg0rIxDeEpNBqjGmY7wZAzrJUvUB6RmlUGaLqMryg3fZAWtcmhVNsT8XFxfibXEIDV9ZCMQZDZD";
 		URL url;
 		URL obj;
 		try {

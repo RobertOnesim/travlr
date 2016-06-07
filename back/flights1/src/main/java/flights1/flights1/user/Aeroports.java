@@ -17,9 +17,9 @@ import flights1.flights1.Utilitare;
 
 public class Aeroports {
 
-	public static String getCityByCode(String code){
+	public static City getCityByCode(String code){
 		JSONObject raspuns=null;
-		String city=null;
+		City city=new City();
 		String https_url ="https://airport.api.aero/airport/"+code+"?user_key=31281da2f45a68ef51c08a9228b6037d";
 		URL obj=null,url=null;
 		try {
@@ -32,7 +32,9 @@ public class Aeroports {
 			raspunsInformatii = raspunsInformatii.substring(9,raspunsInformatii.lastIndexOf(")"));
 			System.out.println("raspuns informatii   "+raspunsInformatii);
 			raspuns = (JSONObject) new JSONParser().parse(raspunsInformatii);
-			city=(String)((JSONObject)((JSONArray)raspuns.get("airports")).get(0)).get("city");
+			city.setName((String)((JSONObject)((JSONArray)raspuns.get("airports")).get(0)).get("city"));
+			city.setLatitude((double)((JSONObject)((JSONArray)raspuns.get("airports")).get(0)).get("lat"));
+			city.setLongitude((double)((JSONObject)((JSONArray)raspuns.get("airports")).get(0)).get("lng"));
 		} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

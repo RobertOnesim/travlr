@@ -2,6 +2,8 @@ package flights1.flights1.user;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -15,28 +17,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class FacebookController {
 	@RequestMapping("/events")
-	public @ResponseBody List <EventPlaceDate> oferireEvents(){
-		JSONObject eventsJson = Facebook.getEvents();
+	public @ResponseBody List <EventPlaceDate> oferireEvents(@RequestParam(required=true) String accessToken, @RequestParam(required=true) String userId){
+		JSONObject eventsJson = Facebook.getEvents(accessToken, userId);
 		List <EventPlaceDate> events = Facebook.prelucrareJson(eventsJson); 
 		return events;
 	}
 	
 	@RequestMapping("/photo")
-	public String oferirePoza(){
-		return (String) Facebook.getPhoto();
+	public String oferirePoza(@RequestParam(required=true) String accessToken, @RequestParam(required=true) String userId){
+		return (String) Facebook.getPhoto(accessToken, userId);
 	}
 	
 	@RequestMapping("/login")
-	public void login(@RequestParam(required=true) String idUser){/*,  @RequestHeader("userToken") String userToken){*/
+	public void login(@RequestParam(required=true) String accessToken, @RequestParam(required=true) String userId){/*,  @RequestHeader("userToken") String userToken){*/
 		ManagerUser mu = new ManagerUser();
-	//	System.out.println(userToken);
-		User user = mu.getUserById(idUser);
+	//System.out.println(bla);
+	//		System.out.println(userToken);
+		User user = mu.getUserById(userId);
 		if (user==null){
-			String nume = Facebook.getName(idUser);
-			String imgUrl = Facebook.getPhoto();
+			String nume = Facebook.getName(accessToken, userId);
+			String imgUrl = Facebook.getPhoto(accessToken, userId);
 			
 			//System.out.println(nume);
-			mu.addUser(idUser, nume, imgUrl);
+			mu.addUser(userId, nume, imgUrl);
 		}else{
 			System.out.println("in controller "+user.getId()+user.getLastName()+user.getImgUrl());
 		}

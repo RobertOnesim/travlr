@@ -4,15 +4,37 @@ public class Recomandation {
 	private String departudeIata;
 	private String departureCity;
 	private String arrivalIata;
+	private Integer arrivalLat;
+	private Integer arrivalLong;
 	private String arrivalCity;
 	private String date;
+	
 	public Recomandation(String departureIata, String departureCity, String arrivalIata, String arrivalCity, String date){
+		System.out.println(departureIata+departureCity+arrivalIata+arrivalCity+date);
 		this.departudeIata=departureIata;
 		this.departureCity=departureCity;
 		this.arrivalIata=arrivalIata;
 		this.arrivalCity=arrivalCity;
 		this.date=date;
-		
+		System.out.println("ARRIVALIATA   "+arrivalIata);
+		City city = Aeroports.getCityByCode(arrivalIata);
+		System.out.println((city==null) + "CITY");
+		System.out.println(city.getLatitude()+city.getLongitude() + " LAT LONG");
+		this.arrivalLat = city.getLatitude();
+		this.arrivalLong = city.getLongitude();
+	}
+	
+	public Integer getArrivalLat() {
+		return arrivalLat;
+	}
+	public void setArrivalLat(Integer arrivalLat) {
+		this.arrivalLat = arrivalLat;
+	}
+	public Integer getArrivalLong() {
+		return arrivalLong;
+	}
+	public void setArrivalLong(Integer arrivalLong) {
+		this.arrivalLong = arrivalLong;
 	}
 	public String getDepartudeIata() {
 		return departudeIata;

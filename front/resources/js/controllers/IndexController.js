@@ -42,12 +42,34 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService', 'toke
 	window.onSignIn = function(googleUser) {
         // Get some info
         setDisplayElement('#loginButtons', 'none');
-        setDisplayElement('#userControlls', 'block');
-		userService.login('google', googleUser.wc.hg);
-		var token = googleUser.getAuthResponse().id_token;
-		loggedin(token);
-		/*console.log(googleUser);
-		console.log(googleUser.getAuthResponse().id_token);*/
+		setDisplayElement('#userControlls', 'block');
+		userService.login('google');
+
+
+		var options = new gapi.auth2.SigninOptionsBuilder(
+        {'scope': 'email https://apps-apis.google.com/a/feeds/calendar/resource/'});
+
+
+        googleUser.grant(options).then(
+		    function(success){
+		     //console.log(JSON.stringify({message: "success", value: success}));
+		    },
+		    function(fail){
+		      alert(JSON.stringify({message: "fail", value: fail}));
+		 });
+
+		var profile = googleUser.getBasicProfile();
+		/*  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.*/
+		$scope.user.name=profile.getName();
+		console.log(profile.getName());
+		$scope.user.id=profile.getEmail();
+		$scope.user.imgUrl= profile.getImageUrl();
+ 		//$scope.id_token=googleUser.getAuthResponse().id_token;
+
+  		/* sendGoogleToken.getResponseFromServer($scope.id_token).success(function(data){
+   	 		$scope.user.email = data;			
+   		});*/
+
     }
     
 	$scope.home = function() {

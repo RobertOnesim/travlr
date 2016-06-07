@@ -14,7 +14,7 @@ app.controller('CartController', ['$scope', 'userService', 'buyService', 'cartSe
 
 	$scope.updateFlightAmount = function(flight, amount) {
 		cartService.updateFlightAmount(flight, amount);
-		$scope.items = userService.getCart();
+		$scope.items = cartService.getCart();
 	}
 
 	$scope.buy = function() {

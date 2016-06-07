@@ -26,7 +26,8 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService', 'toke
 
 	$scope.groupName ="";
 
-	$scope.createGroup= function(group){
+	$scope.newGroup= function(group){
+		console.log(group);
 		createGroupService.createGroup(group).success(function(data) {
 			userService.getGroups().success(function(data) {
 				$scope.groups = data;

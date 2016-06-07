@@ -1,4 +1,4 @@
-var domain = 'http://31.5.42.203:1056/';
+var domain = 'http://172.20.10.2:1056/';
 
 function getHeaderValues(userService, token) {
 	var values = {

@@ -2,7 +2,7 @@ app.factory('createGroupService', ['$http', 'userService', function($http, userS
 	return {
 		createGroup: function(name) {
 			baseURL = domain + 'createGroup?';
-			return $http.get(createGropuURL(userService.getId(), baseURL, name))
+			return $http.get(createGroupURL(userService.getId(), baseURL, name))
 				.success(function(data, status, config, headers) {
 					return parseGropuResponse(data);
 				})
@@ -14,6 +14,7 @@ app.factory('createGroupService', ['$http', 'userService', function($http, userS
 }]);
 
 function createGroupURL(userID, baseURL, name) {
+	console.log(userID);
 	baseURL =  addParameter(baseURL, 'groupName', name);
 	baseURL =  addParameter(baseURL, 'userId', userID);
 	return baseURL;

@@ -1,0 +1,29 @@
+<md-dialog aria-label="Add new member"  ng-cloak ng-controller="GroupController">
+  <form id="addUser"  name="addUser" data-upgrade-component>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Create new group</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+       		<i class="material-icons" aria-label="Close dialog">close</i>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content" id="addMemberDialog">
+          <div class="mdl-grid mdl-cell--12-col mdl-cell--3-offset" >
+            <md-input-container id="inputUser">
+              <label for="findUser">Group Name</label>
+               <input id="findUser" data-ng-model="groupName" required="true">
+            </md-input-container>
+          </div>
+        </div>
+
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent searchButton"  data-ng-click="newGroup(groupName)" style="margin-right:20px;">
+        Create
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

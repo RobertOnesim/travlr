@@ -1,4 +1,4 @@
-app.controller('IndexController', ['$scope', 'userService', 'cartService', 'tokenService', 'loginService', 'profilePictureService', 'offerService', 'createGroupService', function($scope, userService, cartService, tokenService, loginService, profilePictureService, offerService, createGroupService) {
+app.controller('IndexController', ['$scope', 'userService', 'cartService', 'tokenService', 'loginService', '$mdDialog','$mdMedia', 'profilePictureService', 'offerService', 'createGroupService','sendGoogleToken', function($scope, userService, cartService, tokenService, loginService, $mdDialog,$mdMedia, profilePictureService, offerService, createGroupService,sendGoogleToken) {
 	$scope.cartCount = cartService.getCartSize();
 	$scope.badgeOn = false;
 	if($scope.cartCount > 0) {
@@ -18,9 +18,21 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService', 'toke
 		name: userService.getName(),
 		imgUrl: ""
 	};
+	console.log($scope.user);
 
 	$scope.visitCart = function() {
 		window.location.href = "#/cart";
+	}
+
+	$scope.groupName ="";
+
+	$scope.createGroup= function(group){
+		createGroupService.createGroup(group).success(function(data) {
+			userService.getGroups().success(function(data) {
+				$scope.groups = data;
+			});
+		})
+
 	}
 
 	$scope.FBLogin = function() {
@@ -69,7 +81,7 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService', 'toke
 		      alert(JSON.stringify({message: "fail", value: fail}));
 		 });
 
-        userService.login('google', googleUser.getBasicProfile().getId(), googleUser.getBasicProfile().getName());
+        //userService.login('google', googleUser.getBasicProfile().getId(), googleUser.getBasicProfile().getName());
 		var profile = googleUser.getBasicProfile();
 		/*  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.*/
 		$scope.user.name=profile.getName();
@@ -77,11 +89,11 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService', 'toke
 		$scope.user.id=profile.getEmail();
 		$scope.user.imgUrl= profile.getImageUrl();
 		console.log($scope.user.imgUrl);
+		userService.login('google', $scope.user.id, googleUser.getBasicProfile().getName());
+		loggedin(googleUser.getAuthResponse().id_token);
  		//$scope.id_token=googleUser.getAuthResponse().id_token;
 
-  		/* sendGoogleToken.getResponseFromServer($scope.id_token).success(function(data){
-   	 		$scope.user.email = data;			
-   		});*/
+  		sendGoogleToken.getResponseFromServer($scope.user);
 
     }
     
@@ -90,6 +102,7 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService', 'toke
 	};
 
 	$scope.logout = function() {
+		$scope.offers = [];
 		FB.getLoginStatus(function(response) {
 			logoutFB(response)
 		});
@@ -103,7 +116,6 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService', 'toke
 			name: "",
 			imgUrl: ""
 		};
-		$scope.offers = [];
 	};
 
 	$scope.logat = function() {
@@ -136,29 +148,37 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService', 'toke
 	};
 
 	function loggedin(token) {
-		userService.getGroups(token).success(function(data) {
-			console.log(data);
+		userService.getGroups().success(function(data) {
+			$scope.groups = data;
 		});
 		/*userService.getUserDetails(token).success(function(data) {
 			console.log(data);
 		});*/
 		loginService.loginServer(token).success(function(data) {
-			console.log(data);
+			//console.log(data);
 		});
 		offerService.getOffers(token).success(function(data) {
 			$scope.offers = data;
 		});
 	}
 
-	$scope.createGroup = function() {
-		createGroupService.createGroup(name).success(function(data) {
-
-		})
-	}
-
 	$scope.goToGroup = function(id) {
 		window.location.href = "#/group/" + id;
 	}
+
+	$scope.createGroup = function(ev) {
+        $mdDialog.show({
+          controller: DialogController,
+          templateUrl: 'views/directives/groupMembers/newGroup.html',
+          parent: angular.element(document.body),
+          targetEvent: ev,
+        });
+        $scope.$watch(function() {
+          return $mdMedia('xs') || $mdMedia('sm');
+        });
+    };
+    console.log($scope.user);
+
 }]);
 
 function logoutFB(response) {
@@ -168,4 +188,12 @@ function logoutFB(response) {
 		userService.logout();
 		FB.logout();
 	}
+}
+function DialogController($scope, $mdDialog) {
+  $scope.hide = function() {
+    $mdDialog.hide();
+  };
+  $scope.cancel = function() {
+    $mdDialog.cancel();
+  };
 }

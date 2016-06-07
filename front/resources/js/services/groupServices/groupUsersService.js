@@ -1,8 +1,8 @@
 app.factory('groupUsersService', ['$http', function($http) {
 	return {
 		getUsers: function(groupId) {
-			var baseURL = 'http://31.5.42.203:1056/groupUsers?';
- 			return $http.get(createGroupURL(groupId, baseURL))
+			var baseURL = domain + 'groupUsers?';
+ 			return $http.get(createGroupUsersURL(groupId, baseURL))
  				.success(function(data) {
                     console.log(data);
  				return parseResponseFind(data);
@@ -14,7 +14,7 @@ app.factory('groupUsersService', ['$http', function($http) {
     }    		
 }]);
 
-function createGroupURL(groupId, url) {
+function createGroupUsersURL(groupId, url) {
 	url = addParameter(url, 'groupId', groupId);
 	return url;
 };

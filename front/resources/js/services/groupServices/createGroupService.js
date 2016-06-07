@@ -16,7 +16,6 @@ app.factory('createGroupService', ['$http', 'userService', function($http, userS
 function createGroupURL(userID, baseURL, name) {
 	baseURL =  addParameter(baseURL, 'groupName', name);
 	baseURL =  addParameter(baseURL, 'userId', userID);
-	baseURL = addParameter(baseURL, 'accessToken', token);
 	return baseURL;
 }
 

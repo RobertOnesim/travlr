@@ -1,7 +1,7 @@
 app.service('getDataForCalendar', ['$http', function ($http) {
   return {
         getData: function(group) {
-            var baseURL = 'http://31.5.42.203:1056/calendar/search?';
+            var baseURL = domain + 'calendar/search?';
             return $http.get(createSetCalendarURL(group, baseURL))
                 .success(function(data) {
                    return data;

@@ -146,7 +146,7 @@ app.controller("GroupController", function($scope, $filter, $q, $timeout, $log,$
         };  
 
   });
-function DialogController($scope, $mdDialog,groupUsersService) {
+function DialogController($scope, $mdDialog) {
   $scope.hide = function() {
     $mdDialog.hide();
   };

@@ -1,7 +1,7 @@
 app.service('setUserCalendarService', ['$http', function ($http) {
   return {
         setCalendar: function(user,group) {
-            var baseURL = 'http://95.76.254.97:1056/setCalendar?';
+            var baseURL = domain + 'setCalendar?';
             return $http.get(createSetCalendarURL(user,group, baseURL))
                 .success(function(data) {
                    return data;

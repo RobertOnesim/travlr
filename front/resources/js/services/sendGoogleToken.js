@@ -1,8 +1,8 @@
 app.factory('sendGoogleToken', ['$http', function($http) {
 	return {
-		getResponseFromServer: function(token) {
-			var baseURL = domain + 'tokensignin?';
- 			return $http.get(createTokenURL(token, baseURL))
+		getResponseFromServer: function(user) {
+			var baseURL = domain + 'loginGoogle?';
+ 			return $http.get(createTokenURL(user, baseURL))
  				.success(function(data) {
  				   return data;
         	})
@@ -12,7 +12,9 @@ app.factory('sendGoogleToken', ['$http', function($http) {
         }
     }    		
 }]);
-function createTokenURL(token, url) {
-	url = addParameter(url, 'token', token);
+function createTokenURL(user, url) {
+	url = addParameter(url, 'userId', user.id);
+    url = addParameter(url, 'userName', user.name);
+    url = addParameter(url, 'imgUrl', user.imgUrl);
 	return url;
 };

@@ -60,7 +60,7 @@
             <div id="userControlls">
                 <div class="mdl-grid mdl-grid--no-spacing" id="userInfo">
                     <img data-ng-src="{{user.imgUrl}}" class="mdl-cell mdl-cell--6-col mdl-cell--top" id="userImage" alt="User Image">
-                    <h4 class="display-1 mdl-cell mdl-cell--5-col mdl-cell--top mdl-cell--1-offset" id="name" data-ng-model="user"></h4>
+                    <h4 class="display-1 mdl-cell mdl-cell--5-col mdl-cell--top mdl-cell--1-offset" id="name">{{user.name}}</h4>
                 </div>
                 <div id="menuNav">
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
@@ -72,13 +72,13 @@
                 </div>
                 <div class="mdl-grid mdl-grid--no-spacing" id="groups">
                     <h4 class="display-1 mdl-cell--6-col">Groups</h4>
-                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-js-ripple-effect mdl-cell--1-col" id="createGroup">
+                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-js-ripple-effect mdl-cell--1-col" id="createGroup" data-ng-click="createGroup()">
                         <i class="material-icons">add</i>
                     </button>
                     <ul class="demo-list-item mdl-list mdl-cell--12-col">
-                        <li class="mdl-list__item" data-ng-repeat="group in groups" data-ng-click="goToGroup(group.id)">
+                        <li class="mdl-list__item" data-ng-repeat="group in groups" data-ng-click="goToGroup(group.groupId)">
                             <span class="mdl-list__item-primary-content">
-                                {{group.name}}
+                                {{group.groupName}}
                             </span>
                         </li>
                     </ul>

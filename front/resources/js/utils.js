@@ -1,22 +1,4 @@
-/*function getHeaderValues(userService, tokenService) {
-	var values = {
-			headers: {
-				'responseType': 'application/json'
-			}
-		};
-	if(userService.isLoggedin()) {
-		//while(!tokenService.getToken()){}
-		values.headers.userToken = tokenService.getToken(userService.getNetwork());
-		values.headers.userToken = tokenService.getToken(userService.getNetwork());
-		console.log('values');
-		console.log(values);
-		values.headers.network = userService.getNetwork();
-	} else {
-		values.headers.userToken = '';
-		values.headers.network = '';
-	}
-	return values;
-}*/
+var domain = 'http://31.5.42.203:1056/';
 
 function getHeaderValues(userService, token) {
 	var values = {

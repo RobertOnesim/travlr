@@ -37,7 +37,7 @@ app.controller("GroupController", function($scope, $filter, $q, $timeout, $log,$
         });
     };
 
-    /*groupUsersService.getUsers($scope.userSearch.idGroup).success(function(data) {
+    groupUsersService.getUsers($scope.userSearch.idGroup).success(function(data) {
 			$scope.usersGroup = data;
             var userIn = false;
             for(var index = 0; index<$scope.usersGroup.length;index++){
@@ -50,7 +50,7 @@ app.controller("GroupController", function($scope, $filter, $q, $timeout, $log,$
                 return;
             }
     	});
-*/
+
     $scope.removeUserFromGroup = function(user){
     	$scope.userSearch.idUser=user.id;
     	removeUserService.addUser($scope.userSearch).success(function(data){

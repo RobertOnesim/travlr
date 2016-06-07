@@ -1,4 +1,4 @@
-app.controller('IndexController', ['$scope', 'userService', 'cartService', 'tokenService', 'loginService', function($scope, userService, cartService, tokenService, loginService) {
+app.controller('IndexController', ['$scope', 'userService', 'cartService', 'tokenService', 'loginService', 'profilePictureService', 'offerService', 'createGroupService', function($scope, userService, cartService, tokenService, loginService, profilePictureService, offerService, createGroupService) {
 	$scope.cartCount = cartService.getCartSize();
 	$scope.badgeOn = false;
 	if($scope.cartCount > 0) {
@@ -13,6 +13,11 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService', 'toke
 			$scope.badgeOn = false;
 		}
 	}
+
+	$scope.user = {
+		name: userService.getName(),
+		imgUrl: ""
+	};
 
 	$scope.visitCart = function() {
 		window.location.href = "#/cart";
@@ -30,7 +35,14 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService', 'toke
 				FB.api('/me', function(response) {
 				      console.log(response);
 				      console.log('token  ' + token);
-				      userService.login('facebook', response.id);
+				      userService.login('facebook', response.id, response.name);
+				      $scope.user.name =userService.getName();
+
+				      profilePictureService.getUrl(token).success(function(data) {
+				      	$scope.user.imgUrl = data;
+				      	console.log($scope.user);
+				      })
+				      
 				      loggedin(token);
 				    });
 			} else {
@@ -43,7 +55,6 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService', 'toke
         // Get some info
         setDisplayElement('#loginButtons', 'none');
 		setDisplayElement('#userControlls', 'block');
-		userService.login('google');
 
 
 		var options = new gapi.auth2.SigninOptionsBuilder(
@@ -58,12 +69,14 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService', 'toke
 		      alert(JSON.stringify({message: "fail", value: fail}));
 		 });
 
+        userService.login('google', googleUser.getBasicProfile().getId(), googleUser.getBasicProfile().getName());
 		var profile = googleUser.getBasicProfile();
 		/*  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.*/
 		$scope.user.name=profile.getName();
 		console.log(profile.getName());
 		$scope.user.id=profile.getEmail();
 		$scope.user.imgUrl= profile.getImageUrl();
+		console.log($scope.user.imgUrl);
  		//$scope.id_token=googleUser.getAuthResponse().id_token;
 
   		/* sendGoogleToken.getResponseFromServer($scope.id_token).success(function(data){
@@ -86,6 +99,11 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService', 'toke
 			setDisplayElement('#loginButtons', 'block');
 			setDisplayElement('#userControlls', 'none');
 		});
+		$scope.user = {
+			name: "",
+			imgUrl: ""
+		};
+		$scope.offers = [];
 	};
 
 	$scope.logat = function() {
@@ -105,7 +123,12 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService', 'toke
 			FB.getLoginStatus(function(response) {
 				var token = response.authResponse.accessToken;
 				//console.log(response);
+
 				loggedin(token);
+				$scope.user.name = userService.getName();
+				profilePictureService.getUrl(token).success(function(data) {
+					$scope.user.imgUrl = data;
+				})
 				setDisplayElement('#loginButtons', 'none');
 				setDisplayElement('#userControlls', 'block');
 			});
@@ -113,15 +136,28 @@ app.controller('IndexController', ['$scope', 'userService', 'cartService', 'toke
 	};
 
 	function loggedin(token) {
-		/*userService.getGroups(token).success(function(data) {
+		userService.getGroups(token).success(function(data) {
 			console.log(data);
 		});
-		userService.getUserDetails(token).success(function(data) {
-			console.log(data);
-		});
-		loginService.loginServer(token).success(function(data) {
+		/*userService.getUserDetails(token).success(function(data) {
 			console.log(data);
 		});*/
+		loginService.loginServer(token).success(function(data) {
+			console.log(data);
+		});
+		offerService.getOffers(token).success(function(data) {
+			$scope.offers = data;
+		});
+	}
+
+	$scope.createGroup = function() {
+		createGroupService.createGroup(name).success(function(data) {
+
+		})
+	}
+
+	$scope.goToGroup = function(id) {
+		window.location.href = "#/group/" + id;
 	}
 }]);
 

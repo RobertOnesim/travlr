@@ -1,7 +1,7 @@
 app.factory('loginService', ['$http', 'userService', 'tokenService', function($http, userService, tokenService){
 	return {
 		loginServer: function(token) {
-			baseURL = 'http://31.5.42.203:1056/login?';
+			baseURL = domain + 'login?';
 			return $http.get(createLoginURL(userService.getId(), baseURL, token), getHeaderValues(userService, tokenService))
 				.success(function(data, status, config, headers) {
 					return parseLoginResponse(data);

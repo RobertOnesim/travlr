@@ -21,10 +21,10 @@ function createCityPhotoURL(cityCoordinates) {
 	baseURL =  addParameter(baseURL, 'set', 'public');
 	baseURL =  addParameter(baseURL, 'from', '0');
 	baseURL =  addParameter(baseURL, 'to', '1');
-	baseURL =  addParameter(baseURL, 'minx', cityCoordinates.lon);
-	baseURL =  addParameter(baseURL, 'miny', cityCoordinates.lat);
-	baseURL =  addParameter(baseURL, 'maxx', cityCoordinates.lon + 1);
-	baseURL =  addParameter(baseURL, 'maxy', cityCoordinates.lat + 1);
+	baseURL =  addParameter(baseURL, 'minx', cityCoordinates.arrivalLong);
+	baseURL =  addParameter(baseURL, 'miny', cityCoordinates.arrivalLat);
+	baseURL =  addParameter(baseURL, 'maxx', cityCoordinates.arrivalLong + 1);
+	baseURL =  addParameter(baseURL, 'maxy', cityCoordinates.arrivalLat + 1);
 	baseURL =  addParameter(baseURL, 'size', 'medium');
 	baseURL =  addParameter(baseURL, 'mapfilter', 'true');
 	baseURL =  addParameter(baseURL, 'callback', 'JSON_CALLBACK');

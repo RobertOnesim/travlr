@@ -1,7 +1,7 @@
 app.factory('sendGoogleToken', ['$http', function($http) {
 	return {
 		getResponseFromServer: function(token) {
-			var baseURL = 'http://192.168.2.106:1056/tokensignin?';
+			var baseURL = domain + 'tokensignin?';
  			return $http.get(createTokenURL(token, baseURL))
  				.success(function(data) {
  				   return data;

@@ -7,7 +7,7 @@
 
 body {
 	font-family: "Roboto","Helvetica","Arial",sans-serif;
-	overflow: scroll;
+	overflow: hidden;
 }
 
 #carousel > img {
@@ -182,4 +182,16 @@ body {
 
 #userControlls {
 	display: none;
+}
+
+#skyscanner {
+	max-height: 4em;
+}
+
+.mdl-mini-footer {
+	padding: 1em;
+}
+
+.mdl-card__title-text {
+	color: white;
 }

@@ -1,250 +1,14 @@
 app.factory('flightService', ['$http', 'userService', function($http, userService){
 	return {
 		getFlights: function(flightSearch, token) {
-			var baseURL = 'http://31.5.42.203:1056/flight?';
-			/*var aa = {
-			    "Options": [
-			        {
-			            "Id": "15116-1606152040-A3-1-11616-1606161015",
-			            "Price": 337.83,
-			            "Segments": [
-			                {
-			                    "ArrivalDateTime": "2016-06-15T22:10:00",
-			                    "Carrier": {
-			                        "ImageUrl": "http://s1.apideeplink.com/images/airlines/A3.png",
-			                        "Name": "Aegean Airlines"
-			                    },
-			                    "DepartureDateTime": "2016-06-15T20:40:00",
-			                    "DestinationStation": {
-			                        "Name": "Athens International"
-			                    },
-			                    "Id": 1,
-			                    "OriginStation": {
-			                        "Name": "Bucharest Otopeni"
-			                    }
-			                }
-			            ],
-			            "ReturnSegments": [
-			                {
-			                    "ArrivalDateTime": "2016-06-16T10:15:00",
-			                    "Carrier": {
-			                        "ImageUrl": "http://s1.apideeplink.com/images/airlines/A3.png",
-			                        "Name": "Aegean Airlines"
-			                    },
-			                    "DepartureDateTime": "2016-06-16T08:15:00",
-			                    "DestinationStation": {
-			                        "Name": "Frankfurt am Main"
-			                    },
-			                    "Id": 2,
-			                    "OriginStation": {
-			                        "Name": "Athens International"
-			                    }
-			                },
-			                {
-			                    "ArrivalDateTime": "2016-06-15T22:10:00",
-			                    "Carrier": {
-			                        "ImageUrl": "http://s1.apideeplink.com/images/airlines/A3.png",
-			                        "Name": "Aegean Airlines"
-			                    },
-			                    "DepartureDateTime": "2016-06-15T20:40:00",
-			                    "DestinationStation": {
-			                        "Name": "Athens International"
-			                    },
-			                    "Id": 1,
-			                    "OriginStation": {
-			                        "Name": "Bucharest Otopeni"
-			                    }
-			                }
-			            ]
-			        },
-			        {
-			            "Id": "15116-1606150630-AB-1-11616-1606151005",
-			            "Price": 346.89,
-			            "Segments": [
-			                {
-			                    "ArrivalDateTime": "2016-06-15T07:35:00",
-			                    "Carrier": {
-			                        "ImageUrl": "http://s1.apideeplink.com/images/airlines/AB.png",
-			                        "Name": "Air Berlin"
-			                    },
-			                    "DepartureDateTime": "2016-06-15T06:30:00",
-			                    "DestinationStation": {
-			                        "Name": "Berlin Tegel"
-			                    },
-			                    "Id": 3,
-			                    "OriginStation": {
-			                        "Name": "Bucharest Otopeni"
-			                    }
-			                },
-			                {
-			                    "ArrivalDateTime": "2016-06-15T10:05:00",
-			                    "Carrier": {
-			                        "ImageUrl": "http://s1.apideeplink.com/images/airlines/AB.png",
-			                        "Name": "Air Berlin"
-			                    },
-			                    "DepartureDateTime": "2016-06-15T08:50:00",
-			                    "DestinationStation": {
-			                        "Name": "Frankfurt am Main"
-			                    },
-			                    "Id": 4,
-			                    "OriginStation": {
-			                        "Name": "Berlin Tegel"
-			                    }
-			                }
-			            ],
-			            "ReturnSegments": [
-			                {
-			                    "ArrivalDateTime": "2016-06-15T10:05:00",
-			                    "Carrier": {
-			                        "ImageUrl": "http://s1.apideeplink.com/images/airlines/AB.png",
-			                        "Name": "Air Berlin"
-			                    },
-			                    "DepartureDateTime": "2016-06-15T08:50:00",
-			                    "DestinationStation": {
-			                        "Name": "Frankfurt am Main"
-			                    },
-			                    "Id": 4,
-			                    "OriginStation": {
-			                        "Name": "Berlin Tegel"
-			                    }
-			                }
-			            ]
-			        },
-			        {
-			            "Id": "15116-1606151415-AB-1-11616-1606151840",
-			            "Price": 355.58,
-			            "Segments": [
-			                {
-			                    "ArrivalDateTime": "2016-06-15T15:20:00",
-			                    "Carrier": {
-			                        "ImageUrl": "http://s1.apideeplink.com/images/airlines/AB.png",
-			                        "Name": "Air Berlin"
-			                    },
-			                    "DepartureDateTime": "2016-06-15T14:15:00",
-			                    "DestinationStation": {
-			                        "Name": "Berlin Tegel"
-			                    },
-			                    "Id": 5,
-			                    "OriginStation": {
-			                        "Name": "Bucharest Otopeni"
-			                    }
-			                },
-			                {
-			                    "ArrivalDateTime": "2016-06-15T18:40:00",
-			                    "Carrier": {
-			                        "ImageUrl": "http://s1.apideeplink.com/images/airlines/AB.png",
-			                        "Name": "Air Berlin"
-			                    },
-			                    "DepartureDateTime": "2016-06-15T17:25:00",
-			                    "DestinationStation": {
-			                        "Name": "Frankfurt am Main"
-			                    },
-			                    "Id": 6,
-			                    "OriginStation": {
-			                        "Name": "Berlin Tegel"
-			                    }
-			                }
-			            ],
-			            "ReturnSegments": [
-			                {
-			                    "ArrivalDateTime": "2016-06-15T18:40:00",
-			                    "Carrier": {
-			                        "ImageUrl": "http://s1.apideeplink.com/images/airlines/AB.png",
-			                        "Name": "Air Berlin"
-			                    },
-			                    "DepartureDateTime": "2016-06-15T17:25:00",
-			                    "DestinationStation": {
-			                        "Name": "Frankfurt am Main"
-			                    },
-			                    "Id": 6,
-			                    "OriginStation": {
-			                        "Name": "Berlin Tegel"
-			                    }
-			                },
-			                {
-			                    "ArrivalDateTime": "2016-06-15T15:20:00",
-			                    "Carrier": {
-			                        "ImageUrl": "http://s1.apideeplink.com/images/airlines/AB.png",
-			                        "Name": "Air Berlin"
-			                    },
-			                    "DepartureDateTime": "2016-06-15T14:15:00",
-			                    "DestinationStation": {
-			                        "Name": "Berlin Tegel"
-			                    },
-			                    "Id": 5,
-			                    "OriginStation": {
-			                        "Name": "Bucharest Otopeni"
-			                    }
-			                }
-			            ]
-			        },
-			        {
-			            "Id": "15116-1606151415-AB-1-11616-1606151840",
-			            "Price": 355.58,
-			            "Segments": [
-			                {
-			                    "ArrivalDateTime": "2016-06-15T15:20:00",
-			                    "Carrier": {
-			                        "ImageUrl": "http://s1.apideeplink.com/images/airlines/AB.png",
-			                        "Name": "Air Berlin"
-			                    },
-			                    "DepartureDateTime": "2016-06-15T14:15:00",
-			                    "DestinationStation": {
-			                        "Name": "Berlin Tegel"
-			                    },
-			                    "Id": 5,
-			                    "OriginStation": {
-			                        "Name": "Bucharest Otopeni"
-			                    }
-			                },
-			                {
-			                    "ArrivalDateTime": "2016-06-15T18:40:00",
-			                    "Carrier": {
-			                        "ImageUrl": "http://s1.apideeplink.com/images/airlines/AB.png",
-			                        "Name": "Air Berlin"
-			                    },
-			                    "DepartureDateTime": "2016-06-15T17:25:00",
-			                    "DestinationStation": {
-			                        "Name": "Frankfurt am Main"
-			                    },
-			                    "Id": 6,
-			                    "OriginStation": {
-			                        "Name": "Berlin Tegel"
-			                    }
-			                }
-			            ]
-			        },
-			        {
-			            "Id": "15116-1606151415-AB-1-11616-1606151840",
-			            "Price": 355.58,
-			            "Segments": [
-			                {
-			                    "ArrivalDateTime": "2016-06-15T15:20:00",
-			                    "Carrier": {
-			                        "ImageUrl": "http://s1.apideeplink.com/images/airlines/AB.png",
-			                        "Name": "Air Berlin"
-			                    },
-			                    "DepartureDateTime": "2016-06-15T14:15:00",
-			                    "DestinationStation": {
-			                        "Name": "Berlin Tegel"
-			                    },
-			                    "Id": 5,
-			                    "OriginStation": {
-			                        "Name": "Bucharest Otopeni"
-			                    }
-			                }
-			            ]
-			        }
-			    ]
-			}*/
-			return $http.get(createFlightURL(flightSearch, baseURL, token), getHeaderValues(userService))
+			var baseURL = domain + 'flight?';
+			return $http.get(createFlightURL(flightSearch, baseURL, token, userService.getId()), getHeaderValues(userService))
 				.success(function(data, status, config, headers) {
 					return parseFlightResponse(data);
 				})
 				.error(function() {
 
 				});
-			//return parseResponse(aa);
 		}
 	}
 }]);
@@ -289,7 +53,7 @@ function parseFlightResponse(data) {
 }
 
 
-function createFlightURL(flightSearch, url, token) {
+function createFlightURL(flightSearch, url, token, userId) {
 	var date;
 	url = addParameter(url, 'departure-city', flightSearch.departureCity);
 	url = addParameter(url, 'arrival-city', flightSearch.arrivalCity);
@@ -314,6 +78,10 @@ function createFlightURL(flightSearch, url, token) {
 
 	for(var i = 0; i < flightSearch.stepoverCities.length; i++) {
 		url = addParameter(url, 'stepover-city', flightSearch.stepoverCities[i].name);
+	}
+
+	if(userId != null) {
+		url = addParameter(url, 'userId', userId);
 	}
 
 	if(token != null) {

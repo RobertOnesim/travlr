@@ -42,10 +42,6 @@
             <div class="mdl-layout__header-row">
                 <h1 class="display-3" data-ng-click="home()">Travlr</h1>
                 <div class="mdl-layout-spacer"></div>
-                <!-- <button id="facebookButton" class="mdl-cell--12-col loginButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-ng-click="test()">
-                    <img src="resources/img/facebook_logo/FB-f-Logo__white_29.png" alt="Facebook">
-                    Test
-                </button> -->
                 <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" data-ng-click="visitCart()">
                     <i class="material-icons material-icons" data-ng-class="{'mdl-badge': badgeOn, 'mdl-badge--overlap': badgeOn}" data-badge="{{cartCount}}">shopping_cart</i>
                 </button>
@@ -63,8 +59,8 @@
 
             <div id="userControlls">
                 <div class="mdl-grid mdl-grid--no-spacing" id="userInfo">
-                    <img src="http://www.outsystems.com/PortalTheme/img/UserImage.png?23787" class="mdl-cell mdl-cell--6-col mdl-cell--top" id="userImage" alt="User Image">
-                    <h4 class="display-1 mdl-cell mdl-cell--5-col mdl-cell--top mdl-cell--1-offset" id="name">{{userDetails.name}}</h4>
+                    <img data-ng-src="{{user.imgUrl}}" class="mdl-cell mdl-cell--6-col mdl-cell--top" id="userImage" alt="User Image">
+                    <h4 class="display-1 mdl-cell mdl-cell--5-col mdl-cell--top mdl-cell--1-offset" id="name" data-ng-model="user"></h4>
                 </div>
                 <div id="menuNav">
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
@@ -80,7 +76,7 @@
                         <i class="material-icons">add</i>
                     </button>
                     <ul class="demo-list-item mdl-list mdl-cell--12-col">
-                        <li class="mdl-list__item" data-ng-repeat="group in groups">
+                        <li class="mdl-list__item" data-ng-repeat="group in groups" data-ng-click="goToGroup(group.id)">
                             <span class="mdl-list__item-primary-content">
                                 {{group.name}}
                             </span>
@@ -95,6 +91,12 @@
         <main class="mdl-layout__content page-content" id="wrapper" data-ng-view>
 
         </main>
+
+        <footer class="mdl-mini-footer">
+            <div class="mdl-mini-footer__left-section">
+                <img src="resources/img/PoweredbySkyscanner_Inline_White.png" alt="skyscanner" id="skyscanner">
+            </div>
+        </footer>
     </div>
     
     <!-- Controllers -->
@@ -125,6 +127,7 @@
     <script type="text/javascript" src="resources/js/services/groupServices/removeUserService.js"></script>
     <script type="text/javascript" src="resources/js/services/groupServices/fileUploadService.js"></script>
     <script type="text/javascript" src="resources/js/services/groupServices/setUserCalendarService.js"></script>
+    <script type="text/javascript" src="resources/js/services/groupServices/createGroupService.js"></script>
     <script type="text/javascript" src="resources/js/services/buyService.js"></script>
     <script type="text/javascript" src="resources/js/services/cartService.js"></script>
     <script type="text/javascript" src="resources/js/services/offerService.js"></script>
@@ -132,6 +135,7 @@
     <script type="text/javascript" src="resources/js/services/loginService.js"></script>
     <script type="text/javascript" src="resources/js/services/cityImageService.js"></script>
 	<script type="text/javascript" src="resources/js/services/sendGoogleToken.js"></script>
+    <script type="text/javascript" src="resources/js/services/profilePictureService.js"></script>
 
 </body>
 </html>

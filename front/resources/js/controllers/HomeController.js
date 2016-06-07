@@ -50,7 +50,7 @@ app.controller('HomeController', ['$scope', 'offerService', 'userService', 'city
 		}
 	];*/
 
-	$scope.offers = [];
+	//$scope.offers = [];
 
 	/*var i;
 	for(i = 0; i < $scope.rawOffers.length; i++) {
@@ -75,6 +75,7 @@ app.controller('HomeController', ['$scope', 'offerService', 'userService', 'city
 		});
 	} else {
 		offerService.getOffers(null).success(function(data) {
+			console.log(data);
 			$scope.offers = data;
 		});
 	}

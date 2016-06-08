@@ -32,7 +32,7 @@ app.factory('userService', ['$http', 'tokenService', function($http, tokenServic
 		getGroups: function(token) {
 			baseURL = domain + 'userGroups?';
 			var user = getUserFronStorage();
-			return $http.get(createGroupsOfUserURL(user.id, baseURL, token))
+			return $http.get(createGroupsOfUserURL(user.id, baseURL))
 				.success(function(data, status, config, headers) {
 					return parseGroupsOfUserResponse(data);
 				})
@@ -54,7 +54,7 @@ app.factory('userService', ['$http', 'tokenService', function($http, tokenServic
 	};
 }]);
 
-function createGroupsOfUserURL(userID, url, token) {
+function createGroupsOfUserURL(userID, url) {
 	url = addParameter(url, 'userId', userID);
 	return url;
 }

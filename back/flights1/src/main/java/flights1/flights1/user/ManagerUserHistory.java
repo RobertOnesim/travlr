@@ -62,5 +62,14 @@ public class ManagerUserHistory {
 		session2.close(); 
 		return userHistories;
 	}
+	
+	public List<UserHistory> getMostSearchedUniversal(){
+		String hql = "from UserHistory UH order by UH.count desc";
+		Session session2 = factoryUserHistory.openSession();
+		org.hibernate.Query query = session2.createQuery(hql);
+		List <UserHistory> userHistories = query.list(); 
+		session2.close(); 
+		return userHistories;
+	}
 
 }

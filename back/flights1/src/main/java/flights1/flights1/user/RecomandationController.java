@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 public class RecomandationController {
 	@RequestMapping("/offers")
-	public @ResponseBody List<Recomandation> giveOffers(@RequestParam(required=true) String accessToken, @RequestParam(required=true) String userId, HttpServletRequest request){
+	public @ResponseBody List<Recomandation> giveOffers(@RequestParam (required=false) String accessToken, @RequestParam (required=false) String userId, HttpServletRequest request){
 		System.out.println(request.getRemoteAddr());
-
 		List <Recomandation> recomandations=RecomandationGenerator.giveRecomandations(accessToken,  userId, request.getRemoteAddr());
 		return recomandations;
 	}

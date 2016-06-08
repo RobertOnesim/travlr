@@ -70,4 +70,14 @@ public class ManagerEvent {
 		session.close();
 		return maxId;
 	}
+	
+	public static List<Event> getEventByGroupId(Integer groupId){
+		String hql = "from Event E WHERE E.groupID = :groupId";
+		Session session2 = factoryEvent.openSession();
+		org.hibernate.Query query = session2.createQuery(hql);
+		query.setParameter("groupId", groupId);
+		List <Event> events = query.list(); 
+		session2.close(); 
+		return events;
+	}
 }

@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 	
 	@RequestMapping("/createGroup")
-	public @ResponseBody Integer createGroup(@RequestParam(required=true) String groupName){
+	public @ResponseBody Integer createGroup(@RequestParam(required=true) String groupName, @RequestParam(required=true) String userId){
+		System.out.println("IN CREATE");
 		ManagerUser mu = new ManagerUser();
 		Integer idGroup = mu.createGroup(groupName);
+		System.out.println(groupName);
+		mu.addUserToGroup(userId, idGroup);
 		return idGroup;
 	}
 	
@@ -36,15 +39,24 @@ public class UserController {
 	}
 	
 	@RequestMapping("/userGroups")
-	public @ResponseBody List<Integer> giveGroups (@RequestParam(required=true) String userId) {
+	public @ResponseBody List<PtRares> giveGroups (@RequestParam(required=true) String userId) {
 		System.out.println("FAC userGroups!");
 		ManagerUser mu = new ManagerUser();
-		List <Integer> groupsOfUser = mu.getGroupsOfUser(userId);
+		List <PtRares> groupsOfUser = mu.getGroupsOfUser(userId);
 		/*JSONObject o = new JSONObject();
 		o.put("1", 5);
 		return o;*/
 		return groupsOfUser;
 		//return (User)usersFromGroup.get(0);
+	}
+	
+	@RequestMapping("/isUserInGroup")
+	public @ResponseBody boolean isUserInGroup(@RequestParam(required=true) String userId,@RequestParam(required=true) Integer groupId){
+		ManagerUser mu = new ManagerUser();
+		List <User> usersFromGroup = mu.getUsersFromGroup(groupId);
+		User user = new User();
+		user.setId(userId);
+		return usersFromGroup.contains(user);
 	}
 	
 	@RequestMapping("/addUserToGroup")

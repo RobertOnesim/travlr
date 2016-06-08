@@ -126,7 +126,7 @@ public class ManagerUser {
 	}
 
 
-	public List<Integer> getGroupsOfUser(String userId){
+	public List<PtRares> getGroupsOfUser(String userId){
 		System.out.println("In get group of users");
 
 		Session session = factoryUserGroup.openSession();	
@@ -134,8 +134,19 @@ public class ManagerUser {
 		org.hibernate.Query query = session.createQuery(hql);
 		query.setParameter("userId",userId);
 		List <Integer> groupIds = query.list();
+		List <String> groupNames = new ArrayList();
+		List <PtRares> rezultate = new ArrayList();
+		for (Integer id :groupIds){
+			Session session2 = factoryGroup.openSession();	
+			String hql2 = "SELECT groupName FROM Group G WHERE G.idGroup = :idGroup";
+			org.hibernate.Query query2 = session2.createQuery(hql2);
+			query2.setParameter("idGroup",id);
+			groupNames.add((String)query2.list().get(0));
+			rezultate.add(new PtRares(id,(String)query2.list().get(0)));
+			
+		}
 		session.close();
-		return groupIds;
+		return rezultate;
 	}
 
 	public Integer getMaxIdGroup(){

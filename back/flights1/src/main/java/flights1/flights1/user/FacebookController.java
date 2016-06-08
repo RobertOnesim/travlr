@@ -28,18 +28,25 @@ public class FacebookController {
 		return (String) Facebook.getPhoto(accessToken, userId);
 	}
 	
+	@RequestMapping("/loginGoogle")
+	public void loginGoogle( @RequestParam(required=true) String userId, @RequestParam(required=true) String userName, @RequestParam(required=true) String imgUrl){
+		ManagerUser mu = new ManagerUser();
+		User user = mu.getUserById(userId);
+		if ((user==null)){
+			mu.addUser(userId, userName, imgUrl);
+		}
+	}
+	
 	@RequestMapping("/login")
 	public void login(@RequestParam(required=true) String accessToken, @RequestParam(required=true) String userId){/*,  @RequestHeader("userToken") String userToken){*/
 		ManagerUser mu = new ManagerUser();
-	//System.out.println(bla);
-	//		System.out.println(userToken);
 		User user = mu.getUserById(userId);
-		if (user==null){
-			String nume = Facebook.getName(accessToken, userId);
-			String imgUrl = Facebook.getPhoto(accessToken, userId);
-			
-			//System.out.println(nume);
-			mu.addUser(userId, nume, imgUrl);
+		if ((user==null)){
+			if (userId.contains("@")){
+				String nume = Facebook.getName(accessToken, userId);
+				String imgUrl = Facebook.getPhoto(accessToken, userId);
+				mu.addUser(userId, nume, imgUrl);
+			}
 		}else{
 			System.out.println("in controller "+user.getId()+user.getLastName()+user.getImgUrl());
 		}

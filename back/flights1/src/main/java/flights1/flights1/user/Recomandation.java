@@ -17,11 +17,16 @@ public class Recomandation {
 		this.arrivalCity=arrivalCity;
 		this.date=date;
 		System.out.println("ARRIVALIATA   "+arrivalIata);
-		City city = Aeroports.getCityByCode(arrivalIata);
-		System.out.println((city==null) + "CITY");
-		System.out.println(city.getLatitude()+city.getLongitude() + " LAT LONG");
-		this.arrivalLat = city.getLatitude();
-		this.arrivalLong = city.getLongitude();
+		if (arrivalIata!=null){
+			City city = Aeroports.getCityByCode(arrivalIata);
+			System.out.println((city==null) + "CITY");
+			System.out.println(city.getLatitude()+city.getLongitude() + " LAT LONG");
+			this.arrivalLat = city.getLatitude();
+			this.arrivalLong = city.getLongitude();
+		}else{
+			this.arrivalLat = ((Double)Aeroports.getLatByName(arrivalCity)).intValue();
+			this.arrivalLong = ((Double)Aeroports.getLngByName(arrivalCity)).intValue();
+		}
 	}
 	
 	public Integer getArrivalLat() {

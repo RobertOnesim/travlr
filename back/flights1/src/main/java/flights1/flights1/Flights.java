@@ -24,9 +24,9 @@ public class Flights {
 	private static final String APIKEY="un392534829936867108047975254670";
 	
 	private static void adauga(JSONObject a, JSONObject b, String property){
-		if (property.equals("Carriers"))
+		/*if (property.equals("Carriers"))
 			System.out.println(((JSONArray)b.get(property)).size() + " carriers ");
-			
+			*/
 		if (!a.containsKey(property))
 			a.put(property, new JSONArray());
 		if ( b.containsKey(property))
@@ -85,7 +85,7 @@ public class Flights {
 			url = url + "&duration=" + ((Integer)(maxDuration*60)).toString();
 		Thread.sleep(3000);
 		String informatiiZboruri=rezultateCerere(url);
-		System.out.println("informatiiZBORURI "+informatiiZboruri);
+		//System.out.println("informatiiZBORURI "+informatiiZboruri);
 		JSONObject json = (JSONObject) new JSONParser().parse(informatiiZboruri);
 		
 		return json;

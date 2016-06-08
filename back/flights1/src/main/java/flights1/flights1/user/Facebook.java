@@ -105,18 +105,21 @@ public class Facebook {
 			if (place!=null){
 				JSONObject location = (JSONObject) ((JSONObject)place).get("location");
 				if (location!=null){
-					Double latitude = (Double) ((JSONObject)location).get("latitude");
-					Double longitude = (Double) ((JSONObject)location).get("longitude");
-					String date = ((JSONObject)element).get("start_time").toString();
-					date=date.substring(0, 10);
-					event.setLatitudine(latitude);
-					event.setLongitudine(longitude);
-					event.setData(date);
-					SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
-					Date now = new Date();
-					String strDate = sdfDate.format(now);
-					if (date.compareTo(strDate)>=0) //AICI ESTE FILTRUL !!!!!!!!!!!
-						events.add(event);
+					try{
+						Double latitude = (Double) ((JSONObject)location).get("latitude");
+						Double longitude = (Double) ((JSONObject)location).get("longitude");
+						String date = ((JSONObject)element).get("start_time").toString();
+						date=date.substring(0, 10);
+						event.setLatitudine(latitude);
+						event.setLongitudine(longitude);
+						event.setData(date);
+						SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
+						Date now = new Date();
+						String strDate = sdfDate.format(now);
+						if (date.compareTo(strDate)>=0) //AICI ESTE FILTRUL !!!!!!!!!!!
+							events.add(event);
+					}catch(Exception e){
+					}
 				}
 			}
 		}
